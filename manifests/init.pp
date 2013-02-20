@@ -42,10 +42,11 @@ class php {
     require => [ File[$root], Class['git'] ]
   }
 
-  repository { "${root}/plugins/php-build":
-    source => 'sstephenson/ruby-build',
-    extra  => "-b ${ruby_build_version}",
-    require => File["${root}/plugins"]
+  exec { "ensure-phpenv-version-${phpenv_version}":
+    command => "${git_fetch} && git reset --hard ${phpenv_version}",
+    unless  => "git rev-parse HEAD | grep ${phpenv_version}",
+    cwd     => $root,
+    require => Exec['phpenv-setup-root-repo']
   }
 
 }
