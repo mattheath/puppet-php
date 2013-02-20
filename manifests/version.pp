@@ -25,11 +25,9 @@ define php::version(
   } else {
     $env = $conf_opts ? {
       undef   => [
-        "CC=${cc}",
         "PHPENV_ROOT=${php::root}"
       ],
       default => [
-        "CC=${cc}",
         "PHPENV_ROOT=${php::root}",
         "CONFIGURE_OPTS=${conf_opts}"
       ],
