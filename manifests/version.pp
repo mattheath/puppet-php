@@ -43,5 +43,15 @@ define php::version(
       creates     => $dest
     }
 
+    if $global {
+      file { "${php::root}/version":
+        ensure  => present,
+        owner   => $::luser,
+        mode    => '0644',
+        content => "${version}\n",
+        require => Exec["php-install-${version}"]
+      }
+    }
+
   }
 }
