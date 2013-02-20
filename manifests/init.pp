@@ -51,7 +51,8 @@ class php {
 
   # Cache the PHP src repository for use by installer
   repository { "${root}/php-src":
-    source => "php/php-src"
+    source  => "php/php-src",
+    require => Exec['phpenv-setup-root-repo']
   }
 
   # This needs something to stop it running each time, rbenv class greps both
