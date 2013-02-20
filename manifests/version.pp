@@ -41,6 +41,8 @@ define php::version(
       creates     => $dest
     }
 
+    Exec["php-install-${version}"] { environment +> $env }
+
     if $global {
       file { "${php::root}/version":
         ensure  => present,
