@@ -49,6 +49,11 @@ class php {
     require => Exec['phpenv-setup-root-repo']
   }
 
+  # Cache the PHP src repository for use by installer
+  repository { "${root}/php-src":
+    source => "php/php-src"
+  }
+
   # This needs something to stop it running each time, rbenv class greps both
   # libexec and shims/gem
   exec { 'phpenv-rehash-post-install':
