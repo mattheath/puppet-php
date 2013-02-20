@@ -49,4 +49,11 @@ class php {
     require => Exec['phpenv-setup-root-repo']
   }
 
+  # This needs something to stop it running each time, rbenv class greps both
+  # libexec and shims/gem
+  exec { 'phpenv-rehash-post-install':
+    command => "/bin/rm -rf ${root}/shims && PHPENV_ROOT=${root} ${root}/bin/phpenv rehash",
+    require => Exec["ensure-phpenv-version-${phpenv_version}"],
+  }
+
 }
