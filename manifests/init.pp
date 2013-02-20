@@ -1,16 +1,19 @@
 # Class: php
 #
-# This module installs a full phpenv-driven php stack
+# This module installs a full phpenv & php-build driven php stack
 #
 class php {
   include boxen::config
   include homebrew
 
+  # We need php-build
+  include php::php_build
+
+  # Get rid of any pre-installed packages
+  package { ['phpenv', 'php-build']: ensure => absent; }
+
   $root = "${boxen::config::home}/phpenv"
   $phpenv_version = '9688906ae527e4068d96d5d8e0579973ecfdb5de' # Pin to latest version of dev branch as of 2013-02-20
-  $ruby_build_version = 'v20130206'
-
-  package { ['phpenv', 'php-build']: ensure => absent; }
 
   file {
     $root:

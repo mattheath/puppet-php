@@ -14,6 +14,7 @@ define php::version(
   $version   = $name
 ) {
   require php
+  require php::php_build
 
   $dest = "${php::root}/versions/php-${version}"
 
