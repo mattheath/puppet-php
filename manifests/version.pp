@@ -16,7 +16,7 @@ define php::version(
   require php
   require php::php_build
 
-  $dest = "${php::root}/versions/php-${version}"
+  $dest = "${php::root}/versions/${version}"
 
   if $ensure == 'absent' {
     file { $dest:
