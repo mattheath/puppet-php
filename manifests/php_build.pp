@@ -10,13 +10,11 @@ class php::php_build {
 
   file {
     [
-      $root,
-      $tmp,
+      "${php::root}/plugins",
+      $root
     ]:
       ensure => directory;
-    [
-      "${root}/bin",
-    ]:
+    [ "${root}/bin" ]:
       ensure  => directory,
       require => Exec['php-build-setup-root-repo'];
   }
