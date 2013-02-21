@@ -1,15 +1,15 @@
 --without-pear
 --with-gd
 --enable-sockets
---with-jpeg-dir=/opt/boxen/homebrew/opt/jpeg
---with-png-dir=/opt/boxen/homebrew/opt/libpng
+--with-jpeg-dir=<%= scope.lookupvar "boxen::config::homebrewdir" %>/opt/jpeg
+--with-png-dir=<%= scope.lookupvar "boxen::config::homebrewdir" %>/opt/libpng
 --enable-exif
 --enable-zip
 --with-zlib
---with-zlib-dir=/opt/boxen/homebrew/opt/zlib
+--with-zlib-dir=<%= scope.lookupvar "boxen::config::homebrewdir" %>/opt/zlib
 --with-kerberos
 --with-openssl
---with-mcrypt=/opt/boxen/homebrew/opt/mcrypt
+--with-mcrypt=<%= scope.lookupvar "boxen::config::homebrewdir" %>/opt/mcrypt
 --enable-soap
 --enable-xmlreader
 --with-xsl
