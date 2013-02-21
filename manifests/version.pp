@@ -13,9 +13,11 @@ define php::version(
   $conf_opts = undef,
   $version   = $name
 ) {
+  include php::config
   require php
 
-  $dest = "${php::root}/versions/${version}"
+  $dest   = "${php::root}/versions/${version}"
+  $logdir = "${php::config::logdir}"
 
   if $ensure == 'absent' {
     file { $dest:
