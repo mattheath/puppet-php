@@ -9,8 +9,7 @@ Requires the following boxen modules:
 ## Usage
 
 ```puppet
-# install a php version
-php::version { '5.3.20':
-  global => true
-}
+# install a php version or two
+php::version { '5.3.20': }
+php::version { '5.4.10': }
 ```
