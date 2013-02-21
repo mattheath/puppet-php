@@ -5,6 +5,7 @@
 class php {
   include boxen::config
   include homebrew
+  include wget
 
   # We need php-build
   include php::php_build
