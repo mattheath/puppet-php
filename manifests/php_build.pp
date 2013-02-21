@@ -5,8 +5,7 @@
 #
 class php::php_build {
 
-  $root = "${boxen::config::home}/php-build"
-  $tmp  = "${boxen::config::cachedir}/php-build"
+  $root = "${php::root}/plugins/php-build"
   $php_build_version = 'v0.9.0'
 
   file {
@@ -17,8 +16,6 @@ class php::php_build {
       ensure => directory;
     [
       "${root}/bin",
-      "${tmp}/packages",
-      "${tmp}/source",
     ]:
       ensure  => directory,
       require => Exec['php-build-setup-root-repo'];
