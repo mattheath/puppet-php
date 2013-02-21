@@ -33,6 +33,19 @@ class php {
       source => 'puppet:///modules/php/phpenv.sh' ;
   }
 
+  # Resolve dependencies
+  package { [
+      'freetype',
+      'gettext',
+      'icu4c',
+      'jpeg',
+      'libpng',
+      'homebrew/dupes/zlib',
+      'mcrypt',
+    ]:
+    provider => homebrew
+  }
+
   $git_init   = 'git init .'
   $git_remote = 'git remote add origin https://github.com/phpenv/phpenv.git'
   $git_fetch  = 'git fetch -q origin'
