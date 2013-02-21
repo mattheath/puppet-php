@@ -7,7 +7,8 @@
 #
 define php::local($version = undef, $ensure = present) {
   if $version != 'system' and $ensure == present {
-    php::version{ $version: }
+    # Requires php version eg. php::5-4-10
+    require join(['php', join(split($version, '[.]'), '-')], '::')
   }
 
   file {
