@@ -34,6 +34,16 @@ define php::version(
       creates     => $dest,
     }
 
+    file { "${dest}/etc":
+      ensure  => directory,
+      require => Exec["php-install-${version}"]
+    }
+
+    file { "${dest}/etc/php.ini":
+      content => template('php/php.ini.erb'),
+      require => File["${dest}/etc"]
+    }
+
     if $global {
       file { "${php::root}/version":
         ensure  => present,
