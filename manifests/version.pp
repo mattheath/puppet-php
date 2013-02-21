@@ -25,15 +25,6 @@ define php::version(
       force  => true
     }
   } else {
-    $env = $conf_opts ? {
-      undef   => [
-        "PHPENV_ROOT=${php::root}"
-      ],
-      default => [
-        "PHPENV_ROOT=${php::root}",
-        "CONFIGURE_OPTS=${conf_opts}"
-      ],
-    }
 
     exec { "php-install-${version}":
       command     => "${php::php_build::root}/bin/php-build ${version} ${php::root}/versions/${version}",
@@ -42,8 +33,6 @@ define php::version(
       timeout     => 0,
       creates     => $dest,
     }
-
-    Exec["php-install-${version}"] { environment +> $env }
 
     if $global {
       file { "${php::root}/version":
