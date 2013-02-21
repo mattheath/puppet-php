@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>dev.php-fpm</string>
+
+    <key>Boxen</key>
+    <dict>
+      <key>Description</key>
+      <string>PHP-FPM - A simple and robust FastCGI Process Manager for PHP</string>
+    </dict>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string><%= @bin %></string>
+      <string>--fpm-config</string>
+      <string><%= @conf %></string>
+    </array>
+
+
+    <key>RunAtLoad</key>
+    <true />
+
+    <key>KeepAlive</key>
+    <true />
+
+    <key>LaunchOnlyOnce</key>
+    <true/>
+
+    <key>WorkingDirectory</key>
+    <string><%= @cwd %></string>
+
+    <key>StandardErrorPath</key>
+    <string><%= @logfile %></string>
+
+    <key>StandardOutPath</key>
+    <string><%= @logfile %></string>
+
+  </dict>
+</plist>
