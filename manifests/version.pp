@@ -36,15 +36,11 @@ define php::version(
     }
 
     exec { "php-install-${version}":
-      command     => "${php::root}/bin/phpenv install php-${version}",
+      command     => "${php::php_build::root}/bin/php-build ${version} ${php::root}/versions/${version}",
       cwd         => "${php::root}/versions",
       provider    => 'shell',
       timeout     => 0,
       creates     => $dest,
-      require     => [
-        Exec["ensure-phpenv-version-${php::phpenv_version}"],
-        Repository["${php::root}/php-src"]
-      ]
     }
 
     Exec["php-install-${version}"] { environment +> $env }
