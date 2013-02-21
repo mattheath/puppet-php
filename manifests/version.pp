@@ -1,4 +1,4 @@
-# Installs a php version via phpenv.
+# Installs a php version via php-build, and sets up phpenv
 
 # Options:
 
