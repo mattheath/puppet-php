@@ -38,7 +38,7 @@ class php::php_build {
 
   exec { "ensure-php-build-version-${php_build_version}":
     command => "${git_fetch} && git reset --hard ${php_build_version}",
-    unless  => "git describe --tags --exact-match `git rev-parse HEAD` | grep ${phpenv_version}",
+    unless  => "git describe --tags --exact-match | grep ${php_build_version}",
     cwd     => $root,
     require => Exec['phpenv-setup-root-repo']
   }
