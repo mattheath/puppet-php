@@ -50,4 +50,10 @@ class php::php_build {
     require => Exec["ensure-php-build-version-${php_build_version}"],
   }
 
+  # Override default build options to set boxen paths
+  file { "${root}/share/php-build/default_configure_options":
+    content => template('php/default_configure_options.erb'),
+    require => Exec["ensure-php-build-version-${php_build_version}"],
+  }
+
 }
