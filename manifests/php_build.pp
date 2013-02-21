@@ -51,4 +51,10 @@ class php::php_build {
     require => Exec["ensure-php-build-version-${php_build_version}"],
   }
 
+  # Nuke old install location
+  file { "${boxen::config::home}/php-build":
+    ensure => absent,
+    force  => true
+  }
+
 }
