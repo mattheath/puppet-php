@@ -13,6 +13,7 @@ define php::version(
   $conf_opts = undef,
   $version   = $name
 ) {
+  require wget
   require php
   require php::php_build
 
