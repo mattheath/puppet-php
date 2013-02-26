@@ -1,7 +1,10 @@
-#
+# Configure PHP-FPM to run a specific version of PHP
 
 
-define php::fpm($ensure = present){
+define php::fpm(
+  $ensure  = present,
+  $version = $name,
+){
   include php::config
 
   $version = join(split($name, '[.]'), '-')
