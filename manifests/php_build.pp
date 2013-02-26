@@ -10,7 +10,6 @@ class php::php_build {
 
   file {
     [
-      "${php::root}/plugins",
       $root
     ]:
       ensure => directory;
