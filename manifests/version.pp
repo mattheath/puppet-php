@@ -12,7 +12,6 @@ define php::version(
   $conf_opts = undef,
   $version   = $name
 ) {
-  include php::config
   require php
 
   $dest   = "${php::root}/versions/${version}"
