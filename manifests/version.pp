@@ -21,8 +21,9 @@ define php::version(
   $error_log = "${php::config::logdir}/${version}.error.log"
 
   # Config locations
-  $version_config_dir  = "${php::config::configdir}/${version}"
-  $php_ini             = "${version_config_dir}/php.ini"
+  $version_config_root  = "${php::config::configdir}/${version}"
+  $php_ini              = "${version_config_dir}/php.ini"
+  $conf_d               = "${version_config_dir}/conf.d"
 
   if $ensure == 'absent' {
 
@@ -39,25 +40,30 @@ define php::version(
 
     # Set up config directories
 
-    file { $version_config_dir:
+    file { $version_config_root:
       ensure => directory,
     }
 
-    # Install PHP!
+    file { $conf_d:
+      ensure  => directory,
+      require => File[$version_config_root],
+    }
 
+    # Install PHP!
     exec { "php-install-${version}":
-      command     => "${php::php_build::root}/bin/php-build ${version} ${php::root}/versions/${version}",
-      cwd         => "${php::root}/versions",
+      command     => "${php::php_build::root}/bin/php-build ${version} ${php::config::root}/versions/${version}",
+      cwd         => "${php::config::root}/versions",
       provider    => 'shell',
       timeout     => 0,
       creates     => $dest,
+      require     => File[$php_ini],
     }
 
     # Set up config files
 
     file { $php_ini:
       content => template('php/php.ini.erb'),
-      require => File["${version_config_dir}"]
+      require => File["${version_config_root}"]
     }
 
   }
