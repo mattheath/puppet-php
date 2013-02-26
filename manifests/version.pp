@@ -9,7 +9,6 @@
 #
 define php::version(
   $ensure    = 'installed',
-  $global    = false,
   $conf_opts = undef,
   $version   = $name
 ) {
@@ -42,16 +41,6 @@ define php::version(
     file { "${dest}/etc/php.ini":
       content => template('php/php.ini.erb'),
       require => File["${dest}/etc"]
-    }
-
-    if $global {
-      file { "${php::root}/version":
-        ensure  => present,
-        owner   => $::luser,
-        mode    => '0644',
-        content => "${version}\n",
-        require => Exec["php-install-${version}"]
-      }
     }
 
   }

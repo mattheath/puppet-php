@@ -9,19 +9,19 @@ Requires the following boxen modules:
 ## Usage
 
 ```puppet
+# Set the global default php (auto-installs it if it can)
+class { 'php::global': version => '5.4.10' }
+
+# ensure a certain php version is used within a dir
+php::local { '/path/to/my/awesome/project':
+  version => '5.4.9'
+}
+
 # install a php version or two
 php::version { '5.3.20': }
 php::version { '5.4.10': }
-```
 
-```puppet
-# install a version and use as the global default
-php::version { '5.3.20':
-  global => true
-}
-```
-
-```puppet
-# install a local version to be used within a directory
-php::local { '/path/to/my/awesome/project', '5.4.9': }
+# we provide a ton of predefined ones for you though
+require php::5-4-10
+require php::5-3-17
 ```
