@@ -4,16 +4,16 @@
 # https://github.com/CHH/php-build
 #
 class php::php_build {
+  require php::config
 
-  $root = "${php::root}/plugins/php-build"
+  $root = "${php::config::root}/plugins/php-build"
   $php_build_version = 'v0.9.0'
 
   file {
-    [
-      $root
-    ]:
-      ensure => directory;
-    [ "${root}/bin" ]:
+    $root:
+      ensure  => directory,
+      require => File["${php::config::root}/plugins"];
+    "${root}/bin":
       ensure  => directory,
       require => Exec['php-build-setup-root-repo'];
   }

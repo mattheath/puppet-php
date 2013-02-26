@@ -11,7 +11,7 @@ class php::global($version) {
     require join(['php', join(split($version, '[.]'), '-')], '::')
   }
 
-  file { "${php::root}/version":
+  file { "${php::config::root}/version":
     ensure  => present,
     owner   => $::boxen_user,
     mode    => '0644',

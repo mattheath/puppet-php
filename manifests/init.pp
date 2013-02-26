@@ -17,7 +17,6 @@ class php {
 
   file {
     [
-      "${php::config::root}/plugins",
       "${php::config::root}/phpenv.d",
       "${php::config::root}/phpenv.d/install",
       "${php::config::root}/shims",

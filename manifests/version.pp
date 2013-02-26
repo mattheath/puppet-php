@@ -15,7 +15,7 @@ define php::version(
   require php
 
   # Install location
-  $dest = "${php::root}/versions/${version}"
+  $dest = "${php::config::root}/versions/${version}"
 
   # Log locations
   $error_log = "${php::config::logdir}/${version}.error.log"

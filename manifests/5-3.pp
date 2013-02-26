@@ -7,7 +7,7 @@ class php::5-3 {
   require php
   require php::5-3-20
 
-  file { "${php::root}/versions/5.3":
+  file { "${php::config::root}/versions/5.3":
     ensure  => symlink,
     force   => true,
     target  => "${ruby::root}/versions/5.3.20"
