@@ -13,10 +13,9 @@ define php::local($version = undef, $ensure = present) {
     require join(['php', join(split($version, '[.]'), '-')], '::')
   }
 
-  file {
-    "${name}/.php-version":
-      ensure  => $ensure,
-      content => "${version}\n",
-      replace => true ;
+  file { "${name}/.php-version":
+    ensure  => $ensure,
+    content => "${version}\n",
+    replace => true
   }
 }
