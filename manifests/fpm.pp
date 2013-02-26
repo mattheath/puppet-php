@@ -2,15 +2,14 @@
 
 
 define php::fpm(
-  $ensure = present,
+  $ensure  = present,
+  $version = $name,
 ){
   include php::config
 
-  $version = join(split($name, '[.]'), '-')
-
   if $version != 'system' and $ensure == present {
     # Require php version eg. php::5-4-10
-    require join(['php', $version], '::')
+    require join(['php', join(split($version, '[.]'), '-')], '::')
 
     $logdir  = "${php::config::logdir}"
     $logfile = "${logdir}/${version}.log"
