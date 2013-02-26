@@ -14,15 +14,36 @@ define php::version(
 ) {
   require php
 
-  $dest   = "${php::root}/versions/${version}"
-  $logdir = "${php::config::logdir}"
+  # Install location
+  $dest = "${php::root}/versions/${version}"
+
+  # Log locations
+  $error_log = "${php::config::logdir}/${version}.error.log"
+
+  # Config locations
+  $version_config_dir  = "${php::config::configdir}/${version}"
+  $php_ini             = "${version_config_dir}/php.ini"
 
   if $ensure == 'absent' {
-    file { $dest:
+
+    file {
+      [
+        $dest,
+        $version_config_dir,
+      ]:
       ensure => absent,
       force  => true
     }
+
   } else {
+
+    # Set up config directories
+
+    file { $version_config_dir:
+      ensure => directory,
+    }
+
+    # Install PHP!
 
     exec { "php-install-${version}":
       command     => "${php::php_build::root}/bin/php-build ${version} ${php::root}/versions/${version}",
@@ -32,14 +53,11 @@ define php::version(
       creates     => $dest,
     }
 
-    file { "${dest}/etc":
-      ensure  => directory,
-      require => Exec["php-install-${version}"]
-    }
+    # Set up config files
 
-    file { "${dest}/etc/php.ini":
+    file { $php_ini:
       content => template('php/php.ini.erb'),
-      require => File["${dest}/etc"]
+      require => File["${version_config_dir}"]
     }
 
   }
