@@ -3,7 +3,7 @@
 # This module installs a full phpenv & php-build driven php stack
 #
 class php {
-  include php::config
+  require php::config
   include homebrew
   include wget
 
@@ -13,19 +13,16 @@ class php {
   # Get rid of any pre-installed packages
   package { ['phpenv', 'php-build']: ensure => absent; }
 
-  $root = "${boxen::config::home}/phpenv"
   $phpenv_version = '9688906ae527e4068d96d5d8e0579973ecfdb5de' # Pin to latest version of dev branch as of 2013-02-20
 
   file {
-    $root:
-      ensure => directory;
     [
-      "${root}/plugins",
-      "${root}/phpenv.d",
-      "${root}/phpenv.d/install",
-      "${root}/shims",
-      "${root}/versions",
-      "${root}/libexec",
+      "${php::config::root}/plugins",
+      "${php::config::root}/phpenv.d",
+      "${php::config::root}/phpenv.d/install",
+      "${php::config::root}/shims",
+      "${php::config::root}/versions",
+      "${php::config::root}/libexec",
     ]:
       ensure  => directory,
       require => Exec['phpenv-setup-root-repo'];
@@ -54,22 +51,22 @@ class php {
 
   exec { 'phpenv-setup-root-repo':
     command => "${git_init} && ${git_remote} && ${git_fetch} && ${git_reset}",
-    cwd     => $root,
-    creates => "${root}/bin/phpenv",
-    require => [ File[$root], Class['git'] ]
+    cwd     => $php::config::root,
+    creates => "${php::config::root}/bin/phpenv",
+    require => [ File[$php::config::root], Class['git'] ]
   }
 
   exec { "ensure-phpenv-version-${phpenv_version}":
     command => "${git_fetch} && git reset --hard ${phpenv_version}",
     unless  => "git rev-parse HEAD | grep ${phpenv_version}",
-    cwd     => $root,
+    cwd     => $php::config::root,
     require => Exec['phpenv-setup-root-repo']
   }
 
   # This needs something to stop it running each time, rbenv class greps both
   # libexec and shims/gem
   exec { 'phpenv-rehash-post-install':
-    command => "/bin/rm -rf ${root}/shims && PHPENV_ROOT=${root} ${root}/bin/phpenv rehash",
+    command => "/bin/rm -rf ${php::config::root}/shims && PHPENV_ROOT=${php::config::root} ${php::config::root}/bin/phpenv rehash",
     require => Exec["ensure-phpenv-version-${phpenv_version}"],
   }
 
