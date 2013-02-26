@@ -22,7 +22,6 @@ define php::fpm(
     $pool_confdir = "${root}/etc/pool.d"
 
     file { [
-      $logdir,
       $pool_confdir
     ]:
       ensure => directory,
