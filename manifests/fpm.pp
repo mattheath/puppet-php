@@ -2,8 +2,7 @@
 
 
 define php::fpm(
-  $ensure  = present,
-  $version = $name,
+  $ensure = present,
 ){
   include php::config
 
