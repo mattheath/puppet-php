@@ -1,55 +1,62 @@
-# Configure PHP-FPM to run a specific version of PHP
+# Configure a PHP-FPM instance running a specific version of PHP
 
 
 define php::fpm(
   $ensure  = present,
   $version = $name,
 ){
-  include php::config
+  require php
 
-  if $version != 'system' and $ensure == present {
+  # Config file locations
+  $version_config_dir  = "${php::config::configdir}/${version}"
+  $fpm_config          = "${version_config_dir}/php-fpm.conf"
+  $fpm_pool_config_dir = "${version_config_dir}/pool.d"
+
+  if $ensure == present {
     # Require php version eg. php::5-4-10
+    # This will compile, install and set up config dirs if not present
     require join(['php', join(split($version, '[.]'), '-')], '::')
 
-    $logdir  = "${php::config::logdir}"
-    $logfile = "${logdir}/${version}.log"
-
-    $root    = "${php::root}/versions/${name}"
-    $cwd     = "${root}"
-    $bin     = "${root}/sbin/php-fpm"
-    $confdir = "${root}/etc"
-    $conf    = "${confdir}/php-fpm.conf"
-    $pool_confdir = "${root}/etc/pool.d"
-
-    file { [
-      $pool_confdir
-    ]:
-      ensure => directory,
-    }
-
-    file { $conf:
+    # Set up FPM config
+    file { $fpm_config:
       content => template('php/php-fpm.conf.erb'),
-      before  => Service["dev.php-fpm"],
-      notify  => Service["dev.php-fpm"],
+      before  => Service["dev.php-fpm.${version}"],
+      notify  => Service["dev.php-fpm.${version}"],
     }
 
-    file { "$pool_confdir/www.conf":
-      content => template('php/php-fpm-pool.conf.erb'),
-      require => File[$pool_confdir],
-      before  => Service["dev.php-fpm"],
-      notify  => Service["dev.php-fpm"],
+    # Set up FPM Pool configs
+    file { $fpm_pool_config_dir:
+      ensure  => directory,
+      require => File[$version_config_dir],
     }
 
-    file { "/Library/LaunchDaemons/dev.php-fpm.plist":
+    # Register and fire up our FPM instance
+
+    file { "/Library/LaunchDaemons/dev.php-fpm.${version}.plist":
       content => template('php/dev.php-fpm.plist.erb'),
       group   => 'wheel',
       owner   => 'root',
-      notify  => Service["dev.php-fpm"],
+      notify  => Service["dev.php-fpm.${version}"],
     }
 
-    service { "dev.php-fpm":
+    service { "dev.php-fpm.${version}":
       ensure  => running,
-      require => File["/Library/LaunchDaemons/dev.php-fpm.plist"],
+      require => File["/Library/LaunchDaemons/dev.php-fpm.${version}.plist"],
+    }
+
+  } else {
+
+    file { [
+        $fpm_config,
+        $fpm_pool_config_dir,
+        "/Library/LaunchDaemons/dev.php-fpm.${version}.plist",
+      ]:
+      ensure  => absent,
+      require => Service["dev.php-fpm.${version}"]
+    }
+
+    service { "dev.php-fpm.${version}":
+      ensure => stopped
     }
 
   }
