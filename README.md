@@ -24,4 +24,8 @@ php::version { '5.4.10': }
 # we provide a ton of predefined ones for you though
 require php::5-4-10
 require php::5-3-17
+
+# Set up PHP-FPM to run a specific version of PHP
+php::fpm { '5.4.10': }
+
 ```
