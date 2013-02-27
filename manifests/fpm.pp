@@ -29,7 +29,7 @@ define php::fpm(
     # Set up FPM config
     file { $fpm_config:
       content => template('php/php-fpm.conf.erb'),
-      notify  => Service["dev.php-fpm.${version}"],
+      notify  => Php::Fpm::Service[$version],
     }
 
     # Set up FPM Pool configs
@@ -52,21 +52,13 @@ define php::fpm(
 
     file { "${fpm_pool_config_dir}/${version}.conf":
       content => template('php/php-fpm-pool.conf.erb'),
-      notify  => Service["dev.php-fpm.${version}"],
     }
 
-    # Register and fire up our FPM instance
+    # Launch our FPM Service
 
-    file { "/Library/LaunchDaemons/dev.php-fpm.${version}.plist":
-      content => template('php/dev.php-fpm.plist.erb'),
-      group   => 'wheel',
-      owner   => 'root',
-      notify  => Service["dev.php-fpm.${version}"],
-    }
-
-    service { "dev.php-fpm.${version}":
-      ensure  => running,
-      require => File["/Library/LaunchDaemons/dev.php-fpm.${version}.plist"],
+    php::fpm::service{ $version:
+      ensure    => running,
+      subscribe => File["${fpm_pool_config_dir}/${version}.conf"],
     }
 
   } else {
@@ -77,16 +69,14 @@ define php::fpm(
     file { [
         $fpm_config,
         $fpm_pool_config_dir,
-        "/Library/LaunchDaemons/dev.php-fpm.${version}.plist",
       ]:
       ensure  => absent,
-      require => Service["dev.php-fpm.${version}"]
+      require => Php::Fpm::Service[$version],
     }
 
-    service { "dev.php-fpm.${version}":
-      ensure => stopped
+    php::fpm::service{ $version:
+      ensure => absent,
     }
-
   }
 
 }
