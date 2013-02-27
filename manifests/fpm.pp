@@ -1,6 +1,9 @@
 # Configure a PHP-FPM instance running a specific version of PHP
-
-
+#
+# Usage:
+#
+#     php::fpm { '5.4.10': }
+#
 define php::fpm(
   $ensure  = present,
   $version = $name,
@@ -45,6 +48,9 @@ define php::fpm(
     }
 
   } else {
+
+    # Stop service and kill configs
+    # Stop service first as we need to unload the plist file
 
     file { [
         $fpm_config,
