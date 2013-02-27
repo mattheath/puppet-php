@@ -8,7 +8,7 @@ define php::fpm(
   $ensure  = present,
   $version = $name,
 ){
-  require php
+  require php::config
 
   # Config file locations
   $version_config_root = "${php::config::configdir}/${version}"

@@ -20,7 +20,7 @@ define php::fpm::pool(
   $max_spare_servers = 1,
   $ensure            = present,
 ) {
-  include php::config
+  require php::config
 
   $repo_dir = $dir ? {
     undef   => "${boxen::config::srcdir}/${name}",
