@@ -22,15 +22,15 @@ define php::version(
 
   # Config locations
   $version_config_root  = "${php::config::configdir}/${version}"
-  $php_ini              = "${version_config_dir}/php.ini"
-  $conf_d               = "${version_config_dir}/conf.d"
+  $php_ini              = "${version_config_root}/php.ini"
+  $conf_d               = "${version_config_root}/conf.d"
 
   if $ensure == 'absent' {
 
     file {
       [
         $dest,
-        $version_config_dir,
+        $version_config_root,
       ]:
       ensure => absent,
       force  => true

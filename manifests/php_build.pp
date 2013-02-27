@@ -37,6 +37,15 @@ class php::php_build {
     require => Exec['phpenv-setup-root-repo']
   }
 
+  # Override the default php-build script to allow us to actually change some
+  # values - like the config directory...
+  # See https://github.com/CHH/php-build/issues/109
+  file { "${root}/bin/php-build":
+    source  => 'puppet:///modules/php/php-build',
+    mode    => 0755,
+    require => Exec["ensure-php-build-version-${php_build_version}"],
+  }
+
   # Remove phpenv-install cruft
   # see https://github.com/CHH/php-build/issues/68
   file { "${root}/bin/phpenv-install":
