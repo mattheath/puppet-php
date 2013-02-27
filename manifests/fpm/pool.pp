@@ -32,20 +32,15 @@ define php::fpm::pool(
     default => $socket
   }
 
-  $pool_name = $name
+  $pool_name = join(split($name, '[.] '), '-')
 
   if $ensure == present {
     # Requires php fpm version eg. php::fpm::5-4-10
     require join(['php', 'fpm', join(split($version, '[.]'), '-')], '::')
 
-    # Create a default pool, as FPM won't start without one
-    # Listen on a fake socket for now
-
-
-    file { "${php::fpm::fpm_pool_config_dir}/${pool_name}.conf":
+    # Create a pool config file
+    file { "${php::config::configdir}/${version}/pool.d/${pool_name}.conf":
       content => template('php/php-fpm-pool.conf.erb'),
-      before  => Service["dev.php-fpm.${version}"],
-      notify  => Service["dev.php-fpm.${version}"],
     }
   }
 }
