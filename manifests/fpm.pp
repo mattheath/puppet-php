@@ -11,9 +11,9 @@ define php::fpm(
   require php
 
   # Config file locations
-  $version_config_dir  = "${php::config::configdir}/${version}"
-  $fpm_config          = "${version_config_dir}/php-fpm.conf"
-  $fpm_pool_config_dir = "${version_config_dir}/pool.d"
+  $version_config_root = "${php::config::configdir}/${version}"
+  $fpm_config          = "${version_config_root}/php-fpm.conf"
+  $fpm_pool_config_dir = "${version_config_root}/pool.d"
 
   # Log files
   $error_log = "${php::config::logdir}/${version}.error.log"
@@ -36,7 +36,7 @@ define php::fpm(
     # Set up FPM Pool configs
     file { $fpm_pool_config_dir:
       ensure  => directory,
-      require => File[$version_config_dir],
+      require => File[$version_config_root],
     }
 
     # Create a default pool, as FPM won't start without one
