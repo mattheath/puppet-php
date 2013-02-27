@@ -27,6 +27,13 @@ define php::version(
 
   if $ensure == 'absent' {
 
+    # If we're nuking a version of PHP also ensure we shut down
+    # and get rid of the PHP FPM Service & config
+
+    php::fpm { $version:
+      ensure => 'absent'
+    }
+
     file {
       [
         $dest,
