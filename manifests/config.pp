@@ -4,6 +4,7 @@ class php::config {
   $root       = "${boxen::config::home}/phpenv"
   $logdir     = "${boxen::config::logdir}/php"
   $configdir  = "${boxen::config::configdir}/php"
+  $datadir    = "${boxen::config::datadir}/php"
   $pluginsdir = "${root}/plugins"
 
   file {
@@ -11,6 +12,7 @@ class php::config {
       $root,
       $logdir,
       $configdir,
+      $datadir,
       $pluginsdir,
     ]:
     ensure => directory

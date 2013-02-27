@@ -14,6 +14,7 @@ define php::fpm(
   $version_config_root = "${php::config::configdir}/${version}"
   $fpm_config          = "${version_config_root}/php-fpm.conf"
   $fpm_pool_config_dir = "${version_config_root}/pool.d"
+  $pid_file            = "${php::config::datadir}/${version}.pid"
 
   # Log files
   $error_log = "${php::config::logdir}/${version}.error.log"
