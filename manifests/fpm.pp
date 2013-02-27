@@ -29,7 +29,6 @@ define php::fpm(
     # Set up FPM config
     file { $fpm_config:
       content => template('php/php-fpm.conf.erb'),
-      before  => Service["dev.php-fpm.${version}"],
       notify  => Service["dev.php-fpm.${version}"],
     }
 
@@ -53,7 +52,6 @@ define php::fpm(
 
     file { "${fpm_pool_config_dir}/${version}.conf":
       content => template('php/php-fpm-pool.conf.erb'),
-      before  => Service["dev.php-fpm.${version}"],
       notify  => Service["dev.php-fpm.${version}"],
     }
 
