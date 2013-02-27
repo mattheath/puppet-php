@@ -41,7 +41,6 @@ define php::fpm::pool(
     # Create a pool config file
     file { "${php::config::configdir}/${version}/pool.d/${pool_name}.conf":
       content => template('php/php-fpm-pool.conf.erb'),
-      notify => Php::Fpm::Service[$version]
     }
   }
 }
