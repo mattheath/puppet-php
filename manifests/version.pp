@@ -53,9 +53,10 @@ define php::version(
     exec { "php-install-${version}":
       command     => "${php::php_build::root}/bin/php-build ${version} ${php::config::root}/versions/${version}",
       cwd         => "${php::config::root}/versions",
+      environment => "PHP_BUILD_CONFIGURE_OPTS=--with-config-file-path=${php_ini} --with-config-file-scan-dir=${conf_d}",
       provider    => 'shell',
       timeout     => 0,
-      creates     => $dest,
+      creates     => "${dest}/bin/php",
       require     => File[$php_ini],
     }
 
