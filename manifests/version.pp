@@ -57,6 +57,7 @@ define php::version(
     }
 
     # Install PHP!
+
     exec { "php-install-${version}":
       command     => "${php::php_build::root}/bin/php-build ${version} ${php::config::root}/versions/${version}",
       cwd         => "${php::config::root}/versions",
@@ -75,6 +76,7 @@ define php::version(
     }
 
     # Log files
+
     file { $error_log:
       owner => $::boxen_user,
       mode  => 644,
