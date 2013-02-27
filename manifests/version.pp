@@ -67,5 +67,11 @@ define php::version(
       require => File["${version_config_root}"]
     }
 
+    # Log files
+    file { $error_log:
+      owner => $::boxen_user,
+      mode  => 644,
+    }
+
   }
 }
