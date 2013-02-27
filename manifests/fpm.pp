@@ -15,10 +15,16 @@ define php::fpm(
   $fpm_config          = "${version_config_dir}/php-fpm.conf"
   $fpm_pool_config_dir = "${version_config_dir}/pool.d"
 
+  # Log files
+  $error_log = "${php::config::logdir}/${version}.error.log"
+
   if $ensure == present {
     # Require php version eg. php::5-4-10
     # This will compile, install and set up config dirs if not present
     require join(['php', join(split($version, '[.]'), '-')], '::')
+
+    # FPM Binary
+    $bin = "${php::config::root}/versions/${version}/sbin/php-fpm"
 
     # Set up FPM config
     file { $fpm_config:
