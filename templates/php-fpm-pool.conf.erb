@@ -1,7 +1,7 @@
 ; Start a new pool named 'www'.
 ; the variable $pool can we used in any directive and will be replaced by the
 ; pool name ('www' here)
-[www]
+[<%= @pool_name %>]
 
 ; Per pool prefix
 ; It only applies on the following directives:
@@ -14,7 +14,7 @@
 ; When not set, the global prefix (or /usr) applies instead.
 ; Note: This directive can also be relative to the global prefix.
 ; Default Value: none
-prefix = /var
+;prefix = /var
 
 ; The address on which to accept FastCGI requests.
 ; Valid syntaxes are:
@@ -24,7 +24,7 @@ prefix = /var
 ;                            specific port;
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
-listen = 127.0.0.1:19000
+listen = <%= @socket_path %>
 
 ; Set listen(2) backlog. A value of '-1' means unlimited.
 ; Default Value: 128 (-1 on FreeBSD and OpenBSD)
@@ -43,9 +43,9 @@ listen = 127.0.0.1:19000
 ; BSD-derived systems allow connections regardless of permissions.
 ; Default Values: user and group are set as the running user
 ;                 mode is set to 0666
-;listen.owner = www-data
-;listen.group = www-data
-;listen.mode = 0666
+listen.owner = <%= scope.lookupvar "::boxen_user" %>
+listen.group = staff
+listen.mode = 0666
 
 ; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
@@ -70,7 +70,7 @@ user = <%= scope.lookupvar "::boxen_user" %>
 ;                                    of 'idle' processes is greater than this
 ;                                    number then some children will be killed.
 ; Note: This value is mandatory.
-pm = dynamic
+pm = <%= @pm %>
 
 ; The number of child processes to be created when pm is set to 'static' and the
 ; maximum number of child processes to be created when pm is set to 'dynamic'.
@@ -80,22 +80,22 @@ pm = dynamic
 ; CGI.
 ; Note: Used when pm is set to either 'static' or 'dynamic'
 ; Note: This value is mandatory.
-pm.max_children = 100
+pm.max_children = <%= @max_children %>
 
 ; The number of child processes created on startup.
 ; Note: Used only when pm is set to 'dynamic'
 ; Default Value: min_spare_servers + (max_spare_servers - min_spare_servers) / 2
-pm.start_servers = 10
+pm.start_servers = <%= @start_servers %>
 
 ; The desired minimum number of idle server processes.
 ; Note: Used only when pm is set to 'dynamic'
 ; Note: Mandatory when pm is set to 'dynamic'
-pm.min_spare_servers = 5
+pm.min_spare_servers = <%= @min_spare_servers %>
 
 ; The desired maximum number of idle server processes.
 ; Note: Used only when pm is set to 'dynamic'
 ; Note: Mandatory when pm is set to 'dynamic'
-pm.max_spare_servers = 10
+pm.max_spare_servers = <%= @max_spare_servers %>
 
 ; The number of requests each child process should execute before respawning.
 ; This can be useful to work around memory leaks in 3rd party libraries. For
@@ -165,12 +165,12 @@ request_terminate_timeout = 60s
 ; dumped to the 'slowlog' file. A value of '0s' means 'off'.
 ; Available units: s(econds)(default), m(inutes), h(ours), or d(ays)
 ; Default Value: 0
-request_slowlog_timeout = 30s
+;request_slowlog_timeout = 30s
 
 ; The log file for slow requests
 ; Default Value: not set
 ; Note: slowlog is mandatory if request_slowlog_timeout is set
-slowlog = log/$pool.log.slow
+;slowlog = log/$pool.log.slow
 
 ; Set open file descriptor rlimit.
 ; Default Value: system defined value
