@@ -4,6 +4,7 @@
 # Usage:
 #
 #     include php::fpm::5-4-10
+#
 class php::fpm::5-4-10 {
   php::fpm { '5.4.10': }
 }
