@@ -39,6 +39,24 @@ define php::fpm(
       require => File[$version_config_dir],
     }
 
+    # Create a default pool, as FPM won't start without one
+    # Listen on a fake socket for now
+    $pool_name    = $version
+    $socket_path  = "${boxen::config::socketdir}/${version}"
+    $pm           = 'static'
+    $max_children = 1
+
+    # Additional non required options (as pm = static for this pool):
+    $start_servers     = 1
+    $min_spare_servers = 1
+    $max_spare_servers = 1
+
+    file { "${fpm_pool_config_dir}/${version}.conf":
+      content => template('php/php-fpm-pool.conf.erb'),
+      before  => Service["dev.php-fpm.${version}"],
+      notify  => Service["dev.php-fpm.${version}"],
+    }
+
     # Register and fire up our FPM instance
 
     file { "/Library/LaunchDaemons/dev.php-fpm.${version}.plist":
