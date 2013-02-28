@@ -99,9 +99,10 @@ class php {
     require => Exec["ensure-phpenv-version-${phpenv_version}"],
   }
 
-  # Remove the PHP src repository we cached before switching to php-build
-  file { "${root}/php-src":
-    ensure => absent
+  # Cache the PHP src repository we'll need this for extensions
+  # and at some point building versions #todo
+  repository { "${php::config::root}/php-src":
+    source => "php/php-src",
   }
 
   # Kill off the legacy PHP-FPM daemon as we're moving to per version instances
