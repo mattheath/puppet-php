@@ -31,8 +31,8 @@ php::fpm { '5.4.10': }
 # Spin up an FPM pool for a project
 # Ensures:
 #  * the version of PHP is installed
-#  * PHP-FPM is configured as a service
-#  * An FPM pool is listening on a per project nginx socket
+#  * a PHP-FPM service is configured for this PHP version
+#  * a FPM pool is listening on a per project nginx socket
 $name = "project-name"
 php::fpm::pool { "${name}-5.4.10":
   version => 5.4.10,
