@@ -31,6 +31,12 @@ class php {
   }
 
   # Resolve dependencies
+
+  exec { 'tap-homebrew-dupes':
+    command => "brew tap homebrew/dupes",
+    creates => "${homebrew::config::tapsdir}/homebrew-dupes",
+  }
+
   package { [
       'freetype',
       'gettext',
@@ -40,8 +46,11 @@ class php {
       'homebrew/dupes/zlib',
       'mcrypt',
     ]:
-    provider => homebrew
+    provider => homebrew,
+    require  => Exec['tap-homebrew-dupes']
   }
+
+  # Set up phpenv
 
   $git_init   = 'git init .'
   $git_remote = 'git remote add origin https://github.com/phpenv/phpenv.git'
