@@ -17,7 +17,7 @@ define php::fpm(
   $pid_file            = "${php::config::datadir}/${version}.pid"
 
   # Log files
-  $error_log = "${php::config::logdir}/${version}.error.log"
+  $error_log = "${php::config::logdir}/${version}.fpm.error.log"
 
   if $ensure == present {
     # Require php version eg. php::5-4-10
