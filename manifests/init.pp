@@ -6,6 +6,7 @@ class php {
   require php::config
   include homebrew
   include wget
+  include autoconf
 
   # We need php-build
   include php::php_build
