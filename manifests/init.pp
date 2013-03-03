@@ -48,7 +48,8 @@ class php {
       'mcrypt',
     ]:
     provider => homebrew,
-    require  => Exec['tap-homebrew-dupes']
+    require  => Exec['tap-homebrew-dupes'],
+    before   => Exec['phpenv-setup-root-repo'],
   }
 
   # Set up phpenv
