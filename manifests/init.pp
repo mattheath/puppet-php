@@ -7,6 +7,7 @@ class php {
   include homebrew
   include wget
   include autoconf
+  include libtool
 
   # We need php-build
   include php::php_build
