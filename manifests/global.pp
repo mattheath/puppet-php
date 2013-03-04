@@ -5,6 +5,7 @@
 #   class { 'php::global': version => '5.4.10' }
 
 class php::global($version) {
+  include php::config
 
   if $version != 'system' {
     require join(['php', join(split($version, '[.]'), '-')], '::')
