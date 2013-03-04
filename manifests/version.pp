@@ -26,6 +26,9 @@ define php::version(
   $php_ini              = "${version_config_root}/php.ini"
   $conf_d               = "${version_config_root}/conf.d"
 
+  # Module location for PHP extensions
+  $module_dir = "${dest}/modules"
+
   if $ensure == 'absent' {
 
     # If we're nuking a version of PHP also ensure we shut down
@@ -57,6 +60,10 @@ define php::version(
       purge   => true,
       force   => true,
       require => File[$version_config_root],
+    }
+
+    file { $module_dir:
+      ensure => directory,
     }
 
     # Install PHP!
