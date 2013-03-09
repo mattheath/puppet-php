@@ -1,12 +1,5 @@
-# Installs a php version via php-build, and sets up phpenv
+# Private: Installs a php version via a custom brew, and sets up phpenv
 
-# Options:
-
-#
-# Usage:
-#
-#     php::version { '5.3.20': }
-#
 define php::version(
   $ensure    = 'installed',
   $conf_opts = undef,
@@ -59,6 +52,15 @@ define php::version(
     }
 
     # Install PHP!
+
+    homebrew::formula { "php-${version}":
+      content => template('php/php-version-brew.rb.erb'),
+      before  => Package['boxen/brews/php-${version}'],
+    }
+
+    #package { "boxen/brews/php-${version}":
+    #  ensure => "${version}-boxen1",
+    #}
 
     # Set up config files
 
