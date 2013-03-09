@@ -26,7 +26,6 @@ class AbstractPhp < Formula
     # So PHP extensions don't report missing symbols
     skip_clean ['bin', 'sbin']
 
-    depends_on 'curl' unless MacOS.version >= :lion
     depends_on 'freetds' if build.include? 'with-mssql'
     depends_on 'freetype'
     depends_on 'gettext'
@@ -35,7 +34,6 @@ class AbstractPhp < Formula
     depends_on 'imap-uw' if build.include? 'with-imap'
     depends_on 'jpeg'
     depends_on 'libpng'
-    depends_on 'libxml2' unless MacOS.version >= :lion
     depends_on 'openssl' if build.include? 'with-homebrew-openssl'
     depends_on 'homebrew/dupes/tidy' if build.include? 'with-tidy'
     depends_on 'unixodbc' => :optional

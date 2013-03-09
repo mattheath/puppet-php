@@ -4,16 +4,10 @@ class Php54 < AbstractPhp
   init
   url 'http://www.php.net/get/php-5.4.11.tar.bz2/from/this/mirror'
   sha1 '85666f32bf1f2850c769fe58fed788ae8fdfa1cb'
-  version '5.4.11'
-
-  head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
-
-  # Leopard requires Hombrew OpenSSL to build correctly
-  depends_on 'openssl' if MacOS.version == :leopard
+  version '5.4.11-boxen1'
 
   def install_args
     args = super
-    args << "--with-homebrew-openssl" if MacOS.version == :leopard
     args + [
       "--enable-zend-signals",
       "--enable-dtrace",
