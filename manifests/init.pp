@@ -19,10 +19,10 @@ class php {
 
   file {
     [
-      $root,
-      $logdir,
-      $datadir,
-      $pluginsdir,
+      "${php::config::root}",
+      "${php::config::logdir}",
+      "${php::config::datadir}",
+      "${php::config::pluginsdir}",
     ]:
     ensure => directory
   }
@@ -30,7 +30,7 @@ class php {
   # Ensure we only have config files managed by Boxen
   # to prevent any conflicts by shipping a (nearly) empty
   # dir, and recursively purging
-  file { $configdir:
+  file { $php::config::configdir:
     ensure  => directory,
     recurse => true,
     purge   => true,
