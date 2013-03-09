@@ -9,9 +9,6 @@ class php {
   include autoconf
   include libtool
 
-  # We need php-build
-  include php::php_build
-
   # Get rid of any pre-installed packages
   package { ['phpenv', 'php-build']: ensure => absent; }
 
