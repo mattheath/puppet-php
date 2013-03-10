@@ -8,6 +8,8 @@ Requires the following boxen modules:
 * `autoconf`
 * `libtool`
 
+Currently 5.3.x versions of PHP are not building due to a dependence on a lower version of autoconf which is not provided by brew. This is being worked on.
+
 ## Usage
 
 ```puppet
