@@ -144,6 +144,8 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-mysqli=mysqlnd",
       "--with-mysql=mysqlnd",
       "--with-pdo-mysql=mysqlnd",
+
+      "--enable-fpm",
     ]
 
   end
