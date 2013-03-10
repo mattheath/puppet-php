@@ -93,7 +93,11 @@ class php {
     command => "${git_init} && ${git_remote} && ${git_fetch} && ${git_reset}",
     cwd     => $php::config::root,
     creates => "${php::config::root}/bin/phpenv",
-    require => [ File[$php::config::root], Class['git'] ]
+    require => [
+      File[$php::config::root],
+      Class['git'],
+      Package['boxen/brews/autoconf213'],
+    ]
   }
 
   exec { "ensure-phpenv-version-${phpenv_version}":
