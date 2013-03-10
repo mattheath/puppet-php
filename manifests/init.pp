@@ -60,11 +60,12 @@ class php {
   package { [
       'freetype',
       'gettext',
+      'gmp',
       'icu4c',
       'jpeg',
       'libpng',
-      'homebrew/dupes/zlib',
       'mcrypt',
+      'homebrew/dupes/zlib',
     ]:
     provider => homebrew,
     require  => Exec['tap-homebrew-dupes'],

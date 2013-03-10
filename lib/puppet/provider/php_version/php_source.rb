@@ -135,6 +135,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-jpeg-dir=/opt/boxen/homebrew/opt/jpeg",
       "--with-png-dir=/opt/boxen/homebrew/opt/libpng",
       "--with-gettext=/opt/boxen/homebrew/opt/gettext",
+      "--with-gmp=/opt/boxen/homebrew/opt/gmp",
       "--with-zlib=/opt/boxen/homebrew/opt/zlib",
       "--with-snmp=/usr",
       "--with-libedit",
