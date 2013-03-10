@@ -13,7 +13,7 @@ Currently 5.3.x versions of PHP are not building due to a dependence on a lower 
 ## Usage
 
 ```puppet
-# Set the global default php (auto-installs it if it can)
+# Install PHP and set as the global default php
 class { 'php::global': version => '5.4.10' }
 
 # ensure a certain php version is used within a dir
