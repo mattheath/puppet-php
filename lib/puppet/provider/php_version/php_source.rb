@@ -24,7 +24,15 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # Checkout the version as a build branch and prepare for building
     prep_build(version)
 
-    raise "method 'install' not yet implemented. version #{version}"
+    # Configure - this is the hard part
+    configure(version)
+
+    # Make
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make )
+
+    # Make install
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make install )
+
   end
 
 
@@ -58,6 +66,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
 
   # Prepare the source repository for building by checkout out the correct
   # tag, and cleaning the source tree
+  #
   def prep_build(version)
     # Reset back to master and ensure the build branch is removed
     %x( cd #{@resource[:phpenv_root]}/php-src/ && git checkout -f master && git branch -D build &> /dev/null )
@@ -67,6 +76,70 @@ Puppet::Type.type(:php_version).provide(:php_source) do
 
     # Clean everything
     %x( cd #{@resource[:phpenv_root]}/php-src/ && git clean -f -d -x )
+  end
+
+  def configure(version)
+    # Final bit of cleanup, just in case
+    %x( cd #{@resource[:phpenv_root]}/php-src/ && rm -rf configure autom4te.cache )
+
+    # Run buildconf to prepare build system for compilation
+    %x( cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
+
+    # Right, the hard part - configure for our system
+    args = get_configure_args(version)
+    args = args.join(" ")
+
+    puts "Configuring PHP #{version}: #{args}"
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./configure #{args} )
+
+  end
+
+  def get_configure_args(version)
+
+    prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
+    config_path = "/opt/boxen/config/php/#{@resource[:version]}"
+
+    args = [
+      "--prefix=#{prefix}",
+      "--localstatedir=/var",
+      "--sysconfdir=#{config_path}",
+      "--with-config-file-path=#{config_path}",
+      "--with-config-file-scan-dir=#{config_path}/conf.d",
+      "--with-iconv-dir=/usr",
+      "--enable-dba",
+      "--with-ndbm=/usr",
+      "--enable-exif",
+      "--enable-soap",
+      "--enable-wddx",
+      "--enable-ftp",
+      "--enable-sockets",
+      "--enable-zip",
+      "--enable-pcntl",
+      "--enable-shmop",
+      "--enable-sysvsem",
+      "--enable-sysvshm",
+      "--enable-sysvmsg",
+      "--enable-mbstring",
+      "--enable-mbregex",
+      "--enable-bcmath",
+      "--enable-calendar",
+      "--with-ldap",
+      "--with-ldap-sasl=/usr",
+      "--with-xmlrpc",
+      "--with-kerberos=/usr",
+      "--with-xsl=/usr",
+      "--with-gd",
+      "--enable-gd-native-ttf",
+      "--with-freetype-dir=/opt/boxen/homebrew/opt/freetype",
+      "--with-jpeg-dir=/opt/boxen/homebrew/opt/jpeg",
+      "--with-png-dir=/opt/boxen/homebrew/opt/libpng",
+      "--with-gettext=/opt/boxen/homebrew/opt/gettext",
+      "--with-zlib=/opt/boxen/homebrew/opt/zlib",
+      "--with-snmp=/usr",
+      "--with-libedit",
+      "--with-mhash",
+    ]
+
   end
 
 end
