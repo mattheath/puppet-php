@@ -72,6 +72,16 @@ class php {
     before   => Exec['phpenv-setup-root-repo'],
   }
 
+  # Need autoconf version less than 2.59 for php 5.3 (ewwwww)
+
+  homebrew::formula { 'autoconf213':
+    before => Package['boxen/brews/autoconf213'],
+  }
+
+  package { 'boxen/brews/autoconf213':
+    ensure => '2.13-boxen1',
+  }
+
   # Set up phpenv
 
   $git_init   = 'git init .'

@@ -33,7 +33,6 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make clean )
   end
 
-
   private
 
   # Check that the cached repository is in place, and the version requested exists
