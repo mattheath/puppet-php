@@ -138,6 +138,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-snmp=/usr",
       "--with-libedit",
       "--with-mhash",
+      "--with-curl",
     ]
 
   end
