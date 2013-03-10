@@ -86,7 +86,10 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     %x( cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
 
     # Right, the hard part - configure for our system
-    args = get_configure_args(version)
+    install_path = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
+    config_path = "/opt/boxen/config/php/#{@resource[:version]}"
+
+    args = get_configure_args(version, install_path, config_path)
     args = args.join(" ")
 
     puts "Configuring PHP #{version}: #{args}"
@@ -94,17 +97,15 @@ Puppet::Type.type(:php_version).provide(:php_source) do
 
   end
 
-  def get_configure_args(version)
-
-    prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
-    config_path = "/opt/boxen/config/php/#{@resource[:version]}"
+  def get_configure_args(version, install_path, config_path)
 
     args = [
-      "--prefix=#{prefix}",
+      "--prefix=#{install_path}",
       "--localstatedir=/var",
       "--sysconfdir=#{config_path}",
       "--with-config-file-path=#{config_path}",
       "--with-config-file-scan-dir=#{config_path}/conf.d",
+
       "--with-iconv-dir=/usr",
       "--enable-dba",
       "--with-ndbm=/usr",
