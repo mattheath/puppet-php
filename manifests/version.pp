@@ -60,6 +60,10 @@ define php::version(
 
     # Install PHP!
 
+    php_version { $version:
+
+    }
+
     # Set up config files
 
     file { $php_ini:
