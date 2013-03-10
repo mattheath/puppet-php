@@ -83,7 +83,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     %x( cd #{@resource[:phpenv_root]}/php-src/ && rm -rf configure autom4te.cache )
 
     # Run buildconf to prepare build system for compilation
-    %x( cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
 
     # Right, the hard part - configure for our system
     install_path = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
