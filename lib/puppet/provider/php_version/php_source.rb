@@ -27,12 +27,10 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # Configure - this is the hard part
     configure(version)
 
-    # Make
+    # Make & install
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make )
-
-    # Make install
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make install )
-
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make clean )
   end
 
 
@@ -87,18 +85,15 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # Run buildconf to prepare build system for compilation
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
 
-    # Right, the hard part - configure for our system
+    # Build configure options
     install_path = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
     config_path = "/opt/boxen/config/php/#{@resource[:version]}"
-
-    # Build configure options
     args = get_configure_args(version, install_path, config_path)
     args = args.join(" ")
 
-    # Run configure
+    # Right, the hard part - configure for our system
     puts "Configuring PHP #{version}: #{args}"
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./configure #{args} )
-
   end
 
   # Get a default set of configure options
