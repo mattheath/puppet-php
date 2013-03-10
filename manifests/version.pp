@@ -63,6 +63,7 @@ define php::version(
     php_version { $version:
       phpenv_root => $php::config::root,
       version     => $version,
+      require     => Repository["${php::config::root}/php-src"],
     }
 
     # Set up config files
