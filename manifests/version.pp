@@ -61,7 +61,8 @@ define php::version(
     # Install PHP!
 
     php_version { $version:
-
+      phpenv_root => $php::config::root,
+      version     => $version,
     }
 
     # Set up config files
