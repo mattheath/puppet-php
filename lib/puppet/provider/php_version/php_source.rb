@@ -78,11 +78,12 @@ Puppet::Type.type(:php_version).provide(:php_source) do
   # Configure our version of PHP for compilation
   #
   def configure(version)
+
     # Final bit of cleanup, just in case
     %x( cd #{@resource[:phpenv_root]}/php-src/ && rm -rf configure autom4te.cache )
 
     # Run buildconf to prepare build system for compilation
-    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
+    puts %x( export PHP_AUTOCONF=#{autoconf} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
 
     # Build configure options
     install_path = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
@@ -152,6 +153,13 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--enable-fpm",
     ]
 
+  end
+
+  def autoconf
+    autoconf = "#{@resource[:homebrew_path]}/bin/autoconf"
+
+    # We need an old version of autoconf for PHP 5.3...
+    autoconf << "213" if @resource[:version].match(/5\.3\../)
   end
 
 end

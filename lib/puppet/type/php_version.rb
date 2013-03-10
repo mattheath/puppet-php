@@ -25,4 +25,7 @@ Puppet::Type.newtype(:php_version) do
 
   newparam(:phpenv_root) do
   end
+
+  newparam(:homebrew_path) do
+  end
 end

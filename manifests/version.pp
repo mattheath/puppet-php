@@ -13,6 +13,7 @@ define php::version(
   $version   = $name
 ) {
   require php
+  include boxen::config
 
   # Install location
   $dest = "${php::config::root}/versions/${version}"
@@ -61,9 +62,10 @@ define php::version(
     # Install PHP!
 
     php_version { $version:
-      phpenv_root => $php::config::root,
-      version     => $version,
-      require     => Repository["${php::config::root}/php-src"],
+      phpenv_root   => $php::config::root,
+      version       => $version,
+      homebrew_path => $boxen::config::homebrewdir,
+      require       => Repository["${php::config::root}/php-src"],
     }
 
     # Set up config files
