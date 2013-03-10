@@ -141,6 +141,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-mhash",
       "--with-curl",
       "--with-openssl=/usr",
+      "--with-bz2=/usr",
 
       "--with-mysql-sock=/tmp/mysql.sock",
       "--with-mysqli=mysqlnd",
