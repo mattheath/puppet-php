@@ -78,6 +78,8 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     %x( cd #{@resource[:phpenv_root]}/php-src/ && git clean -f -d -x )
   end
 
+  # Configure our version of PHP for compilation
+  #
   def configure(version)
     # Final bit of cleanup, just in case
     %x( cd #{@resource[:phpenv_root]}/php-src/ && rm -rf configure autom4te.cache )
@@ -89,14 +91,18 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     install_path = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
     config_path = "/opt/boxen/config/php/#{@resource[:version]}"
 
+    # Build configure options
     args = get_configure_args(version, install_path, config_path)
     args = args.join(" ")
 
+    # Run configure
     puts "Configuring PHP #{version}: #{args}"
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./configure #{args} )
 
   end
 
+  # Get a default set of configure options
+  #
   def get_configure_args(version, install_path, config_path)
 
     args = [
