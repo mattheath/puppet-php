@@ -21,6 +21,9 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # First check we have a cached copy of the source repository, with this version tag
     confirm_cached_source(version)
 
+    # Checkout the version as a build branch and prepare for building
+    prep_build(version)
+
     raise "method 'install' not yet implemented. version #{version}"
   end
 
@@ -51,6 +54,19 @@ Puppet::Type.type(:php_version).provide(:php_source) do
   def version_present_in_cache?(version)
     tag = %x( cd #{@resource[:phpenv_root]}/php-src/ && git tag -l "php-#{version}" )
     tag.strip == "php-#{version}"
+  end
+
+  # Prepare the source repository for building by checkout out the correct
+  # tag, and cleaning the source tree
+  def prep_build(version)
+    # Reset back to master and ensure the build branch is removed
+    %x( cd #{@resource[:phpenv_root]}/php-src/ && git checkout -f master && git branch -D build &> /dev/null )
+
+    # Checkout version as build branch
+    %x( cd #{@resource[:phpenv_root]}/php-src/ && git checkout php-#{version} -b build )
+
+    # Clean everything
+    %x( cd #{@resource[:phpenv_root]}/php-src/ && git clean -f -d -x )
   end
 
 end
