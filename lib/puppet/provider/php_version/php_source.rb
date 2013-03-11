@@ -83,6 +83,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     %x( cd #{@resource[:phpenv_root]}/php-src/ && rm -rf configure autom4te.cache )
 
     # Run buildconf to prepare build system for compilation
+    puts "export PHP_AUTOCONF=#{autoconf} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force"
     puts %x( export PHP_AUTOCONF=#{autoconf} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
 
     # Build configure options
