@@ -36,7 +36,11 @@ php::extension::apc { "apc for ${version}":
 }
 
 # Set up PHP-FPM as a service running a specific version of PHP
-php::fpm { '5.4.10': }
+include php::fpm::5-3-15
+
+# Run multiple PHP-FPM services
+include php::fpm::5-4-11
+include php::fpm::5-3-21
 
 # Spin up a PHP-FPM pool for a project
 # Ensures:
@@ -44,8 +48,9 @@ php::fpm { '5.4.10': }
 #  * a PHP-FPM service is configured for this PHP version
 #  * a FPM pool is listening on a per project nginx socket
 $name = "project-name"
-php::fpm::pool { "${name}-5.4.10":
-  version => 5.4.10,
+$version = "5.4.10"
+php::fpm::pool { "${name}-${version}":
+  version => ${version},
   socket  => "${boxen::config::socketdir}/${name}",
   require => File["${nginx::config::sitesdir}/${name}.conf"],
 }
