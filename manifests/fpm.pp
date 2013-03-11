@@ -4,6 +4,12 @@
 #
 #     php::fpm { '5.4.10': }
 #
+# You'll probably be better off using a specific fpm class as this
+# will allow the class to be defined multiple times. For example if
+# you're defining it within a project. eg:
+#
+#     include php::fpm::5-4-10
+#
 define php::fpm(
   $ensure  = present,
   $version = $name,

@@ -1,5 +1,5 @@
-# Set a directory's default php version via phpenv.
-# Automatically ensures that php version is installed via phpenv & php-build
+# Set a directory's default php version for phpenv.
+# Automatically ensures that php version is installed
 #
 # Usage:
 #

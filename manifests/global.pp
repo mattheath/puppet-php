@@ -1,4 +1,4 @@
-# Public: specify the global php version as per phpenv
+# Public: specify the global php version for phpenv
 #
 # Usage:
 #

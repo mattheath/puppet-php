@@ -1,11 +1,14 @@
-# Installs a php version via php-build, and sets up phpenv
-
-# Options:
-
+# Installs a php version, and sets up phpenv
 #
 # Usage:
 #
 #     php::version { '5.3.20': }
+#
+# There are a number of predefined classes which can be used rather than
+# using this class directly, which allows the class to be defined multiple
+# times - eg. if you define it within multiple projects. For example:
+#
+#     include php::5-3-20
 #
 define php::version(
   $ensure    = 'installed',
