@@ -63,7 +63,7 @@ protected
     working_dir = "#{@resource[:cache_dir]}/#{@resource[:package_name]}/#{@resource[:package_name]}"
     puts %x( cd #{working_dir} && make )
 
-    raise "Failed to build module #{@resource[:name]}" unless File.exists?("#{working_dir}/modules/#{@resource[:extension]}.so")
+    raise "Failed to build module #{@resource[:name]}" unless File.exists?("#{working_dir}/modules/#{@resource[:compiled_name]}")
   end
 
   # Make the module
@@ -71,9 +71,9 @@ protected
     working_dir = "#{@resource[:cache_dir]}/#{@resource[:package_name]}/#{@resource[:package_name]}"
     php_version_prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}"
 
-    %x( cp #{working_dir}/modules/#{@resource[:extension]}.so #{php_version_prefix}/modules/#{@resource[:extension]}.so )
+    %x( cp #{working_dir}/modules/#{@resource[:compiled_name]} #{php_version_prefix}/modules/#{@resource[:compiled_name]} )
 
-    raise "Failed to install module #{@resource[:name]}" unless File.exists?("#{php_version_prefix}/modules/#{@resource[:extension]}.so")
+    raise "Failed to install module #{@resource[:name]}" unless File.exists?("#{php_version_prefix}/modules/#{@resource[:compiled_name]}")
   end
 
 end
