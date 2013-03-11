@@ -17,6 +17,9 @@ define php::extension::apc(
   $package_name = "APC-${version}"
   $url = "http://pecl.php.net/get/APC-${version}.tgz"
 
+  # Final module install path
+  $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
+
   php_extension { $name:
     extension      => $extension,
     version        => $version,
@@ -24,13 +27,14 @@ define php::extension::apc(
     package_url    => $url,
     phpenv_root    => $php::config::root,
     php_version    => $php,
+    cache_dir      => $php::config::extensioncachedir,
   }
 
   # Add config file once extension is installed
 
-  file { "${php::config::configdir}/${php_version}/conf.d/${extension}.ini":
-    content  => template("php/extensions/${extension}.ini.erb"),
-    requires => Php_extension[$name],
+  file { "${php::config::configdir}/${php}/conf.d/${extension}.ini":
+    content => template("php/extensions/${extension}.ini.erb"),
+    require => Php_extension[$name],
   }
 
 }
