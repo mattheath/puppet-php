@@ -11,26 +11,32 @@ Requires the following boxen modules:
 ## Usage
 
 ```puppet
-# Install PHP and set as the global default php
+# Install php 5.4
+require php::5-4
+
+# Install a couple of specific minor versions
+require php::5-3-17
+require php::5-4-11
+
+# Install a php version and set as the global default php
 class { 'php::global': version => '5.4.10' }
 
-# ensure a certain php version is used within a dir
+# Ensure a specific php version is used within a directory
 php::local { '/path/to/my/awesome/project':
   version => '5.4.9'
 }
 
-# install a php version or two
-php::version { '5.3.20': }
-php::version { '5.4.10': }
+# Ensure an extension is installed for a certain php version
+# note, you can't have duplicate resource names so you have to name like so
+php::extension::apc { "apc for ${version}":
+  php     => $version,
+  version => '3.1.13', # Optionally specify the extension version
+}
 
-# we provide a ton of predefined ones for you though
-require php::5-4-10
-require php::5-3-17
-
-# Set up PHP-FPM to run a specific version of PHP
+# Set up PHP-FPM as a service running a specific version of PHP
 php::fpm { '5.4.10': }
 
-# Spin up an FPM pool for a project
+# Spin up a PHP-FPM pool for a project
 # Ensures:
 #  * the version of PHP is installed
 #  * a PHP-FPM service is configured for this PHP version
