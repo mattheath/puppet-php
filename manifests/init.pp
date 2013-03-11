@@ -20,6 +20,8 @@ class php {
       "${php::config::logdir}",
       "${php::config::datadir}",
       "${php::config::pluginsdir}",
+      "${php::config::cachedir}",
+      "${php::config::extensioncachedir}",
     ]:
     ensure => directory
   }
