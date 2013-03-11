@@ -28,7 +28,8 @@ Puppet::Type.type(:php_extension).provide(:pecl_source) do
 
   # Fetch the packaged source to a cached file
   def fetch
-    %x( wget -O "#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz" #{@resource[:package_url]} )
+    %x( wget --nv -O "#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz" #{@resource[:package_url]} )
+    raise "Could not download #{@resource[:package_name]}" unless File.exists?("#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz")
   end
 
 protected
