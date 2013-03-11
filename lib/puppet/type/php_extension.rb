@@ -36,4 +36,11 @@ Puppet::Type.newtype(:php_extension) do
   newparam(:php_version) do
   end
 
+  newparam(:cache_dir) do
+  end
+
+  newparam(:configure_params) do
+    defaultto ''
+  end
+
 end
