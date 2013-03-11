@@ -160,6 +160,8 @@ Puppet::Type.type(:php_version).provide(:php_source) do
 
     # We need an old version of autoconf for PHP 5.3...
     autoconf << "213" if @resource[:version].match(/5\.3\../)
+
+    autoconf
   end
 
 end
