@@ -19,7 +19,9 @@ require php::5-3-17
 require php::5-4-11
 
 # Install a php version and set as the global default php
-class { 'php::global': version => '5.4.10' }
+class { 'php::global':
+  version => '5.4.10'
+}
 
 # Ensure a specific php version is used within a directory
 php::local { '/path/to/my/awesome/project':
