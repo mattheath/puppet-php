@@ -9,7 +9,6 @@
 #
 define php::version(
   $ensure    = 'installed',
-  $conf_opts = undef,
   $version   = $name
 ) {
   require php
