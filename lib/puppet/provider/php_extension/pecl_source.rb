@@ -19,7 +19,7 @@ Puppet::Type.type(:php_extension).provide(:pecl_source) do
   end
 
   def destroy
-    raise "php_extension 'destroy' method not yet implemented"
+    FileUtils.rm_rf("#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:extension]}.so")
   end
 
   def exists?
