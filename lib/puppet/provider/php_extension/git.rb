@@ -7,10 +7,12 @@ Puppet::Type.type(:php_extension).provide(:git) do
   # Build and install our PHP extension
   def create
 
+    # Let's get a few things straight
     @work_dir = "#{@resource[:cache_dir]}/#{@resource[:extension]}"
+    @php_version_prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}"
 
     # Update the repository
-    fetch
+    fetch @resource[:version], @resource[:extension]
 
     # Prepare for building
     prep_build @resource[:version]
@@ -23,21 +25,21 @@ Puppet::Type.type(:php_extension).provide(:git) do
   end
 
   def destroy
-    FileUtils.rm_rf("#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:extension]}.so")
+    FileUtils.rm_rf "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:extension]}.so"
   end
 
   def exists?
-    File.exists?("#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:extension]}.so")
+    File.exists? "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:extension]}.so"
   end
 
 protected
 
   # Update the cached git repository
-  def fetch
+  def fetch(version, extension)
     # Check if tag exists in current repo, if not fetch & recheck
-    if !version_present_in_cache?(@resource[:version])
+    if !version_present_in_cache?(version)
       update_repository
-      raise "Version #{@resource[:version]} not found in #{@resource[:extension]} source" if !version_present_in_cache?(@resource[:version])
+      raise "Version #{version} not found in #{extension} source" if !version_present_in_cache?(version)
     end
   end
 
@@ -47,7 +49,7 @@ protected
     %x( cd #{@work_dir} && git fetch --tags )
   end
 
-  # Check for a specific version within the PHP source repository
+  # Check for a specific version within the source repository
   #
   def version_present_in_cache?(version)
     tag = %x( cd #{@work_dir} && git tag -l "#{version}" )
@@ -70,31 +72,26 @@ protected
 
   # PHPize the extension, using the correct version of PHP
   def phpize
-    php_version_prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}"
-    %x( cd #{work_dir} && #{php_version_prefix}/bin/phpize )
+    %x( cd #{@work_dir} && #{@php_version_prefix}/bin/phpize )
   end
 
   # Configure with the correct version of php-config and prefix and any additional configure parameters
   def configure
-    php_version_prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}"
-    puts "cd #{work_dir} && ./configure --prefix=#{php_version_prefix} --with-php-config=#{php_version_prefix}/bin/php-config"
-    puts %x( cd #{work_dir} && ./configure --prefix=#{php_version_prefix} --with-php-config=#{php_version_prefix}/bin/php-config #{@resource[:configure_params]})
+    %x( cd #{@work_dir} && ./configure --prefix=#{@php_version_prefix} --with-php-config=#{@php_version_prefix}/bin/php-config #{@resource[:configure_params]})
   end
 
   # Make the module
   def make
-    puts %x( cd #{work_dir} && make )
+    puts %x( cd #{@work_dir} && make )
 
-    raise "Failed to build module #{@resource[:name]}" unless File.exists?("#{work_dir}/modules/#{@resource[:compiled_name]}")
+    raise "Failed to build module #{@resource[:name]}" unless File.exists?("#{@work_dir}/modules/#{@resource[:compiled_name]}")
   end
 
   # Make the module
   def install
-    php_version_prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}"
+    %x( cp #{@work_dir}/modules/#{@resource[:compiled_name]} #{@php_version_prefix}/modules/#{@resource[:compiled_name]} )
 
-    %x( cp #{work_dir}/modules/#{@resource[:compiled_name]} #{php_version_prefix}/modules/#{@resource[:compiled_name]} )
-
-    raise "Failed to install module #{@resource[:name]}" unless File.exists?("#{php_version_prefix}/modules/#{@resource[:compiled_name]}")
+    raise "Failed to install module #{@resource[:name]}" unless File.exists?("#{@php_version_prefix}/modules/#{@resource[:compiled_name]}")
   end
 
 end
