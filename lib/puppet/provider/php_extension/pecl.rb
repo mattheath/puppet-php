@@ -4,6 +4,8 @@ Puppet::Type.type(:php_extension).provide(:pecl) do
   include Puppet::Util::Execution
   desc "Provides PHP extensions compiled from their pecl source code"
 
+  defaultfor :source => :pecl
+
   # Build and install our PHP extension
   def create
 

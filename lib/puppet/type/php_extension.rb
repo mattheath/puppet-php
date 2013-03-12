@@ -48,4 +48,8 @@ Puppet::Type.newtype(:php_extension) do
     defaultto ''
   end
 
+  newparam(:source) do
+    defaultto :pecl
+  end
+
 end
