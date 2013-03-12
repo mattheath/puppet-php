@@ -10,8 +10,10 @@ Puppet::Type.type(:php_extension).provide(:pecl_source) do
     # Fetch & cache the download from PECL
     fetch unless File.exists?("#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz")
 
-    # Extract, build & install
+    # Prepare for building
     extract
+
+    # PHPize, build & install
     phpize
     configure
     make
@@ -26,14 +28,15 @@ Puppet::Type.type(:php_extension).provide(:pecl_source) do
     File.exists?("#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:extension]}.so")
   end
 
+protected
+
   # Fetch the packaged source to a cached file
   def fetch
     %x( wget -q -O "#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz" #{@resource[:package_url]} )
     raise "Could not download #{@resource[:package_name]}" unless File.exists?("#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz")
   end
 
-protected
-
+  # Prep the extension working directory
   def extract
     # Nuke currently extracted source folder if it exists
     FileUtils.rm_rf("#{@resource[:cache_dir]}/#{@resource[:package_name]}")
