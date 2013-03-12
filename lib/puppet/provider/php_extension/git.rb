@@ -10,6 +10,7 @@ Puppet::Type.type(:php_extension).provide(:git) do
     # Let's get a few things straight
     @work_dir = "#{@resource[:cache_dir]}/#{@resource[:extension]}"
     @php_version_prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}"
+    @resource[:compiled_name] ||= "#{@resource[:extension]}.so"
 
     # Update the repository
     fetch @resource[:version], @resource[:extension]
