@@ -39,7 +39,6 @@ Puppet::Type.newtype(:php_extension) do
   # Occasionally compiled PECL modules have different names than the original
   # package - for example pecl_http creates http.so
   newparam(:compiled_name) do
-    defaultto "#{:extension}.so"
   end
 
   newparam(:cache_dir) do

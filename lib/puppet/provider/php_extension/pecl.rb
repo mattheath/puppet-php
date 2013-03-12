@@ -21,11 +21,13 @@ Puppet::Type.type(:php_extension).provide(:pecl) do
   end
 
   def destroy
+    @resource[:compiled_name] ||= "#{@resource[:extension]}.so"
     FileUtils.rm_rf("#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:extension]}.so")
   end
 
   def exists?
-    File.exists?("#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:extension]}.so")
+    @resource[:compiled_name] ||= "#{@resource[:extension]}.so"
+    File.exists?("#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}/modules/#{@resource[:compiled_name]}")
   end
 
 protected
@@ -63,19 +65,18 @@ protected
 
   # Make the module
   def make
+    @resource[:compiled_name] ||= "#{@resource[:extension]}.so"
     working_dir = "#{@resource[:cache_dir]}/#{@resource[:package_name]}/#{@resource[:package_name]}"
     puts %x( cd #{working_dir} && make )
-
     raise "Failed to build module #{@resource[:name]}" unless File.exists?("#{working_dir}/modules/#{@resource[:compiled_name]}")
   end
 
   # Make the module
   def install
+    @resource[:compiled_name] ||= "#{@resource[:extension]}.so"
     working_dir = "#{@resource[:cache_dir]}/#{@resource[:package_name]}/#{@resource[:package_name]}"
     php_version_prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}"
-
     %x( cp #{working_dir}/modules/#{@resource[:compiled_name]} #{php_version_prefix}/modules/#{@resource[:compiled_name]} )
-
     raise "Failed to install module #{@resource[:name]}" unless File.exists?("#{php_version_prefix}/modules/#{@resource[:compiled_name]}")
   end
 
