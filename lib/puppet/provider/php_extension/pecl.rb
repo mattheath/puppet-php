@@ -1,6 +1,6 @@
 require 'puppet/util/execution'
 
-Puppet::Type.type(:php_extension).provide(:pecl_source) do
+Puppet::Type.type(:php_extension).provide(:pecl) do
   include Puppet::Util::Execution
   desc "Provides PHP extensions compiled from their pecl source code"
 
