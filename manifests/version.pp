@@ -71,6 +71,7 @@ define php::version(
     # Install PHP!
 
     php_version { $version:
+      user_home     => "/Users/${::boxen_user}",
       phpenv_root   => $php::config::root,
       version       => $version,
       homebrew_path => $boxen::config::homebrewdir,

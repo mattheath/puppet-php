@@ -5,7 +5,27 @@ Puppet::Type.type(:php_version).provide(:php_source) do
   desc "Provides PHP versions compiled from the official source code repository"
 
   def create
-    install "#{@resource[:version]}"
+    # Not removing all pear.conf and .pearrc files from PHP path results in
+    # the PHP configure not properly setting the pear binary to be installed
+    # Source: https://github.com/josegonzalez/homebrew-php/blob/master/Formula/abstract-php.rb
+    home_path = @resource[:user_home]
+    user_pear = "#{home_path}/pear.conf"
+    user_pearrc = "#{home_path}/.pearrc"
+    if File.exists?(user_pear) || File.exists?(user_pearrc)
+      puts "Backing up all known pear.conf and .pearrc files"
+      FileUtils.mv(user_pear, "#{user_pear}-backup") if File.exists? user_pear
+      FileUtils.mv(user_pearrc, "#{user_pearrc}-backup") if File.exists? user_pearrc
+    end
+
+    begin
+      install "#{@resource[:version]}"
+      FileUtils.rm_f("#{user_pear}-backup") if File.exists? "#{user_pear}-backup"
+      FileUtils.rm_f("#{user_pearrc}-backup") if File.exists? "#{user_pearrc}-backup"
+    rescue Exception => e
+      FileUtils.mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
+      FileUtils.mv("#{user_pearrc}-backup", user_pearrc) if File.exists? "#{user_pearrc}-backup"
+      throw e
+    end
   end
 
   def destroy
@@ -25,6 +45,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     prep_build(version)
 
     # Configure - this is the hard part
+    puts "Installing PHP #{@resource[:version]}, this may take a while..."
     configure(version)
 
     # Make & install
