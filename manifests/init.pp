@@ -62,7 +62,6 @@ class php {
 
   package { [
       'freetype',
-      'gettext',
       'gmp',
       'icu4c',
       'jpeg',
