@@ -65,7 +65,8 @@ define php::version(
     }
 
     file { $module_dir:
-      ensure => directory,
+      ensure  => directory,
+      require => Php_version[$version],
     }
 
     # Install PHP!
