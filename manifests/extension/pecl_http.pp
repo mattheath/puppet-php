@@ -12,8 +12,12 @@ define php::extension::pecl_http(
   $php
 ) {
   include boxen::config
-  require php
   require zookeeper
+
+  require php::config
+  # Require php version eg. php::5-4-10
+  # This will compile, install and set up config dirs if not present
+  require join(['php', join(split($php, '[.]'), '-')], '::')
 
   $extension = 'pecl_http'
   $package_name = "pecl_http-${version}"

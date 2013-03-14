@@ -12,8 +12,13 @@ define php::extension::memcached(
   $php
 ) {
   include boxen::config
-  require php
   require memcached::lib
+
+  require php::config
+  # Require php version eg. php::5-4-10
+  # This will compile, install and set up config dirs if not present
+  require join(['php', join(split($php, '[.]'), '-')], '::')
+
 
   $extension = 'memcached'
   $package_name = "memcached-${version}"

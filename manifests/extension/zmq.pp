@@ -11,8 +11,12 @@ define php::extension::zmq(
   $version = '1.0.5',
   $php
 ) {
-  require php
   require zeromq
+
+  require php::config
+  # Require php version eg. php::5-4-10
+  # This will compile, install and set up config dirs if not present
+  require join(['php', join(split($php, '[.]'), '-')], '::')
 
   $extension = 'zmq'
 

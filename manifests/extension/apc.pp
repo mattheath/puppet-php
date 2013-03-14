@@ -11,7 +11,10 @@ define php::extension::apc(
   $version = '3.1.13',
   $php
 ) {
-  require php
+  require php::config
+  # Require php version eg. php::5-4-10
+  # This will compile, install and set up config dirs if not present
+  require join(['php', join(split($php, '[.]'), '-')], '::')
 
   $extension = 'apc'
   $package_name = "APC-${version}"
