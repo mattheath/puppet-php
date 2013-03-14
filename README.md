@@ -7,6 +7,7 @@ Requires the following boxen modules:
 * `wget`
 * `autoconf`
 * `libtool`
+* `pkgconfig`
 
 ## Usage
 

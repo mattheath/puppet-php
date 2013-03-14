@@ -8,6 +8,7 @@ class php {
   include wget
   include autoconf
   include libtool
+  include pkgconfig
 
   # Get rid of any pre-installed packages
   package { ['phpenv', 'php-build']: ensure => absent; }
