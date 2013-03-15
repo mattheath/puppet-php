@@ -122,6 +122,13 @@ class php {
     source => "php/php-src",
   }
 
+  # Shared PEAR data directory - used for downloads & cache
+  file { "${php::config::datadir}/pear":
+    ensure => directory,
+    owner  => $::boxen_user,
+    group  => 'staff',
+  }
+
   # Kill off the legacy PHP-FPM daemon as we're moving to per version instances
   file { "/Library/LaunchDaemons/dev.php-fpm.plist":
     ensure  => 'absent',

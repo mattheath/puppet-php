@@ -105,27 +105,27 @@ define php::version(
 
     # PEAR cruft
 
-    # Ensure pear cache folder is present
+    # Ensure per version PEAR cache folder is present
     file { "${version_data_root}/cache":
       ensure  => directory,
       require => File[$version_data_root],
     }
 
     # Set cache_dir for PEAR
-    exec { "${dest}/bin/pear config-set cache_dir ${version_data_root}/cache":
-      unless  => "${dest}/bin/pear config-get cache_dir | grep -i ${version_data_root}/cache",
+    exec { "${dest}/bin/pear config-set cache_dir ${php::config::datadir}/pear":
+      unless  => "${dest}/bin/pear config-get cache_dir | grep -i ${php::config::datadir}/pear",
       require => [
         Php_version[$version],
-        File["${version_data_root}/cache"],
+        File["${php::config::datadir}/pear"],
       ],
     }
 
     # Set download_dir for PEAR
-    exec { "${dest}/bin/pear config-set download_dir ${version_data_root}/cache":
-      unless  => "${dest}/bin/pear config-get download_dir | grep -i ${version_data_root}/cache",
+    exec { "${dest}/bin/pear config-set download_dir ${php::config::datadir}/pear":
+      unless  => "${dest}/bin/pear config-get download_dir | grep -i ${php::config::datadir}/pear",
       require => [
         Php_version[$version],
-        File["${version_data_root}/cache"],
+        File["${php::config::datadir}/pear"],
       ],
     }
 
