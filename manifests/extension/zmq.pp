@@ -12,21 +12,14 @@ define php::extension::zmq(
   $php
 ) {
   require zeromq
-
   require php::config
+  require php::extension::cache::zmq
+
   # Require php version eg. php::5-4-10
   # This will compile, install and set up config dirs if not present
   require join(['php', join(split($php, '[.]'), '-')], '::')
 
   $extension = 'zmq'
-
-  # Final module install path
-  $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
-
-  # Clone the source repository
-  repository { "${php::config::extensioncachedir}/zmq":
-    source => 'mkoppanen/php-zmq'
-  }
 
   # Build & install the extension
   php_extension { $name:
@@ -42,8 +35,10 @@ define php::extension::zmq(
     require        => Repository["${php::config::extensioncachedir}/zmq"],
   }
 
-  # Add config file once extension is installed
+  # Final module install path - used for ini file
+  $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
 
+  # Add config file once extension is installed
   file { "${php::config::configdir}/${php}/conf.d/${extension}.ini":
     content => template("php/extensions/${extension}.ini.erb"),
     require => Php_extension[$name],
