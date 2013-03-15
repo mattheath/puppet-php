@@ -112,7 +112,8 @@ define php::version(
     }
 
     # Set cache_dir for PEAR
-    exec { "${dest}/bin/pear config-set cache_dir ${php::config::datadir}/pear":
+    exec { "pear-${version}-cache_dir":
+      command => "${dest}/bin/pear config-set cache_dir ${php::config::datadir}/pear",
       unless  => "${dest}/bin/pear config-get cache_dir | grep -i ${php::config::datadir}/pear",
       require => [
         Php_version[$version],
@@ -121,7 +122,8 @@ define php::version(
     }
 
     # Set download_dir for PEAR
-    exec { "${dest}/bin/pear config-set download_dir ${php::config::datadir}/pear":
+    exec { "pear-${version}-download_dir":
+      command => "${dest}/bin/pear config-set download_dir ${php::config::datadir}/pear",
       unless  => "${dest}/bin/pear config-get download_dir | grep -i ${php::config::datadir}/pear",
       require => [
         Php_version[$version],
