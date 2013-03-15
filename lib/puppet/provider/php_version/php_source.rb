@@ -52,6 +52,9 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make )
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make install )
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make clean )
+
+    # Fix permissions
+    puts %x( chown -R #{@resource[:user]}:staff #{@resource[:phpenv_root]}/versions/#{@resource[:version]} )
   end
 
   private

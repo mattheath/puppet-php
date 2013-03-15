@@ -82,6 +82,7 @@ define php::version(
     # Install PHP!
 
     php_version { $version:
+      user          => $::boxen_user,
       user_home     => "/Users/${::boxen_user}",
       phpenv_root   => $php::config::root,
       version       => $version,
