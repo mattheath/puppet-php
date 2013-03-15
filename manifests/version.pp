@@ -47,6 +47,7 @@ define php::version(
       [
         $dest,
         $version_config_root,
+        $version_data_root,
       ]:
       ensure => absent,
       force  => true
