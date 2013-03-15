@@ -90,6 +90,15 @@ define php::version(
       require       => Repository["${php::config::root}/php-src"],
     }
 
+    # Fix permissions for php versions installed prior to 0.3.5 of this module
+    file { $dest:
+      ensure  => directory,
+      owner   => $::boxen_user,
+      group   => 'staff',
+      recurse => true,
+      require => Php_version[$version],
+    }
+
     # Set up config files
 
     file { $php_ini:
