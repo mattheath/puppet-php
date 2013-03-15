@@ -31,6 +31,9 @@ define php::version(
   # Module location for PHP extensions
   $module_dir = "${dest}/modules"
 
+  # Data directory for this version
+  $version_data_root = "${php::config::datadir}/${version}"
+
   if $ensure == 'absent' {
 
     # If we're nuking a version of PHP also ensure we shut down
@@ -50,6 +53,12 @@ define php::version(
     }
 
   } else {
+
+    # Data directory
+
+    file { $version_data_root:
+      ensure => directory,
+    }
 
     # Set up config directories
 
@@ -91,6 +100,32 @@ define php::version(
     file { $error_log:
       owner => $::boxen_user,
       mode  => 644,
+    }
+
+    # PEAR cruft
+
+    # Ensure pear cache folder is present
+    file { "${version_data_root}/cache":
+      ensure  => directory,
+      require => File[$version_data_root],
+    }
+
+    # Set cache_dir for PEAR
+    exec { "${dest}/bin/pear config-set cache_dir ${version_data_root}/cache":
+      unless  => "${dest}/bin/pear config-get cache_dir | grep -i ${version_data_root}/cache",
+      require => [
+        Php_version[$version],
+        File["${version_data_root}/cache"],
+      ],
+    }
+
+    # Set download_dir for PEAR
+    exec { "${dest}/bin/pear config-set download_dir ${version_data_root}/cache":
+      unless  => "${dest}/bin/pear config-get download_dir | grep -i ${version_data_root}/cache",
+      require => [
+        Php_version[$version],
+        File["${version_data_root}/cache"],
+      ],
     }
 
   }
