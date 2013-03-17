@@ -29,6 +29,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
   end
 
   def destroy
+    puts "DESTROYING PHP #{@resource[:version]}"
     FileUtils.rm_rf("#{@resource[:phpenv_root]}/versions/#{@resource[:version]}")
   end
 
@@ -49,9 +50,12 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     configure(version)
 
     # Make & install
-    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make )
-    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make install )
-    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make clean )
+    make
+    make_install
+    make_clean
+
+    # Ensure we've actually installed something...
+    raise "Failed to install PHP #{@resource[:version]}" unless exists?
 
     # Fix permissions
     puts %x( chown -R #{@resource[:user]}:staff #{@resource[:phpenv_root]}/versions/#{@resource[:version]} )
@@ -119,7 +123,32 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # Right, the hard part - configure for our system
     puts "Configuring PHP #{version}: #{args}"
     puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./configure #{args} )
+    exit_code = $?
+
+    # Ensure Configure exited successfully
+    unless exit_code == 0
+      puts "Configure exit code: #{exit_code}\n\n"
+      raise "Error occured while configuring PHP #{@resource[:version]}"
+    end
+
+    # Configure should create a Makefile - we need this
+    raise "Could not configure PHP #{@resource[:version]} - no makefile" unless File.exists? "#{@resource[:phpenv_root]}/php-src/Makefile"
   end
+
+  def make
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make )
+    raise "Could not compile PHP @resource[:version]" unless $? == 0
+  end
+
+  def make_install
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make install )
+    raise "Could not install PHP @resource[:version]" unless $? == 0
+  end
+
+  def make_clean
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make clean )
+  end
+
 
   # Get a default set of configure options
   #
