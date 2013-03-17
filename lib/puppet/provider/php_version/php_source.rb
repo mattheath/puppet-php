@@ -22,8 +22,15 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       FileUtils.rm_f("#{user_pear}-backup") if File.exists? "#{user_pear}-backup"
       FileUtils.rm_f("#{user_pearrc}-backup") if File.exists? "#{user_pearrc}-backup"
     rescue Exception => e
+
+      # Clean up the failed install
+      destroy
+
+      # Move PEAR files back into place
       FileUtils.mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
       FileUtils.mv("#{user_pearrc}-backup", user_pearrc) if File.exists? "#{user_pearrc}-backup"
+
+      # Rethrow error
       throw e
     end
   end
