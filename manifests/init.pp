@@ -9,6 +9,7 @@ class php {
   include autoconf
   include libtool
   include pkgconfig
+  include pcre
 
   # Get rid of any pre-installed packages
   package { ['phpenv', 'php-build']: ensure => absent; }

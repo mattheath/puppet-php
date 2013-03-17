@@ -8,6 +8,7 @@ Requires the following boxen modules:
 * `autoconf`
 * `libtool`
 * `pkgconfig`
+* `pcre`
 
 ## Usage
 
