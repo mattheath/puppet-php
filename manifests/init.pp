@@ -3,7 +3,7 @@
 # This module installs a full phpenv & php-build driven php stack
 #
 class php {
-  require php::config
+  include php::config
   include homebrew
   include wget
   include autoconf
