@@ -41,7 +41,10 @@ Puppet::Type.type(:php_version).provide(:php_source) do
   end
 
   def exists?
-    File.directory?("#{@resource[:phpenv_root]}/versions/#{@resource[:version]}")
+    puts "Checking for existence of PHP #{@resource[:version]}"
+
+    File.directory?("#{@resource[:phpenv_root]}/versions/#{@resource[:version]}") &&
+    File.exists?("#{@resource[:phpenv_root]}/versions/#{@resource[:version]}/bin/php")
   end
 
   def install(version)
