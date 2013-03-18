@@ -35,6 +35,7 @@ define php::extension::memcached(
     version        => $version,
     package_name   => $package_name,
     package_url    => $url,
+    homebrew_path  => $boxen::config::homebrewdir,
     phpenv_root    => $php::config::root,
     php_version    => $php,
     cache_dir      => $php::config::extensioncachedir,

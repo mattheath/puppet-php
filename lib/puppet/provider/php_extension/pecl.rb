@@ -36,7 +36,7 @@ protected
 
   # Fetch the packaged source to a cached file
   def fetch
-    %x( wget -q -O "#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz" #{@resource[:package_url]} )
+    %x( #{@resource[:homebrew_path]}/bin/wget -q -O "#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz" #{@resource[:package_url]} )
     raise "Could not download #{@resource[:package_name]}" unless File.exists?("#{@resource[:cache_dir]}/#{@resource[:package_name]}.tgz")
   end
 

@@ -35,6 +35,7 @@ define php::extension::zmq(
     extension      => $extension,
     version        => $version,
 
+    homebrew_path  => $boxen::config::homebrewdir,
     phpenv_root    => $php::config::root,
     php_version    => $php,
 
