@@ -45,7 +45,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     does_exist = File.directory? "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
 
     # We also want to ensure that all of the binaries exist
-    required_binaries = %w(php phpize php-config php-cgi pear pecl)
+    required_binaries = %w(php phpize php-config pear pecl)
     required_binaries.map { |bin|
       does_exist &&= File.exists? "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}/bin/#{bin}"
     }
