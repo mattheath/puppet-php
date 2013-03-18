@@ -73,7 +73,7 @@ protected
 
   # PHPize the extension, using the correct version of PHP
   def phpize
-    %x( cd #{@work_dir} && #{@php_version_prefix}/bin/phpize )
+    %x( export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && cd #{@work_dir} && #{@php_version_prefix}/bin/phpize )
   end
 
   # Configure with the correct version of php-config and prefix and any additional configure parameters
@@ -93,6 +93,26 @@ protected
     %x( cp #{@work_dir}/modules/#{@resource[:compiled_name]} #{@php_version_prefix}/modules/#{@resource[:compiled_name]} )
 
     raise "Failed to install module #{@resource[:name]}" unless File.exists?("#{@php_version_prefix}/modules/#{@resource[:compiled_name]}")
+  end
+
+  # Define fully qualified paths to autoconf & autoheader
+
+  def autoconf
+    autoconf = "#{@resource[:homebrew_path]}/bin/autoconf"
+
+    # We need an old version of autoconf for PHP 5.3...
+    autoconf << "213" if @resource[:php_version].match(/5\.3\../)
+
+    autoconf
+  end
+
+  def autoheader
+    autoheader = "#{@resource[:homebrew_path]}/bin/autoheader"
+
+    # We need an old version of autoheader for PHP 5.3...
+    autoheader << "213" if @resource[:php_version].match(/5\.3\../)
+
+    autoheader
   end
 
 end
