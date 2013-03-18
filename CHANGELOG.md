@@ -1,3 +1,11 @@
+## 0.3.8 ##
+
+* Improve PHP installation process
+* Ensure dependencies are defined in the correct orders
+* Fix dependency paths which were not fully qualified when building PHP and extensions
+* Remove & reinstall failed builds
+* Ensure that PHP binaries exist once a version is installed
+
 ## 0.3.7 ##
 
 * List PCRE as a dependency which PEAR compilation fails without
