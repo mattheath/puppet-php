@@ -57,13 +57,12 @@ protected
 
   # PHPize the extension, using the correct version of PHP
   def phpize
-    %x( export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && cd #{@work_dir} && #{@php_version_prefix}/bin/phpize )
+    puts %x( export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && export PKG_CONFIG_PATH=#{@resource[:homebrew_path]}/bin/pkg-config && cd #{@work_dir} && #{@php_version_prefix}/bin/phpize )
   end
 
   # Configure with the correct version of php-config and prefix and any additional configure parameters
   def configure
-    puts "cd #{@work_dir} && ./configure --prefix=#{@php_version_prefix} --with-php-config=#{@php_version_prefix}/bin/php-config"
-    puts %x( cd #{@work_dir} && ./configure --prefix=#{@php_version_prefix} --with-php-config=#{@php_version_prefix}/bin/php-config #{@resource[:configure_params]})
+    puts %x( export PKG_CONFIG_PATH=#{@resource[:homebrew_path]}/bin/pkg-config && cd #{@work_dir} && ./configure --prefix=#{@php_version_prefix} --with-php-config=#{@php_version_prefix}/bin/php-config #{@resource[:configure_params]})
   end
 
   # Make the module
