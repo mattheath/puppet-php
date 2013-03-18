@@ -72,7 +72,6 @@ class php {
     ]:
     provider => homebrew,
     require  => Exec['tap-homebrew-dupes'],
-    before   => Exec['phpenv-setup-root-repo'],
   }
 
   # Need autoconf version less than 2.59 for php 5.3 (ewwwww)
@@ -99,7 +98,6 @@ class php {
     require => [
       File[$php::config::root],
       Class['git'],
-      Package['boxen/brews/autoconf213'],
     ]
   }
 

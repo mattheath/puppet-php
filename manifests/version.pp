@@ -97,6 +97,7 @@ define php::version(
         Package['libpng'],
         Package['mcrypt'],
         Package['homebrew/dupes/zlib'],
+        Package['boxen/brews/autoconf213'],
       ],
     }
 
