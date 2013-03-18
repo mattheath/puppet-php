@@ -1,3 +1,7 @@
+## 0.3.7 ##
+
+* List PCRE as a dependency which PEAR compilation fails without
+
 ## 0.3.6 ##
 
 * Fix file permissions when installing PHP
