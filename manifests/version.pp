@@ -74,9 +74,24 @@ define php::version(
       require => File[$version_config_root],
     }
 
+    # Ensure module dir is created for extensions AFTER php is installed
     file { $module_dir:
       ensure  => directory,
       require => Php_version[$version],
+    }
+
+    # Set up config files
+
+    file { $php_ini:
+      content => template('php/php.ini.erb'),
+      require => File["${version_config_root}"]
+    }
+
+    # Log files
+
+    file { $error_log:
+      owner => $::boxen_user,
+      mode  => 644,
     }
 
     # Install PHP!
@@ -108,20 +123,6 @@ define php::version(
       group   => 'staff',
       recurse => true,
       require => Php_version[$version],
-    }
-
-    # Set up config files
-
-    file { $php_ini:
-      content => template('php/php.ini.erb'),
-      require => File["${version_config_root}"]
-    }
-
-    # Log files
-
-    file { $error_log:
-      owner => $::boxen_user,
-      mode  => 644,
     }
 
     # PEAR cruft
