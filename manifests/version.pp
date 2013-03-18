@@ -87,7 +87,17 @@ define php::version(
       phpenv_root   => $php::config::root,
       version       => $version,
       homebrew_path => $boxen::config::homebrewdir,
-      require       => Repository["${php::config::root}/php-src"],
+      require       => [
+        Repository["${php::config::root}/php-src"],
+        Package['gettext'],
+        Package['freetype'],
+        Package['gmp'],
+        Package['icu4c'],
+        Package['jpeg'],
+        Package['libpng'],
+        Package['mcrypt'],
+        Package['homebrew/dupes/zlib'],
+      ],
     }
 
     # Fix permissions for php versions installed prior to 0.3.5 of this module
