@@ -133,8 +133,8 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     %x( cd #{@resource[:phpenv_root]}/php-src/ && rm -rf configure autom4te.cache )
 
     # Run buildconf to prepare build system for compilation
-    puts "export PHP_AUTOCONF=#{autoconf} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force"
-    puts %x( export PHP_AUTOCONF=#{autoconf} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
+    puts "export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force"
+    puts %x( export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
 
     # Build configure options
     install_path = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
@@ -238,6 +238,15 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     autoconf << "213" if @resource[:version].match(/5\.3\../)
 
     autoconf
+  end
+
+  def autoheader
+    autoheader = "#{@resource[:homebrew_path]}/bin/autoheader"
+
+    # We need an old version of autoheader for PHP 5.3...
+    autoheader << "213" if @resource[:version].match(/5\.3\../)
+
+    autoheader
   end
 
 end
