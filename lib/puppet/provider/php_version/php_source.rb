@@ -47,13 +47,19 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # We also want to ensure that all of the binaries exist
     required_binaries = %w(php phpize php-config php-cgi pear pecl)
     required_binaries.map { |bin|
-      does_exist &&= File.exists?("#{@resource[:phpenv_root]}/versions/#{@resource[:version]}/bin/#{bin}")
+      does_exist &&= File.exists? "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}/bin/#{bin}"
     }
 
     does_exist
   end
 
   def install(version)
+
+    # First destroy any prior installation to avoid conflicts
+    # We'll only be installing if the exists method has failed so has determined nothing is installed here
+    # This does mean if new binaries are added to the required list in the exists check, it's likely all
+    # installed versions of PHP will be reinstalled - running destroy should ensure this proceeds as expected
+    destroy
 
     # First check we have a cached copy of the source repository, with this version tag
     confirm_cached_source(version)
