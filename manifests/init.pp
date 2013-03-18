@@ -125,9 +125,10 @@ class php {
 
   # Shared PEAR data directory - used for downloads & cache
   file { "${php::config::datadir}/pear":
-    ensure => directory,
-    owner  => $::boxen_user,
-    group  => 'staff',
+    ensure  => directory,
+    owner   => $::boxen_user,
+    group   => 'staff',
+    require => File[$php::config::datadir],
   }
 
   # Kill off the legacy PHP-FPM daemon as we're moving to per version instances
