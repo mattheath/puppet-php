@@ -42,7 +42,7 @@ include php::fpm::5-3-15
 
 # Run multiple PHP-FPM services
 include php::fpm::5-4-11
-include php::fpm::5-3-21
+include php::fpm::5-3-23
 
 # Spin up a PHP-FPM pool for a project
 # Ensures:
@@ -76,13 +76,13 @@ class projects::trollin {
     mysql         => true,
     nginx         => 'php/nginx/nginx.conf.erb',
     redis         => true,
-    php           => '5.3.20',
+    php           => '5.3.23',
   }
 }
 ````
 
 With the above, as long as our app is configured to listen to requests at `www/index.php` we can visit [http://trollin.dev/](http://trollin.dev/) to access the app.
 
-In the background this is installing PHP 5.3.20, creating a PHP-FPM service for 5.2.30, and a FPM pool for this project which runs within the FPM service. This then listens on an nginx socket at `"#{ENV['BOXEN_SOCKET_DIR']}"/trollin`.
+In the background this is installing PHP 5.3.23, creating a PHP-FPM service for 5.3.23, and a FPM pool for this project which runs within the FPM service. This then listens on an nginx socket at "#{ENV['BOXEN_SOCKET_DIR']}"/trollin.
 
 The example nginx host template at `templates/nginx/nginx.conf.erb` is also a sample configuration which can be copied to your main boxen module and the nginx template path above altered to match this. This is set up with a basic PHP structure, and Fastcgi params to pass the expected variables from Nginx to PHP-FPM.
