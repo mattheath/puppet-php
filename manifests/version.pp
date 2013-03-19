@@ -154,5 +154,15 @@ define php::version(
       ],
     }
 
+    # Set temp_dir for PEAR
+    exec { "pear-${version}-temp_dir":
+      command => "${dest}/bin/pear config-set temp_dir ${php::config::datadir}/pear",
+      unless  => "${dest}/bin/pear config-get temp_dir | grep -i ${php::config::datadir}/pear",
+      require => [
+        Php_version[$version],
+        File["${php::config::datadir}/pear"],
+      ],
+    }
+
   }
 }
