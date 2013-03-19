@@ -58,3 +58,32 @@ php::fpm::pool { "${name}-${version}":
 }
 
 ```
+
+## PHP Project Usage ##
+
+A sample PHP project manifest is provided in `manifests/project.pp` which will run a PHP project using PHP-FPM under Nginx. This can be used directly, but may require tweaking for your own purposes.
+
+A simple project manifest example:
+
+````puppet
+# your-boxen/modules/projects/manifests/trollin.pp
+
+class projects::trollin {
+  include boxen::config
+
+  php::project { 'trollin':
+    source        => 'boxen/trollin',
+    elasticsearch => true,
+    mysql         => true,
+    nginx         => 'php/nginx/nginx.conf.erb',
+    redis         => true,
+    php           => '5.3.20',
+  }
+}
+````
+
+With the above, as long as our app is configured to listen to requests at `www/index.php` we can visit [http://trollin.dev/](http://trollin.dev/) to access the app.
+
+In the background this is installing PHP 5.3.20, creating a PHP-FPM service for 5.2.30, and a FPM pool for this project which runs within the FPM service. This then listens on an nginx socket at "#{ENV['BOXEN_SOCKET_DIR']}"/trollin.
+
+The example nginx host template at `templates/nginx/nginx.conf.erb` is also a sample configuration which can be copied to your main boxen module and the nginx template path above altered to match this. This is set up with a basic PHP structure, and Fastcgi params to pass the expected variables from Nginx to PHP-FPM.
