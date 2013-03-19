@@ -69,7 +69,6 @@ A simple project manifest example:
 # your-boxen/modules/projects/manifests/trollin.pp
 
 class projects::trollin {
-  include boxen::config
 
   php::project { 'trollin':
     source        => 'boxen/trollin',
