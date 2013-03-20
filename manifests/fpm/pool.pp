@@ -39,11 +39,12 @@ define php::fpm::pool(
 
   if $ensure == present {
     # Requires php fpm version eg. php::fpm::5-4-10
-    require join(['php', 'fpm', join(split($version, '[.]'), '-')], '::')
+    include join(['php', 'fpm', join(split($version, '[.]'), '-')], '::')
 
     # Create a pool config file
     file { "${php::config::configdir}/${version}/pool.d/${pool_name}.conf":
       content => template('php/php-fpm-pool.conf.erb'),
+      require => File[$fpm_pool_config_dir],
     }
   }
 }
