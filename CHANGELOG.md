@@ -1,3 +1,7 @@
+## 0.4.2 ##
+
+* Refresh a PHP-FPM service when a FPM pool config file changes, #15
+
 ## 0.4.1 ##
 
 * Add intl extension
