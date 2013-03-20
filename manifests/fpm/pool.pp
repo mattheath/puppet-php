@@ -34,6 +34,9 @@ define php::fpm::pool(
     default => $socket
   }
 
+  # Set config
+
+  $fpm_pool_config_dir = "${php::config::configdir}/${version}/pool.d"
   $pool_name = join(split($name, '[.] '), '-')
 
   # Set up PHP-FPM pool
