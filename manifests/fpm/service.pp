@@ -12,6 +12,9 @@ define php::fpm::service(
 ) {
   require php::config
 
+  # Set some nginx params to ensure that fastcgi actually works
+  include php::fpm::fastcgi
+
   # Config file locations
   $fpm_config = "${php::config::configdir}/${version}/php-fpm.conf"
 

@@ -22,9 +22,6 @@ define php::fpm::pool(
 ) {
   require php::config
 
-  # Set some nginx params to ensure that fastcgi actually works
-  include php::fpm::fastcgi
-
   $repo_dir = $dir ? {
     undef   => "${boxen::config::srcdir}/${name}",
     default => $dir
