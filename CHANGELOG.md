@@ -1,3 +1,16 @@
+## 0.4.1 ##
+
+* Add intl extension
+* Fix PEAR temp_dir permission issue
+* Add PHP versions 5.3.22 & 5.3.23, #12 - thanks @webflo
+* Documentation improvements
+
+## 0.4.0 ##
+
+* Module is now reasonably stable!
+* Add php::project manifest
+* Document using PHP-FPM pools with PHP projects
+
 ## 0.3.8 ##
 
 * Improve PHP installation process
