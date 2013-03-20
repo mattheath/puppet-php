@@ -13,6 +13,7 @@ define php::fpm::service(
   require php::config
 
   # Set some nginx params to ensure that fastcgi actually works
+  include nginx::config
   include php::fpm::fastcgi
 
   # Config file locations
@@ -38,8 +39,9 @@ define php::fpm::service(
     }
 
     service { "dev.php-fpm.${version}":
-      ensure  => running,
-      subscribe  => File["/Library/LaunchDaemons/dev.php-fpm.${version}.plist"]
+      ensure    => running,
+      subscribe => File["/Library/LaunchDaemons/dev.php-fpm.${version}.plist"],
+      require   => File["${nginx::config::configdir}/fastcgi_params"],
     }
 
   } else {
