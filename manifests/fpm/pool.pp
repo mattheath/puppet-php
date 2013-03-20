@@ -50,6 +50,7 @@ define php::fpm::pool(
     file { "${php::config::configdir}/${version}/pool.d/${pool_name}.conf":
       content => template('php/php-fpm-pool.conf.erb'),
       require => File[$fpm_pool_config_dir],
+      notify  => Service["dev.php-fpm.${version}"],
     }
   }
 }
