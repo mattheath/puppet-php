@@ -1,7 +1,7 @@
-# Set up a PHP FPM pool listening on a socket
+# Set up a PHP-FPM pool listening on a socket
 #
-# Automatically ensures that php version is installed via phpenv & php-build
-# and that PHP FPM is installed as a service for that version of PHP
+# Automatically ensures that the version of PHP is installed and
+# PHP-FPM is installed as a service for that version
 #
 # Usage:
 #
@@ -22,6 +22,8 @@ define php::fpm::pool(
 ) {
   require php::config
 
+  # Set defaults
+
   $repo_dir = $dir ? {
     undef   => "${boxen::config::srcdir}/${name}",
     default => $dir
@@ -34,8 +36,11 @@ define php::fpm::pool(
 
   $pool_name = join(split($name, '[.] '), '-')
 
+  # Set up PHP-FPM pool
+
   if $ensure == present {
-    # Requires php fpm version eg. php::fpm::5-4-10
+    # Ensure that the php fpm service for this php version is installed
+    # eg. php::fpm::5-4-10
     include join(['php', 'fpm', join(split($version, '[.]'), '-')], '::')
 
     # Create a pool config file
