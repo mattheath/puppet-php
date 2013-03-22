@@ -144,7 +144,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
 
     # Right, the hard part - configure for our system
     puts "Configuring PHP #{version}: #{args}"
-    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./configure #{args} )
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && export ac_cv_exeext='' && ./configure #{args} )
     exit_code = $?
 
     # Ensure Configure exited successfully
