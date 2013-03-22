@@ -19,6 +19,7 @@ define php::fpm::pool(
   $min_spare_servers = 1,
   $max_spare_servers = 1,
   $ensure            = present,
+  $fpm_pool_config   = 'php/php-fpm-pool.conf.erb',
 ) {
   require php::config
 
@@ -47,8 +48,8 @@ define php::fpm::pool(
     include join(['php', 'fpm', join(split($version, '[.]'), '-')], '::')
 
     # Create a pool config file
-    file { "${php::config::configdir}/${version}/pool.d/${pool_name}.conf":
-      content => template('php/php-fpm-pool.conf.erb'),
+    file { "${fpm_pool_config_dir}/${pool_name}.conf":
+      content => template($fpm_pool_config),
       require => File[$fpm_pool_config_dir],
       notify  => Service["dev.php-fpm.${version}"],
     }
