@@ -135,6 +135,13 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # Run buildconf to prepare build system for compilation
     puts "export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force"
     puts %x( export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
+    exit_code = $?
+
+    # Ensure buildconf exited successfully
+    unless exit_code == 0
+      puts "Buildconf exit code: #{exit_code}\n\n"
+      raise "Error occured while running buildconf for PHP #{@resource[:version]}"
+    end
 
     # Build configure options
     install_path = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
