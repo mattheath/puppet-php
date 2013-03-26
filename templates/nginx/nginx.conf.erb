@@ -10,7 +10,7 @@ server {
   access_log <%= scope.lookupvar "nginx::config::logdir" %>/<%= name %>.access.log main;
   listen 80;
   root <%= repo_dir %>/www;
-  server_name <%= name %>.dev;
+  server_name <%= server_name %>;
 
   client_max_body_size 50M;
 
