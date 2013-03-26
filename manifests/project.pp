@@ -66,7 +66,7 @@
 #     server_name =>
 #       The hostname to use when accessing the application.
 #
-#     fpm_pool_config =>
+#     fpm_pool =>
 #       Location of custom FPM pool configuration file template.
 #
 
@@ -90,7 +90,7 @@ define php::project(
   $ruby          = undef,
   $php           = undef,
   $server_name   = "${name}.dev",
-  $fpm_pool_config   = undef,
+  $fpm_pool      = undef,
 ) {
   include boxen::config
 
@@ -208,9 +208,9 @@ define php::project(
       require => File["${nginx::config::sitesdir}/${name}.conf"],
     }
 
-    if $fpm_pool_config {
+    if $fpm_pool {
       Php::Fpm::Pool["${name}-${php}"] {
-        fpm_pool_config => $fpm_pool_config
+        fpm_pool => $fpm_pool
       }
     }
   }
