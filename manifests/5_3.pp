@@ -2,10 +2,10 @@
 #
 # Usage:
 #
-#     include php::5-3
-class php::5-3 {
+#     include php::5_3
+class php::5_3 {
   require php
-  require php::5-3-20
+  require php::5_3_20
 
   file { "${php::config::root}/versions/5.3":
     ensure  => symlink,
