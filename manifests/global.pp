@@ -4,8 +4,14 @@
 #
 #   class { 'php::global': version => '5.4.10' }
 
-class php::global($version) {
+class php::global($version = undef) {
   include php::config
+
+  # Default to HEAD 5.4 version if not specified
+  $php_version = $version ? {
+    undef   => 5.4,
+    default => $version
+  }
 
   if $version != 'system' {
     require join(['php', join(split($version, '[.]'), '_')], '::')
