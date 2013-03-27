@@ -27,9 +27,6 @@ define php::extension::pecl_http(
   $compiled_name = 'http.so'
   $module_path = "${php::config::root}/versions/${php}/modules/${compiled_name}"
 
-  # Additional options
-  $configure_params = ""
-
   php_extension { $name:
     extension        => $extension,
     version          => $version,
@@ -39,7 +36,6 @@ define php::extension::pecl_http(
     phpenv_root      => $php::config::root,
     php_version      => $php,
     cache_dir        => $php::config::extensioncachedir,
-    configure_params => $configure_params,
     compiled_name    => $compiled_name,
   }
 
