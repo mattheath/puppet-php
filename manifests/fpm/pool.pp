@@ -38,14 +38,14 @@ define php::fpm::pool(
   # Set config
 
   $fpm_pool_config_dir = "${php::config::configdir}/${version}/pool.d"
-  $pool_name = join(split($name, '[.] '), '-')
+  $pool_name = join(split($name, '[.] '), '_')
 
   # Set up PHP-FPM pool
 
   if $ensure == present {
     # Ensure that the php fpm service for this php version is installed
-    # eg. php::fpm::5-4-10
-    include join(['php', 'fpm', join(split($version, '[.]'), '-')], '::')
+    # eg. php::fpm::5_4_10
+    include join(['php', 'fpm', join(split($version, '[.]'), '_')], '::')
 
     # Create a pool config file
     file { "${fpm_pool_config_dir}/${pool_name}.conf":

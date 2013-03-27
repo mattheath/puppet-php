@@ -26,9 +26,9 @@ define php::fpm(
   $error_log = "${php::config::logdir}/${version}.fpm.error.log"
 
   if $ensure == present {
-    # Require php version eg. php::5-4-10
+    # Require php version eg. php::5_4_10
     # This will compile, install and set up config dirs if not present
-    require join(['php', join(split($version, '[.]'), '-')], '::')
+    require join(['php', join(split($version, '[.]'), '_')], '::')
 
     # FPM Binary
     $bin = "${php::config::root}/versions/${version}/sbin/php-fpm"

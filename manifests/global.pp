@@ -8,7 +8,7 @@ class php::global($version) {
   include php::config
 
   if $version != 'system' {
-    require join(['php', join(split($version, '[.]'), '-')], '::')
+    require join(['php', join(split($version, '[.]'), '_')], '::')
   }
 
   file { "${php::config::root}/version":
