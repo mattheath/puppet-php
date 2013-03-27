@@ -8,8 +8,8 @@
 #     }
 #
 define php::extension::pecl_http(
-  $version = '1.7.5',
-  $php
+  $php,
+  $version = '1.7.5'
 ) {
   include boxen::config
   require zookeeper
@@ -31,16 +31,16 @@ define php::extension::pecl_http(
   $configure_params = ""
 
   php_extension { $name:
-    extension      => $extension,
-    version        => $version,
-    package_name   => $package_name,
-    package_url    => $url,
-    homebrew_path  => $boxen::config::homebrewdir,
-    phpenv_root    => $php::config::root,
-    php_version    => $php,
-    cache_dir      => $php::config::extensioncachedir,
+    extension        => $extension,
+    version          => $version,
+    package_name     => $package_name,
+    package_url      => $url,
+    homebrew_path    => $boxen::config::homebrewdir,
+    phpenv_root      => $php::config::root,
+    php_version      => $php,
+    cache_dir        => $php::config::extensioncachedir,
     configure_params => $configure_params,
-    compiled_name  => $compiled_name,
+    compiled_name    => $compiled_name,
   }
 
   # Add config file once extension is installed

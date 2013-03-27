@@ -8,8 +8,8 @@
 #     }
 #
 define php::extension::zmq(
-  $version = '1.0.5',
-  $php
+  $php,
+  $version = '1.0.5'
 ) {
   require zeromq
 

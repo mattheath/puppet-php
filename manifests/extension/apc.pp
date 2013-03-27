@@ -8,8 +8,8 @@
 #     }
 #
 define php::extension::apc(
-  $version = '3.1.13',
-  $php
+  $php,
+  $version = '3.1.13'
 ) {
   require php::config
   # Require php version eg. php::5-4-10

@@ -8,8 +8,8 @@
 #     }
 #
 define php::extension::zookeeper(
-  $version = '0.2.1',
-  $php
+  $php,
+  $version = '0.2.1'
 ) {
   include boxen::config
   require zookeeper
@@ -30,14 +30,14 @@ define php::extension::zookeeper(
   $configure_params = "--with-libzookeeper-dir=${boxen::config::homebrewdir}/opt/zookeeper"
 
   php_extension { $name:
-    extension      => $extension,
-    version        => $version,
-    package_name   => $package_name,
-    package_url    => $url,
-    homebrew_path  => $boxen::config::homebrewdir,
-    phpenv_root    => $php::config::root,
-    php_version    => $php,
-    cache_dir      => $php::config::extensioncachedir,
+    extension        => $extension,
+    version          => $version,
+    package_name     => $package_name,
+    package_url      => $url,
+    homebrew_path    => $boxen::config::homebrewdir,
+    phpenv_root      => $php::config::root,
+    php_version      => $php,
+    cache_dir        => $php::config::extensioncachedir,
     configure_params => $configure_params,
   }
 

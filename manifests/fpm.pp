@@ -46,7 +46,7 @@ define php::fpm(
       recurse => true,
       purge   => true,
       force   => true,
-      source  => "puppet:///modules/php/empty-conf-dir",
+      source  => 'puppet:///modules/php/empty-conf-dir',
       require => File[$version_config_root],
     }
 

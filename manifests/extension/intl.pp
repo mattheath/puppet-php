@@ -8,8 +8,8 @@
 #     }
 #
 define php::extension::intl(
-  $version = '2.0.1',
-  $php
+  $php,
+  $version = '2.0.1'
 ) {
   require php::config
 

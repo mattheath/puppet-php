@@ -18,12 +18,12 @@ class php {
 
   file {
     [
-      "${php::config::root}",
-      "${php::config::logdir}",
-      "${php::config::datadir}",
-      "${php::config::pluginsdir}",
-      "${php::config::cachedir}",
-      "${php::config::extensioncachedir}",
+      $php::config::root,
+      $php::config::logdir,
+      $php::config::datadir,
+      $php::config::pluginsdir,
+      $php::config::cachedir,
+      $php::config::extensioncachedir,
     ]:
     ensure => directory
   }
@@ -36,7 +36,7 @@ class php {
     recurse => true,
     purge   => true,
     force   => true,
-    source => "puppet:///modules/php/empty-conf-dir",
+    source  => 'puppet:///modules/php/empty-conf-dir',
   }
 
   file {
@@ -57,7 +57,7 @@ class php {
   # Resolve dependencies
 
   exec { 'tap-homebrew-dupes':
-    command => "brew tap homebrew/dupes",
+    command => 'brew tap homebrew/dupes',
     creates => "${homebrew::config::tapsdir}/homebrew-dupes",
   }
 
@@ -119,7 +119,7 @@ class php {
   # Cache the PHP src repository we'll need this for extensions
   # and at some point building versions #todo
   repository { "${php::config::root}/php-src":
-    source => "php/php-src",
+    source => 'php/php-src',
   }
 
   # Shared PEAR data directory - used for downloads & cache
@@ -131,11 +131,11 @@ class php {
   }
 
   # Kill off the legacy PHP-FPM daemon as we're moving to per version instances
-  file { "/Library/LaunchDaemons/dev.php-fpm.plist":
+  file { '/Library/LaunchDaemons/dev.php-fpm.plist':
     ensure  => 'absent',
-    require => Service["dev.php-fpm"]
+    require => Service['dev.php-fpm']
   }
-  service { "dev.php-fpm":
+  service { 'dev.php-fpm':
     ensure => stopped,
   }
 

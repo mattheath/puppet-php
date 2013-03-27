@@ -8,8 +8,8 @@
 #     }
 #
 define php::extension::memcached(
-  $version = '2.1.0',
-  $php
+  $php,
+  $version = '2.1.0'
 ) {
   include boxen::config
   require memcached::lib
@@ -31,14 +31,14 @@ define php::extension::memcached(
   $configure_params = "--with-libmemcached-dir=${boxen::config::homebrewdir}/opt/libmemcached"
 
   php_extension { $name:
-    extension      => $extension,
-    version        => $version,
-    package_name   => $package_name,
-    package_url    => $url,
-    homebrew_path  => $boxen::config::homebrewdir,
-    phpenv_root    => $php::config::root,
-    php_version    => $php,
-    cache_dir      => $php::config::extensioncachedir,
+    extension        => $extension,
+    version          => $version,
+    package_name     => $package_name,
+    package_url      => $url,
+    homebrew_path    => $boxen::config::homebrewdir,
+    phpenv_root      => $php::config::root,
+    php_version      => $php,
+    cache_dir        => $php::config::extensioncachedir,
     configure_params => $configure_params,
   }
 

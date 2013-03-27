@@ -84,14 +84,14 @@ define php::version(
 
     file { $php_ini:
       content => template('php/php.ini.erb'),
-      require => File["${version_config_root}"]
+      require => File[$version_config_root]
     }
 
     # Log files
 
     file { $error_log:
       owner => $::boxen_user,
-      mode  => 644,
+      mode  => '0644',
     }
 
     # Install PHP!
