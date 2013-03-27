@@ -67,6 +67,7 @@ class php {
       'icu4c',
       'jpeg',
       'libpng',
+      'libevent',
       'mcrypt',
       'homebrew/dupes/zlib',
     ]:
