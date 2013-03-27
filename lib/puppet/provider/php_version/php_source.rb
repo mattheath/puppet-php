@@ -234,9 +234,12 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-mysql=mysqlnd",
       "--with-pdo-mysql=mysqlnd",
 
-      "--enable-fpm",
     ]
 
+    # PHP-FPM isn't available until 5.3.3
+    args << "--enable-fpm" unless @resource[:version].match(/5\.3\.[12]/)
+
+    args
   end
 
   def autoconf
