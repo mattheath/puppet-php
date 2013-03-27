@@ -135,6 +135,13 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # Run buildconf to prepare build system for compilation
     puts "export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force"
     puts %x( export PHP_AUTOCONF=#{autoconf} && export PHP_AUTOHEADER=#{autoheader} && cd #{@resource[:phpenv_root]}/php-src/ && ./buildconf --force )
+    exit_code = $?
+
+    # Ensure buildconf exited successfully
+    unless exit_code == 0
+      puts "Buildconf exit code: #{exit_code}\n\n"
+      raise "Error occured while running buildconf for PHP #{@resource[:version]}"
+    end
 
     # Build configure options
     install_path = "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}"
@@ -144,7 +151,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
 
     # Right, the hard part - configure for our system
     puts "Configuring PHP #{version}: #{args}"
-    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && ./configure #{args} )
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && export ac_cv_exeext='' && ./configure #{args} )
     exit_code = $?
 
     # Ensure Configure exited successfully
@@ -208,14 +215,15 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-xsl=/usr",
       "--with-gd",
       "--enable-gd-native-ttf",
-      "--with-freetype-dir=/opt/boxen/homebrew/opt/freetype",
-      "--with-jpeg-dir=/opt/boxen/homebrew/opt/jpeg",
-      "--with-png-dir=/opt/boxen/homebrew/opt/libpng",
-      "--with-gettext=/opt/boxen/homebrew/opt/gettext",
-      "--with-gmp=/opt/boxen/homebrew/opt/gmp",
-      "--with-zlib=/opt/boxen/homebrew/opt/zlib",
+      "--with-freetype-dir=#{@resource[:homebrew_path]}/opt/freetype",
+      "--with-jpeg-dir=#{@resource[:homebrew_path]}/opt/jpeg",
+      "--with-png-dir=#{@resource[:homebrew_path]}/opt/libpng",
+      "--with-gettext=#{@resource[:homebrew_path]}/opt/gettext",
+      "--with-gmp=#{@resource[:homebrew_path]}/opt/gmp",
+      "--with-zlib=#{@resource[:homebrew_path]}/opt/zlib",
       "--with-snmp=/usr",
       "--with-libedit",
+      "--with-libevent-dir=#{@resource[:homebrew_path]}/opt/libevent",
       "--with-mhash",
       "--with-curl",
       "--with-openssl=/usr",
@@ -226,9 +234,12 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-mysql=mysqlnd",
       "--with-pdo-mysql=mysqlnd",
 
-      "--enable-fpm",
     ]
 
+    # PHP-FPM isn't available until 5.3.3
+    args << "--enable-fpm" unless @resource[:version].match(/5\.3\.[12]/)
+
+    args
   end
 
   def autoconf
