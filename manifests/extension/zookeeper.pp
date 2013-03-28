@@ -44,7 +44,7 @@ define php::extension::zookeeper(
   # Add config file once extension is installed
 
   file { "${php::config::configdir}/${php}/conf.d/${extension}.ini":
-    content => template("php/extensions/${extension}.ini.erb"),
+    content => template('php/extensions/generic.ini.erb'),
     require => Php_extension[$name],
   }
 
