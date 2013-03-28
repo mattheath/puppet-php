@@ -16,11 +16,11 @@ Requires the following boxen modules:
 
 ```puppet
 # Install php 5.4
-require php::5_4
+include php::5_4
 
 # Install a couple of specific minor versions
-require php::5_3_17
-require php::5_4_11
+include php::5_3_17
+include php::5_4_11
 
 # Install a php version and set as the global default php
 class { 'php::global':
