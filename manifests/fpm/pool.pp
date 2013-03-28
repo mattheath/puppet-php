@@ -6,13 +6,13 @@
 # Usage:
 #
 #     php::fpm::pool { '5.4.10 for my project':
-#       version => '5.4.10',
-#       socket  => '/path/to/socket'
+#       version     => '5.4.10',
+#       socket_path => '/path/to/socket'
 #     }
 #
 define php::fpm::pool(
-  $version           = undef,
-  $socket            = undef,
+  $version,
+  $socket_path,
   $pm                = 'dynamic',
   $max_children      = 2,
   $start_servers     = 1,
@@ -22,18 +22,6 @@ define php::fpm::pool(
   $fpm_pool          = 'php/php-fpm-pool.conf.erb',
 ) {
   require php::config
-
-  # Set defaults
-
-  $repo_dir = $dir ? {
-    undef   => "${boxen::config::srcdir}/${name}",
-    default => $dir
-  }
-
-  $socket_path = $socket ? {
-    undef   => "${boxen::config::socketdir}/${project_name}",
-    default => $socket
-  }
 
   # Set config
 

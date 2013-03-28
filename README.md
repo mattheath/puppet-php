@@ -52,9 +52,9 @@ include php::fpm::5_3_23
 $name = "project-name"
 $version = "5.4.10"
 php::fpm::pool { "${name}-${version}":
-  version => ${version},
-  socket  => "${boxen::config::socketdir}/${name}",
-  require => File["${nginx::config::sitesdir}/${name}.conf"],
+  version     => ${version},
+  socket_path => "${boxen::config::socketdir}/${name}",
+  require     => File["${nginx::config::sitesdir}/${name}.conf"],
 }
 
 ```

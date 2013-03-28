@@ -203,9 +203,9 @@ define php::project(
 
     # Spin up a PHP-FPM pool for this project, listening on an Nginx socket
     php::fpm::pool { "${name}-${php}":
-      version => $php,
-      socket  => "${boxen::config::socketdir}/${name}",
-      require => File["${nginx::config::sitesdir}/${name}.conf"],
+      version     => $php,
+      socket_path => "${boxen::config::socketdir}/${name}",
+      require     => File["${nginx::config::sitesdir}/${name}.conf"],
     }
 
     if $fpm_pool {
