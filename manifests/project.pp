@@ -89,8 +89,8 @@ define php::project(
   $redis         = undef,
   $ruby          = undef,
   $php           = undef,
-  $server_name   = "${name}.dev",
   $fpm_pool      = undef,
+  $server_name   = "${name}.dev",
 ) {
   include boxen::config
 

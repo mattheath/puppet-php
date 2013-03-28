@@ -8,7 +8,7 @@
 # using this class directly, which allows the class to be defined multiple
 # times - eg. if you define it within multiple projects. For example:
 #
-#     include php::5-3-20
+#     include php::5_3_20
 #
 define php::version(
   $ensure    = 'installed',
