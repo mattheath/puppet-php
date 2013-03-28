@@ -1,3 +1,13 @@
+## 0.5.0 ##
+
+* Allow for customization of PHP-FPM pool configuration, thanks @enthooz!
+* Consume `$server_name` variable in Nginx config template (@enthooz)
+* Refactor all PHP version & FPM classes to meet coding standards. This unfortunately breaks backwards compatibility by changing version classes such as `php::5-3-20` to `php::5_3_20`, and `php::fpm::5-3-20` to `php::fpm::5_3_20`
+* Rename the `socket` parameter in the `php::fpm::pool` class to `socket_path` to prevent clashing with global variables, and is no longer optional
+* No longer attempt to build PHP-FPM for versions < `5.3.3`
+* Minor bug fixes
+* Travis integration!
+
 ## 0.4.2 ##
 
 * Refresh a PHP-FPM service when a FPM pool config file changes, #15
