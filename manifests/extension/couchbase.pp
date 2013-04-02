@@ -28,19 +28,24 @@ define php::extension::couchbase(
     source => 'couchbase/php-ext-couchbase'
   }
 
+  # Additional options
+  $configure_params = "--with-couchbase=${boxen::config::homebrewdir}/lib"
+
   # Build & install the extension
   php_extension { $name:
-    provider       => 'git',
+    provider         => 'git',
 
-    extension      => $extension,
-    version        => $version,
+    extension        => $extension,
+    version          => $version,
 
-    homebrew_path  => $boxen::config::homebrewdir,
-    phpenv_root    => $php::config::root,
-    php_version    => $php,
+    homebrew_path    => $boxen::config::homebrewdir,
+    phpenv_root      => $php::config::root,
+    php_version      => $php,
 
-    cache_dir      => $php::config::extensioncachedir,
-    require        => Repository["${php::config::extensioncachedir}/couchbase"],
+    cache_dir        => $php::config::extensioncachedir,
+    require          => Repository["${php::config::extensioncachedir}/couchbase"],
+
+    configure_params => $configure_params,
   }
 
   # Add config file once extension is installed
