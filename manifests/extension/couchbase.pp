@@ -29,7 +29,7 @@ define php::extension::couchbase(
   }
 
   # Additional options
-  $configure_params = "--with-couchbase=${boxen::config::homebrewdir}/lib"
+  $configure_params = "--with-couchbase=${boxen::config::homebrewdir}/opt/libcouchbase"
 
   # Build & install the extension
   php_extension { $name:
