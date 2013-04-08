@@ -56,11 +56,6 @@ class php {
 
   # Resolve dependencies
 
-  exec { 'tap-homebrew-dupes':
-    command => 'brew tap homebrew/dupes',
-    creates => "${homebrew::config::tapsdir}/homebrew-dupes",
-  }
-
   package { [
       'freetype',
       'gmp',
@@ -69,10 +64,8 @@ class php {
       'libpng',
       'libevent',
       'mcrypt',
-      'homebrew/dupes/zlib',
     ]:
     provider => homebrew,
-    require  => Exec['tap-homebrew-dupes'],
   }
 
   # Need autoconf version less than 2.59 for php 5.3 (ewwwww)
@@ -83,6 +76,17 @@ class php {
 
   package { 'boxen/brews/autoconf213':
     ensure => '2.13-boxen1',
+  }
+
+  # Install dupe version of zlib as tapping homebrew dupes appears to have broken
+
+  homebrew::formula { 'zlibphp':
+    source => 'puppet:///modules/php/brews/zlib.rb',
+    before => Package['boxen/brews/zlibphp'] ;
+  }
+
+  package { 'boxen/brews/zlibphp':
+    ensure => '1.2.7-boxen1',
   }
 
   # Set up phpenv
