@@ -89,6 +89,14 @@ class php {
     ensure => '1.2.7-boxen1',
   }
 
+  # Link new zlib to the original place if it doesn't already exist to fix
+  # previously installed versions of PHP
+  exec { 'link-zlib':
+    command => 'ln -s /opt/boxen/homebrew/opt/zlibphp /opt/boxen/homebrew/opt/zlib',
+    creates => '/opt/boxen/homebrew/opt/zlib',
+    require => Package['boxen/brews/zlibphp'],
+  }
+
   # Set up phpenv
 
   $git_init   = 'git init .'
