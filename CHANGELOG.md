@@ -1,3 +1,8 @@
+## 0.5.1 ##
+
+* Partial fix for zlib dependency issues - the module now installs a custom `zlib` brew as the package `zlibphp`
+* Fixes #20 - PHP-FPM not building on PHP versions 5.3.2* eg. 5.3.20
+
 ## 0.5.0 ##
 
 * Allow for customization of PHP-FPM pool configuration, thanks @enthooz!
