@@ -50,6 +50,10 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       does_exist &&= File.exists? "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}/bin/#{bin}"
     }
 
+    # Including php-fpm if the version is >= 5.3.3
+    # This will fix previously broken installs
+    does_exist &&= File.exists? "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}/sbin/php-fpm" unless @resource[:version].match(/\A5\.3\.[12]\z/)
+
     does_exist
   end
 
