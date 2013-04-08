@@ -78,7 +78,15 @@ class php {
     ensure => '2.13-boxen1',
   }
 
-  # Install dupe version of zlib as tapping homebrew dupes appears to have broken
+  # Install dupe version of zlib as tapping homebrew dupes appears to have
+  # broken. I've also tried to build a specific zlib module, but this also
+  # will not currently install via brew within boxen
+  #
+  # See https://github.com/boxen/puppet-homebrew/issues/14
+  #
+  # Note: this will work for newly installed versions of PHP, but will NOT
+  # work for versions of PHP installed prior to this. The best solution you
+  # have is to remove those versions manually and Boxen will re-install
 
   homebrew::formula { 'zlibphp':
     source => 'puppet:///modules/php/brews/zlib.rb',
@@ -87,14 +95,6 @@ class php {
 
   package { 'boxen/brews/zlibphp':
     ensure => '1.2.7-boxen1',
-  }
-
-  # Link new zlib to the original place if it doesn't already exist to fix
-  # previously installed versions of PHP
-  exec { 'link-zlib':
-    command => 'ln -s /opt/boxen/homebrew/opt/zlibphp /opt/boxen/homebrew/opt/zlib',
-    creates => '/opt/boxen/homebrew/opt/zlib',
-    require => Package['boxen/brews/zlibphp'],
   }
 
   # Set up phpenv
