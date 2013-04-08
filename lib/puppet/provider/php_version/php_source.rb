@@ -224,7 +224,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-png-dir=#{@resource[:homebrew_path]}/opt/libpng",
       "--with-gettext=#{@resource[:homebrew_path]}/opt/gettext",
       "--with-gmp=#{@resource[:homebrew_path]}/opt/gmp",
-      "--with-zlib=#{@resource[:homebrew_path]}/opt/zlib",
+      "--with-zlib=#{@resource[:homebrew_path]}/opt/zlibphp",
       "--with-snmp=/usr",
       "--with-libedit",
       "--with-libevent-dir=#{@resource[:homebrew_path]}/opt/libevent",
