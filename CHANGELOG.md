@@ -1,3 +1,7 @@
+## 0.5.2 ##
+
+* Fix zlib linking issue [#22](https://github.com/mattheath/puppet-php/pull/22), thanks @curtishenson!
+
 ## 0.5.1 ##
 
 * Partial fix for zlib dependency issues - the module now installs a custom `zlib` brew as the package `zlibphp`
