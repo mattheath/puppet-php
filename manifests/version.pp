@@ -112,7 +112,6 @@ define php::version(
         Package['libpng'],
         Package['mcrypt'],
         Package['boxen/brews/zlibphp'],
-        Exec['link-zlib'],
         Package['autoconf'],
         Package['boxen/brews/autoconf213'],
       ],
