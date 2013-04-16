@@ -27,7 +27,6 @@ define php::extension::mcrypt(
     provider         => php_source,
 
     extension        => $extension,
-    version          => $version,
 
     homebrew_path    => $boxen::config::homebrewdir,
     phpenv_root      => $php::config::root,
@@ -39,7 +38,7 @@ define php::extension::mcrypt(
   # Add config file once extension is installed
 
   file { "${php::config::configdir}/${php}/conf.d/${extension}.ini":
-    content => template("php/extensions/generic.ini.erb"),
+    content => template('php/extensions/generic.ini.erb'),
     require => Php_extension[$name],
   }
 
