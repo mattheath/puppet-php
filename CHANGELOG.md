@@ -1,3 +1,7 @@
+## 0.5.4 ##
+
+* Fix config issue with xdebug extension
+
 ## 0.5.3 ##
 
 * Add xdebug extension
