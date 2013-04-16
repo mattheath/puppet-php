@@ -1,3 +1,7 @@
+## 0.5.3 ##
+
+* Add xdebug extension
+
 ## 0.5.2 ##
 
 * Fix zlib linking issue [#22](https://github.com/mattheath/puppet-php/pull/22), thanks @curtishenson!
