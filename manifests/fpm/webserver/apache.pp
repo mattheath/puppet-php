@@ -6,5 +6,5 @@
 #   include php::fpm::webserver::apache
 #
 class php::fpm::webserver::apache {
-	# @todo configure apache
+  # @todo configure apache
 }
