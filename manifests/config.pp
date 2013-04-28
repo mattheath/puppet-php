@@ -1,6 +1,8 @@
 # Base configuration values for PHP
 #
-class php::config {
+class php::config (
+  $webserver = 'nginx',
+) {
   require boxen::config
 
   $root              = "${boxen::config::home}/phpenv"
