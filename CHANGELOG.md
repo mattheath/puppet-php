@@ -1,3 +1,8 @@
+## 0.5.5 ##
+
+* Add additional PHP versions, thanks @webflo
+* Add new `php_source` extension provider which can install php extensions bundled with the PHP source code
+
 ## 0.5.4 ##
 
 * Fix config issue with xdebug extension
