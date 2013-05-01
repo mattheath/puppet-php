@@ -201,11 +201,19 @@ define php::project(
       require => Repository[$repo_dir],
     }
 
-    # Spin up a PHP-FPM pool for this project, listening on an Nginx socket
-    php::fpm::pool { "${name}-${php}":
-      version     => $php,
-      socket_path => "${boxen::config::socketdir}/${name}",
-      require     => File["${nginx::config::sitesdir}/${name}.conf"],
+    if $nginx {
+      # Spin up a PHP-FPM pool for this project, listening on an Nginx socket
+      php::fpm::pool { "${name}-${php}":
+        version     => $php,
+        socket_path => "${boxen::config::socketdir}/${name}",
+        require     => File["${nginx::config::sitesdir}/${name}.conf"],
+      }
+    }
+    else {
+      php::fpm::pool { "${name}-${php}":
+        version     => $php,
+        socket_path => "${boxen::config::socketdir}/${name}",
+      }
     }
 
     if $fpm_pool {
