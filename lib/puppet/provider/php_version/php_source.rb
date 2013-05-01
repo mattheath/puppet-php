@@ -54,6 +54,16 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # This will fix previously broken installs
     does_exist &&= File.exists? "#{@resource[:phpenv_root]}/versions/#{@resource[:version]}/sbin/php-fpm" unless @resource[:version].match(/\A5\.3\.[12]\z/)
 
+    # Double check we can run PHP if it exists
+    # Should identify broken versions eg. due to zlib changing...
+    if does_exist
+      output = %x( #{@resource[:phpenv_root]}/versions/#{@resource[:version]}/bin/php -i 2>&1 )
+      php_exitstatus = $?.exitstatus
+      puts "Reinstalling PHP #{@resource[:version]}" unless php_exitstatus == 0
+
+      does_exist &&= (php_exitstatus == 0)
+    end
+
     does_exist
   end
 
