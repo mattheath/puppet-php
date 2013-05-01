@@ -69,4 +69,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cardboard (~> 1.0)
+  cardboard (~> 1.0.1)
