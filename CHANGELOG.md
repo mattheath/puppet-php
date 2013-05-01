@@ -1,3 +1,8 @@
+## 0.5.6 ##
+
+* Fix external zlib issue caused by 1.2.7 being removed from source by upgrading to version 1.2.8 (thanks @hughevans). This unfortunately breaks previously installed versions, however this is fixed by the provider changes
+* Improve `php_source` provider for `php_version` so that a version of PHP is tested to confirm it is working. Failing this check will then trigger a recompile. As an example this will fix the zlib library version changing.
+
 ## 0.5.5 ##
 
 * Add additional PHP versions, thanks @webflo
