@@ -1,3 +1,9 @@
+## 0.5.7 ##
+
+* Add MIT License
+* Stop PHPEnv rehashing on every Boxen run, #6
+* Fix incorrectly declared class path, #6
+
 ## 0.5.6 ##
 
 * Fix external zlib issue caused by 1.2.7 being removed from source by upgrading to version 1.2.8 (thanks @hughevans). This unfortunately breaks previously installed versions, however this is fixed by the provider changes
