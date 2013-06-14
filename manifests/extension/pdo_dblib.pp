@@ -9,6 +9,7 @@
 define php::extension::pdo_dblib(
   $php,
 ) {
+  require php::dependencies::freetds
   require php::config
 
   # Require php version eg. php::5_4_10
@@ -33,6 +34,7 @@ define php::extension::pdo_dblib(
     php_version      => $php,
 
     configure_params => $configure_params,
+    require          => Package['freetds'],
   }
 
   # Add config file once extension is installed
