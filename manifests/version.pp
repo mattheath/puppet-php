@@ -115,6 +115,7 @@ define php::version(
         Package['autoconf'],
         Package['boxen/brews/autoconf213'],
       ],
+      notify        => Exec["phpenv-rehash-post-install-$version"],
     }
 
     # Fix permissions for php versions installed prior to 0.3.5 of this module
@@ -124,6 +125,13 @@ define php::version(
       group   => 'staff',
       recurse => true,
       require => Php_version[$version],
+    }
+
+    # Rehash phpenv shims when a new version is installed
+    exec { "phpenv-rehash-post-install-$version":
+      command     => "/bin/rm -rf ${php::config::root}/shims && PHPENV_ROOT=${php::config::root} ${php::config::root}/bin/phpenv rehash",
+      require     => Php_version[$version],
+      refreshonly => true,
     }
 
     # PEAR cruft
