@@ -40,7 +40,7 @@ define php::extension::redis(
     php_version    => $php,
 
     cache_dir      => $php::config::extensioncachedir,
-    require        => Repository["${php::config::extensioncachedir}/zmq"],
+    require        => Repository["${php::config::extensioncachedir}/redis"],
   }
 
   # Add config file once extension is installed
