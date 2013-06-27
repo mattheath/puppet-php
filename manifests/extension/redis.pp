@@ -2,7 +2,7 @@
 #
 # Usage:
 #
-#     php::extension::xdebug { 'redis for 5.4.10':
+#     php::extension::redis { 'redis for 5.4.10':
 #       version   => '2.2.3'
 #       php       => '5.4.10',
 #     }
