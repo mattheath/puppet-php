@@ -6,7 +6,7 @@
 class php::dependencies::freetds {
 
   homebrew::formula { 'freetds':
-  	source => "puppet:///modules/php/brews/freetds.rb",
+    source => 'puppet:///modules/php/brews/freetds.rb',
     before => Package['freetds'],
   }
 
