@@ -29,13 +29,13 @@ define php::extension::imagick(
   $configure_params = "--with-imagick=${boxen::config::homebrewdir}/opt/imagemagick"
 
   php_extension { $name:
-    extension      => $extension,
-    version        => $version,
-    package_name   => $package_name,
-    package_url    => $url,
-    homebrew_path  => $boxen::config::homebrewdir,
-    phpenv_root    => $php::config::root,
-    php_version    => $php,
+    extension        => $extension,
+    version          => $version,
+    package_name     => $package_name,
+    package_url      => $url,
+    homebrew_path    => $boxen::config::homebrewdir,
+    phpenv_root      => $php::config::root,
+    php_version      => $php,
     configure_params => $configure_params,
   }
 
