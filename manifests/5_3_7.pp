@@ -1,4 +1,4 @@
-# Installs php 5.3.7 from phpenv/php_build
+# Installs php 5.3.7
 #
 # Usage:
 #
