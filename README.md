@@ -12,6 +12,12 @@ Requires the following boxen modules:
 * `pkgconfig`
 * `pcre`
 
+The following boxen modules are required if optional PHP extensions are used:
+
+* `couchbase` () - Couchbase extension `php::extension::couchbase`
+* `imagemagick` - Imagemagick extension `php::extension::imagick`
+* `redis` - Redis extension `php::extension::redis`
+
 ## Usage
 
 ```puppet
