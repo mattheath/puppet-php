@@ -14,7 +14,7 @@ Requires the following boxen modules:
 
 The following boxen modules are required if optional PHP extensions are used:
 
-* `couchbase` () - Couchbase extension `php::extension::couchbase`
+* `couchbase` ([SocalNick/puppet-couchbase](https://github.com/SocalNick/puppet-couchbase)) - Couchbase extension `php::extension::couchbase`
 * `imagemagick` - Imagemagick extension `php::extension::imagick`
 * `redis` - Redis extension `php::extension::redis`
 
