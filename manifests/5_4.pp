@@ -10,6 +10,6 @@ class php::5_4 {
   file { "${php::config::root}/versions/5.4":
     ensure  => symlink,
     force   => true,
-    target  => "${php::root}/versions/5.4.17"
+    target  => "${php::config::root}/versions/5.4.17"
   }
 }
