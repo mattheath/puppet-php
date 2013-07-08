@@ -1,3 +1,17 @@
+## 1.1.0 ##
+
+* Add couchbase extension (@SocalNick)
+* Add redis extension (@b00giZm)
+* Add imagemagick extension (@phindmarsh)
+* Fix styling bugs so lint checks pass
+* Add lastest PHP versions - 5.3.25, 5.3.26, 5.4.15, 5.4.16, 5.4.17
+* Fix bug where major version classes (php::5_4) were symlinked to the wrong place
+
+## 1.0.0 ##
+
+* Add mssql php extension (@blackjid)
+* Version 1.0.0!
+
 ## 0.5.7 ##
 
 * Add MIT License
