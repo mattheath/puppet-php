@@ -7,18 +7,26 @@
 #       php       => '5.4.10',
 #     }
 #
-define php::extension::imagick(
-  $version = '3.0.1',
+define php::extension::yaml(
+  $version = '1.1.0',
   $php
 ) {
   require php::config
+  
+  class libyaml {
+    include homebrew
+
+  	package { 'libyaml': }
+  }
+  include libyaml
+  
   # Require php version eg. php::5-4-10
   # This will compile, install and set up config dirs if not present
   require join(['php', join(split($php, '[.]'), '-')], '::')
 
-  $extension = 'imagick'
-  $package_name = "imagick-${version}"
-  $url = "http://pecl.php.net/get/imagick-${version}.tgz"
+  $extension = 'yaml'
+  $package_name = "yaml-${version}"
+  $url = "http://pecl.php.net/get/yaml-${version}.tgz"
 
   # Final module install path
   $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
