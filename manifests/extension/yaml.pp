@@ -50,4 +50,3 @@ define php::extension::yaml(
   }
 
 }
-name
