@@ -7,17 +7,17 @@
 #       php       => '5.4.10',
 #     }
 #
+class libyaml {
+  include homebrew
+
+	package { 'libyaml': }
+}
+
 define php::extension::yaml(
   $version = '1.1.0',
   $php
 ) {
-  require php::config
-  
-  class libyaml {
-    include homebrew
-
-  	package { 'libyaml': }
-  }
+  require php::config  
   include libyaml
   
   # Require php version eg. php::5-4-10
