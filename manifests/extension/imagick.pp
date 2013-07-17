@@ -42,4 +42,3 @@ define php::extension::imagick(
   }
 
 }
-name
