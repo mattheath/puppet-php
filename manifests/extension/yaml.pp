@@ -40,7 +40,7 @@ define php::extension::yaml(
     phpenv_root    => $php::config::root,
     php_version    => $php,
     cache_dir      => $php::config::extensioncachedir,
-    configure_params => "--with-yaml=$boxen::config::homebrewdir/lib", # we need this under OSXs
+    configure_params => "--with-yaml=${boxen::config::homebrewdir}", # we need this under OSXs
   }
 
   # Add config file once extension is installed
