@@ -1,4 +1,4 @@
-# Installs php 5.3.11 from phpenv/php_build
+# Installs php 5.3.11
 #
 # Usage:
 #

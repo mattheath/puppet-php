@@ -1,6 +1,6 @@
 # PHP Puppet Module for Boxen
 
-[![Build Status](https://travis-ci.org/mattheath/puppet-php.png)](https://travis-ci.org/mattheath/puppet-php)
+[![Build Status](https://travis-ci.org/boxen/puppet-php.png)](https://travis-ci.org/boxen/puppet-php)
 
 Requires the following boxen modules:
 
@@ -11,6 +11,12 @@ Requires the following boxen modules:
 * `libtool`
 * `pkgconfig`
 * `pcre`
+
+The following boxen modules are required if optional PHP extensions are used:
+
+* `couchbase` ([SocalNick/puppet-couchbase](https://github.com/SocalNick/puppet-couchbase)) - Couchbase extension `php::extension::couchbase`
+* `imagemagick` - Imagemagick extension `php::extension::imagick`
+* `redis` - Redis extension `php::extension::redis`
 
 ## Usage
 
@@ -54,7 +60,7 @@ include php::fpm::5_3_23
 $name = "project-name"
 $version = "5.4.10"
 php::fpm::pool { "${name}-${version}":
-  version     => ${version},
+  version     => $version,
   socket_path => "${boxen::config::socketdir}/${name}",
   require     => File["${nginx::config::sitesdir}/${name}.conf"],
 }
