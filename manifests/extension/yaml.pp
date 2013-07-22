@@ -8,7 +8,7 @@
 #
 
 define php::extension::yaml(
-  $php
+  $php,
   $version = '1.1.0',
 ) {
   require php::config
