@@ -7,7 +7,7 @@
 #     }
 #
 define php::extension::igbinary(
-  $php
+  $php,
   $version = '1.1.1',  
 ) {
   require php::config
