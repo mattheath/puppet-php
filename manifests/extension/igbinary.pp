@@ -2,14 +2,13 @@
 #
 # Usage:
 #
-#     php::extension::apc { 'apc for 5.4.10':
-#       version   => '3.1.13'
+#     php::extension::igbinary { 'igbinry for 5.4.10':
 #       php       => '5.4.10',
 #     }
 #
 define php::extension::igbinary(
-  $version = '1.1.1',
   $php
+  $version = '1.1.1',  
 ) {
   require php::config
   # Require php version eg. php::5-4-10
@@ -40,5 +39,4 @@ define php::extension::igbinary(
     content => template("php/extensions/${extension}.ini.erb"),
     require => Php_extension[$name],
   }
-
 }
