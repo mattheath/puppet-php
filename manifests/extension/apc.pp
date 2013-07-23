@@ -9,7 +9,8 @@
 #
 define php::extension::apc(
   $php,
-  $version = '3.1.13'
+  $version = '3.1.13',
+  $config_template = "php/extensions/apc.ini.erb"
 ) {
   require php::config
   # Require php version eg. php::5_4_10
@@ -37,7 +38,7 @@ define php::extension::apc(
   # Add config file once extension is installed
 
   file { "${php::config::configdir}/${php}/conf.d/${extension}.ini":
-    content => template("php/extensions/${extension}.ini.erb"),
+    content => template($config_template),
     require => Php_extension[$name],
   }
 
