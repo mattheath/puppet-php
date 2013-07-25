@@ -1,3 +1,7 @@
+## 1.1.1 ##
+
+* Remove `libpng` package, add dependency on `libpng` module
+
 ## 1.1.0 ##
 
 * Add couchbase extension (@SocalNick)
