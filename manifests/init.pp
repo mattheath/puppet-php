@@ -10,6 +10,7 @@ class php {
   include libtool
   include pkgconfig
   include pcre
+  include libpng
 
   # Get rid of any pre-installed packages
   package { ['phpenv', 'php-build']: ensure => absent; }
@@ -61,7 +62,6 @@ class php {
       'gmp',
       'icu4c',
       'jpeg',
-      'libpng',
       'libevent',
       'mcrypt',
     ]:

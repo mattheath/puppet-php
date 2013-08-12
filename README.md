@@ -11,6 +11,7 @@ Requires the following boxen modules:
 * `libtool`
 * `pkgconfig`
 * `pcre`
+* `libpng`
 
 The following boxen modules are required if optional PHP extensions are used:
 
