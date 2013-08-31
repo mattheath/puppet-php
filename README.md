@@ -12,6 +12,7 @@ Requires the following boxen modules:
 * `pkgconfig`
 * `pcre`
 * `libpng`
+* `mysql`
 
 The following boxen modules are required if optional PHP extensions are used:
 
