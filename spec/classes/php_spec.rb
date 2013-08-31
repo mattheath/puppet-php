@@ -86,7 +86,7 @@ describe "php" do
       :command => "git init . && git remote add origin https://github.com/phpenv/phpenv.git && git fetch -q origin && git reset --hard #{phpenv_version}",
       :cwd     => "/test/boxen/phpenv",
       :creates => "/test/boxen/phpenv/bin/phpenv",
-      # :require => ["File[/test/boxen/php]", "Class[Git]"]
+      :require => ["File[/test/boxen/phpenv]", "Class[Git]"]
     })
 
     should contain_exec("ensure-phpenv-version-#{phpenv_version}").with({
