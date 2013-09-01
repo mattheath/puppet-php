@@ -26,7 +26,7 @@ define php::fpm::pool(
   # Set config
 
   $fpm_pool_config_dir = "${php::config::configdir}/${version}/pool.d"
-  $pool_name = join(split($name, '[.] '), '_')
+  $pool_name = join(split($name, '[. ]'), '_')
 
   # Set up PHP-FPM pool
 
