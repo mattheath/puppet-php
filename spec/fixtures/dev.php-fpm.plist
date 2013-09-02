@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>dev.php-fpm.<%= @version %></string>
+    <string>dev.php-fpm.5.4.17</string>
 
     <key>Boxen</key>
     <dict>
@@ -13,9 +13,9 @@
 
     <key>ProgramArguments</key>
     <array>
-      <string><%= @bin %></string>
+      <string>/test/boxen/phpenv/versions/5.4.17/sbin/php-fpm</string>
       <string>--fpm-config</string>
-      <string><%= @fpm_config %></string>
+      <string>/test/boxen/config/php/5.4.17/php-fpm.conf</string>
     </array>
 
 
@@ -29,13 +29,13 @@
     <true/>
 
     <key>WorkingDirectory</key>
-    <string><%= @cwd %></string>
+    <string>/test/boxen/phpenv/versions/5.4.17</string>
 
     <key>StandardErrorPath</key>
-    <string><%= @logfile %></string>
+    <string>/test/boxen/log/php/5.4.17.error.log</string>
 
     <key>StandardOutPath</key>
-    <string><%= @logfile %></string>
+    <string>/test/boxen/log/php/5.4.17.error.log</string>
 
   </dict>
 </plist>
