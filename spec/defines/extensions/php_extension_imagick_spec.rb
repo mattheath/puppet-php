@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "php::extension::imagick" do
-  let(:pre_condition) { "class xquartz {}" }
+  let(:pre_condition) { "class imagemagick {}" }
   let(:facts) { default_test_facts }
   let(:title) { "imagick for 5.4.17" }
   let(:params) do

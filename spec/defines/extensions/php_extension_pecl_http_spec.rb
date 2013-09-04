@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "php::extension::pecl_http" do
+  let(:pre_condition) { "class zookeeper {}" }
   let(:facts) { default_test_facts }
   let(:title) { "pecl_http for 5.4.17" }
   let(:params) do

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "php::extension::redis" do
+  let(:pre_condition) { "class redis {}" }
   let(:facts) { default_test_facts }
   let(:title) { "redis for 5.4.17" }
   let(:params) do

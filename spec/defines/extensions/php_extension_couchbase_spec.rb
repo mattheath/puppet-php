@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "php::extension::couchbase" do
+  let(:pre_condition) { "class couchbase::lib {}" }
   let(:facts) { default_test_facts }
   let(:title) { "couchbase for 5.4.17" }
   let(:params) do
