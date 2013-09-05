@@ -9,7 +9,8 @@ end
 
 def default_test_facts
   {
-    :boxen_home => '/test/boxen',
-    :boxen_user => 'testuser'
+    :boxen_home   => '/test/boxen',
+    :boxen_user   => 'testuser',
+    :boxen_srcdir => '/Users/testuser/src'
   }
 end
