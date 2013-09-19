@@ -3,7 +3,7 @@
 # Usage:
 #
 #   class { 'php::global': version => '5.4.10' }
-
+#
 class php::global($version = undef) {
   include php::config
 

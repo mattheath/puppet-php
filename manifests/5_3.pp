@@ -3,6 +3,7 @@
 # Usage:
 #
 #     include php::5_3
+#
 class php::5_3 {
   require php
   require php::5_3_27
