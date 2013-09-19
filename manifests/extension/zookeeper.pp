@@ -3,13 +3,13 @@
 # Usage:
 #
 #     php::extension::apc { 'apc for 5.4.10':
-#       version   => '3.1.13'
-#       php       => '5.4.10',
+#       php     => '5.4.10',
+#       version => '3.1.13'
 #     }
 #
 define php::extension::zookeeper(
   $php,
-  $version = '0.2.1'
+  $version = '3.1.13'
 ) {
   include boxen::config
   require zookeeper

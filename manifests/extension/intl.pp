@@ -3,8 +3,8 @@
 # Usage:
 #
 #     php::extension::intl { 'intl for 5.4.10':
-#       version   => '2.0.1'
-#       php       => '5.4.10',
+#       php     => '5.4.10',
+#       version => '2.0.1'
 #     }
 #
 define php::extension::intl(

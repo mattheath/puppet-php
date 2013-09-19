@@ -3,8 +3,8 @@
 # Usage:
 #
 #     php::extension::couchbase { 'couchbase for 5.4.10':
-#       version   => '1.1.2'
-#       php       => '5.4.10',
+#       php     => '5.4.10',
+#       version => '1.1.2'
 #     }
 #
 define php::extension::couchbase(

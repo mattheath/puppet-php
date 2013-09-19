@@ -3,8 +3,8 @@
 # Usage:
 #
 #     php::extension::xdebug { 'xdebug for 5.4.10':
-#       version   => '2.2.1'
-#       php       => '5.4.10',
+#       php     => '5.4.10',
+#       version => '2.2.1'
 #     }
 #
 define php::extension::xdebug(

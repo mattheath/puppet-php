@@ -7,8 +7,8 @@
 #     }
 #
 define php::fpm::service(
-  $version           = $name,
-  $ensure            = running,
+  $version = $name,
+  $ensure  = running,
 ) {
   require php::config
 

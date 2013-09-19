@@ -3,7 +3,7 @@
 # Usage:
 #
 #     php::extension::pdo_dblib { 'pdo_dblib for 5.4.10':
-#       php       => '5.4.10',
+#       php => '5.4.10'
 #     }
 #
 define php::extension::pdo_dblib(
