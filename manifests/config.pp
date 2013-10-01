@@ -1,5 +1,9 @@
 # Base configuration values for PHP
 #
+# Usage:
+#
+#     include php::config
+#
 class php::config {
   require boxen::config
 

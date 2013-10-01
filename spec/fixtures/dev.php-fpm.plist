@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>dev.php-fpm.5.4.17</string>
+
+    <key>Boxen</key>
+    <dict>
+      <key>Description</key>
+      <string>PHP-FPM - A simple and robust FastCGI Process Manager for PHP</string>
+    </dict>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/test/boxen/phpenv/versions/5.4.17/sbin/php-fpm</string>
+      <string>--fpm-config</string>
+      <string>/test/boxen/config/php/5.4.17/php-fpm.conf</string>
+    </array>
+
+
+    <key>RunAtLoad</key>
+    <true />
+
+    <key>KeepAlive</key>
+    <true />
+
+    <key>LaunchOnlyOnce</key>
+    <true/>
+
+    <key>WorkingDirectory</key>
+    <string>/test/boxen/phpenv/versions/5.4.17</string>
+
+    <key>StandardErrorPath</key>
+    <string>/test/boxen/log/php/5.4.17.error.log</string>
+
+    <key>StandardOutPath</key>
+    <string>/test/boxen/log/php/5.4.17.error.log</string>
+
+  </dict>
+</plist>

@@ -6,5 +6,5 @@
 #     include php::fpm::5_3_21
 #
 class php::fpm::5_3_21 {
-  php::fpm { '5.3.21RC1': }
+  php::fpm { '5.3.21': }
 }

@@ -3,7 +3,7 @@
 # Usage:
 #
 #     php::extension::pgsql { 'pgsql for 5.4.10':
-#       php       => '5.4.10',
+#       php => '5.4.10'
 #     }
 #
 define php::extension::pgsql(

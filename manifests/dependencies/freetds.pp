@@ -2,7 +2,8 @@
 #
 # Usage:
 #
-#     include freedtds
+#     include php::dependencies::freedtds
+#
 class php::dependencies::freetds {
 
   homebrew::formula { 'freetds':

@@ -3,8 +3,8 @@
 # Usage:
 #
 #     php::extension::zmq { 'zmq for 5.4.10':
-#       version   => '1.0.5'
-#       php       => '5.4.10',
+#       php     => '5.4.10',
+#       version => '1.0.5'
 #     }
 #
 define php::extension::zmq(

@@ -3,8 +3,8 @@
 # Usage:
 #
 #     php::extension::imagick { 'imagick for 5.4.10':
-#       php       => '5.4.10',
-#       imagick   => '3.0.0RC1'
+#       php     => '5.4.10',
+#       version => '3.0.0RC1'
 #     }
 #
 define php::extension::imagick(

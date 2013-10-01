@@ -16,6 +16,7 @@ define php::version(
 ) {
   require php
   include boxen::config
+  include mysql::config
 
   # Install location
   $dest = "${php::config::root}/versions/${version}"

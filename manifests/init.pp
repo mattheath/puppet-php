@@ -2,6 +2,10 @@
 #
 # This module installs a full phpenv & php-build driven php stack
 #
+# Usage:
+#
+#     include php
+#
 class php {
   require php::config
   require homebrew

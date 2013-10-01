@@ -2,7 +2,8 @@
 #
 # Usage:
 #
-#     include php::5-4
+#     include php::5_4
+#
 class php::5_4 {
   require php
   require php::5_4_17
