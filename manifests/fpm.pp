@@ -40,11 +40,9 @@ define php::fpm(
     }
 
     # Set up FPM Pool config directory
-    # Purge non managed files within this, to ensure we have no conflicts
     file { $fpm_pool_config_dir:
       ensure  => directory,
       recurse => true,
-      purge   => true,
       force   => true,
       source  => 'puppet:///modules/php/empty-conf-dir',
       require => File[$version_config_root],
