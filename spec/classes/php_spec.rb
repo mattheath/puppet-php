@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "php" do
   let(:facts) { default_test_facts }
-  let(:phpenv_version) { "9688906ae527e4068d96d5d8e0579973ecfdb5de" }
+  let(:phpenv_version) { "6499bb6c7b645af3f4e67f7e17708d5ee208453f" }
 
   it do
     should include_class("php::config")
