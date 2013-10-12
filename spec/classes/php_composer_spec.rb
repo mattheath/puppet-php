@@ -7,7 +7,7 @@ describe "php::composer" do
     should include_class("php")
 
     should contain_exec("download-php-composer").with({
-      :command => "curl -sS -o /test/boxen/phpenv/bin/composer https://getcomposer.org/composer.phar",
+      :command => "curl -sS -o /test/boxen/phpenv/bin/composer http://getcomposer.org/download/1.0.0-alpha7/composer.phar",
       :creates => "/test/boxen/phpenv/bin/composer",
       :cwd     => "/test/boxen/phpenv",
       :require => "Exec[phpenv-setup-root-repo]"
