@@ -19,7 +19,7 @@ class php {
   # Get rid of any pre-installed packages
   package { ['phpenv', 'php-build']: ensure => absent; }
 
-  $phpenv_version = '9688906ae527e4068d96d5d8e0579973ecfdb5de' # Pin to latest version of dev branch as of 2013-02-20
+  $phpenv_version = '6499bb6c7b645af3f4e67f7e17708d5ee208453f' # Pin to latest version of dev branch as of 2013-10-11
 
   file {
     [
