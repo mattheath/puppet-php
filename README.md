@@ -30,6 +30,9 @@ include php::5_4
 include php::5_3_17
 include php::5_4_11
 
+# Install Composer globally on your PATH
+include php::composer
+
 # Install a php version and set as the global default php
 class { 'php::global':
   version => '5.4.10'
