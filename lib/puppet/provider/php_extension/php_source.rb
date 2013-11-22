@@ -46,7 +46,7 @@ protected
     # Check if tag exists in current repo, if not fetch & recheck
     if !version_present_in_cache?
       update_repository
-      raise "Version #{@resource[:php_version]} not found in PHP source" if !version_present_in_cache? version
+      raise "Version #{@resource[:php_version]} not found in PHP source" if !version_present_in_cache?
     end
   end
 
