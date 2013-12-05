@@ -34,6 +34,8 @@ define php::version(
   # Data directory for this version
   $version_data_root = "${php::config::datadir}/${version}"
 
+  $mysql_socket = $mysql::config::socket
+
   if $ensure == 'absent' {
 
     # If we're nuking a version of PHP also ensure we shut down
