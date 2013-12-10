@@ -12,7 +12,6 @@ define php::extension::pecl_http(
   $version = '1.7.5'
 ) {
   include boxen::config
-  require zookeeper
 
   require php::config
   # Require php version eg. php::5_4_10
