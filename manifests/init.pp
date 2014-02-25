@@ -74,12 +74,12 @@ class php {
   # Install freetype version 2.4.11 due to conflict with GD
   # See https://github.com/boxen/puppet-php/issues/25
 
-  homebrew::formula { 'freetype':
+  homebrew::formula { 'freetypephp':
     source => 'puppet:///modules/php/brews/freetype.rb',
-    before => Package['boxen/brews/freetype'],
+    before => Package['boxen/brews/freetypephp'],
   }
 
-  package { 'boxen/brews/freetype':
+  package { 'boxen/brews/freetypephp':
     ensure => '2.4.11',
   }
 

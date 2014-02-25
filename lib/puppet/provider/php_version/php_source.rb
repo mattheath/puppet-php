@@ -229,7 +229,7 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-xsl=/usr",
       "--with-gd",
       "--enable-gd-native-ttf",
-      "--with-freetype-dir=#{@resource[:homebrew_path]}/opt/freetype",
+      "--with-freetype-dir=#{@resource[:homebrew_path]}/opt/freetypephp",
       "--with-jpeg-dir=#{@resource[:homebrew_path]}/opt/jpeg",
       "--with-png-dir=#{@resource[:homebrew_path]}/opt/libpng",
       "--with-gettext=#{@resource[:homebrew_path]}/opt/gettext",

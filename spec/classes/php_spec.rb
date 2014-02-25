@@ -57,7 +57,6 @@ describe "php" do
     should contain_file("/test/boxen/env.d/phpenv.sh").with_source("puppet:///modules/php/phpenv.sh")
 
     [
-      "freetype",
       "gmp",
       "icu4c",
       "jpeg",
@@ -72,6 +71,15 @@ describe "php" do
     })
 
     should contain_package("boxen/brews/autoconf213").with_ensure("2.13-boxen1")
+
+    should contain_homebrew__formula("freetypephp").with({
+      :source => "puppet:///modules/php/brews/freetype.rb",
+      :before => "Package[boxen/brews/freetypephp]"
+    })
+
+    should contain_package("boxen/brews/freetypephp").with({
+      :ensure => "2.4.11"
+    })
 
     should contain_homebrew__formula("zlibphp").with({
       :source => "puppet:///modules/php/brews/zlib.rb",
