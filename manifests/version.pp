@@ -106,7 +106,7 @@ define php::version(
       require       => [
         Repository["${php::config::root}/php-src"],
         Package['gettext'],
-        Package['freetype'],
+        Package['boxen/brews/freetype'],
         Package['gmp'],
         Package['icu4c'],
         Package['jpeg'],
