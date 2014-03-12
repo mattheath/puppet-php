@@ -51,7 +51,7 @@ describe "php::version" do
         :require       => [
           "Repository[/test/boxen/phpenv/php-src]",
           "Package[gettext]",
-          "Package[freetype]",
+          "Package[boxen/brews/freetypephp]",
           "Package[gmp]",
           "Package[icu4c]",
           "Package[jpeg]",
