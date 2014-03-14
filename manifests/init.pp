@@ -10,6 +10,7 @@ class php {
   require php::config
   require homebrew
   include wget
+  include stdlib
   include autoconf
   include libtool
   include pkgconfig
@@ -60,16 +61,7 @@ class php {
   }
 
   # Resolve dependencies
-
-  package { [
-      'gmp',
-      'icu4c',
-      'jpeg',
-      'libevent',
-      'mcrypt',
-    ]:
-    provider => homebrew,
-  }
+  ensure_packages( [ 'libevent', 'gmp', 'icu4c', 'jpeg', 'mcrypt', ] )
 
   # Install freetype version 2.4.11 due to conflict with GD
   # See https://github.com/boxen/puppet-php/issues/25
