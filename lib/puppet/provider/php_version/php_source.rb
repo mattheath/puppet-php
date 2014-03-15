@@ -164,8 +164,17 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     args = args.join(" ")
 
     # Right, the hard part - configure for our system
-    puts "Configuring PHP #{version}: #{args}"
-    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && export ac_cv_exeext='' && ./configure #{args} )
+
+    # Some env variables are needed for configuration
+    env = "export ac_cv_exeext=''"
+
+    # PHP 5.5+ requires a later version of Bison than OSX provides (2.6 vs 2.3)
+    env << " && export PATH=/opt/boxen/homebrew/opt/bisonphp26/bin:$PATH" unless @resource[:version].match(/\A5\.[34]/)
+
+    # Construct and run configure command
+    configure_command = "cd #{@resource[:phpenv_root]}/php-src/ && #{env} && ./configure #{args}"
+    puts "Configuring PHP #{version}: #{configure_command}"
+    puts %x( #{configure_command} )
     exit_code = $?
 
     # Ensure Configure exited successfully
