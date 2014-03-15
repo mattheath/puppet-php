@@ -23,7 +23,6 @@ describe "php::fpm" do
       should contain_file("/test/boxen/config/php/5.4.17/pool.d").with({
         :ensure  => "directory",
         :recurse => "true",
-        :purge   => "true",
         :force   => "true",
         :source  => "puppet:///modules/php/empty-conf-dir",
         :require => "File[/test/boxen/config/php/5.4.17]"
