@@ -13,7 +13,6 @@ describe "php::extension::pecl_http" do
 
   it do
     should include_class("boxen::config")
-    should include_class("zookeeper")
     should include_class("php::config")
     should include_class("php::5_4_17")
 
