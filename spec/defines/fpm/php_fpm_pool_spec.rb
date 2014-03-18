@@ -25,7 +25,4 @@ describe "php::fpm::pool" do
     end
   end
 
-  context "ensure => absent" do
-    pending "no absent state handler currently"
-  end
 end
