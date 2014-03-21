@@ -85,6 +85,18 @@ class php {
     ensure => '2.13-boxen1',
   }
 
+  # PHP 5.5 drops support for Bison 2.3 which is shipped with OSX
+  # Therefore need a later version, which we'll again sandbox just for this
+
+  homebrew::formula { 'bisonphp26':
+    source => 'puppet:///modules/php/brews/bison26.rb',
+    before => Package['boxen/brews/bisonphp26'],
+  }
+
+  package { 'boxen/brews/bisonphp26':
+    ensure => '2.6.5-boxen1',
+  }
+
   # Install dupe version of zlib as tapping homebrew dupes appears to have
   # broken. I've also tried to build a specific zlib module, but this also
   # will not currently install via brew within boxen

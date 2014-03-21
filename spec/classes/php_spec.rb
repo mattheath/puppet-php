@@ -91,6 +91,15 @@ describe "php" do
       :ensure => "1.2.8-boxen1"
     })
 
+    should contain_homebrew__formula("bisonphp26").with({
+      :source => "puppet:///modules/php/brews/bison26.rb",
+      :before => "Package[boxen/brews/bisonphp26]"
+    })
+
+    should contain_package("boxen/brews/bisonphp26").with({
+      :ensure => "2.6.5-boxen1"
+    })
+
     should contain_exec("phpenv-setup-root-repo").with({
       :command => "git init . && git remote add origin https://github.com/phpenv/phpenv.git && git fetch -q origin && git reset --hard #{phpenv_version}",
       :cwd     => "/test/boxen/phpenv",
