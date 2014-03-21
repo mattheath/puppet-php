@@ -6,6 +6,7 @@ Requires the following boxen modules:
 
 * `boxen`
 * `homebrew`
+* `stdlib`
 * `wget`
 * `autoconf`
 * `libtool`
