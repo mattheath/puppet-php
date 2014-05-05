@@ -55,4 +55,7 @@ Puppet::Type.newtype(:php_extension) do
     defaultto :pecl
   end
 
+  newparam(:extension_dir) do
+  end
+
 end
