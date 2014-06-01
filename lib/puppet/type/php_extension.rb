@@ -55,6 +55,8 @@ Puppet::Type.newtype(:php_extension) do
     defaultto :pecl
   end
 
+  # Some PECL modules have a different module layout and the php extension
+  # source in not in the root directory (e.g. xhprof)
   newparam(:extension_dir) do
   end
 
