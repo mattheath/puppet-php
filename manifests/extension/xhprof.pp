@@ -10,7 +10,7 @@
 define php::extension::xhprof(
   $php,
   $version = '0.9.4',
-  $config_template = "php/extensions/xhprof.ini.erb"
+  $config_template = 'php/extensions/xhprof.ini.erb'
 ) {
   require php::config
   # Require php version eg. php::5_4_10
