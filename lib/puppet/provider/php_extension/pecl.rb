@@ -10,7 +10,11 @@ Puppet::Type.type(:php_extension).provide(:pecl) do
   def create
 
     # Let's get a few things straight
-    @work_dir = "#{@resource[:cache_dir]}/#{@resource[:package_name]}/#{@resource[:package_name]}"
+    unless @resource[:extension_dir].nil?
+      @work_dir = "#{@resource[:cache_dir]}/#{@resource[:package_name]}/#{@resource[:package_name]}/#{@resource[:extension_dir]}"
+    else
+      @work_dir = "#{@resource[:cache_dir]}/#{@resource[:package_name]}/#{@resource[:package_name]}"
+    end
     @php_version_prefix = "#{@resource[:phpenv_root]}/versions/#{@resource[:php_version]}"
     @resource[:compiled_name] ||= "#{@resource[:extension]}.so"
 
