@@ -169,7 +169,9 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     env = "export ac_cv_exeext=''"
 
     # PHP 5.5+ requires a later version of Bison than OSX provides (2.6 vs 2.3)
-    env << " && export PATH=/opt/boxen/homebrew/opt/bisonphp26/bin:$PATH" unless @resource[:version].match(/\A5\.[34]/)
+    if Gem::Version.new(@resource[:version]) > Gem::Version.new('5.4.17')
+      env << " && export PATH=/opt/boxen/homebrew/opt/bisonphp26/bin:$PATH"
+    end
 
     # Construct and run configure command
     configure_command = "cd #{@resource[:phpenv_root]}/php-src/ && #{env} && ./configure #{args}"
@@ -188,7 +190,12 @@ Puppet::Type.type(:php_version).provide(:php_source) do
   end
 
   def make
-    puts %x( cd #{@resource[:phpenv_root]}/php-src/ && make )
+    # PHP > 5.4.17 requires a later version of Bison than OSX provides (2.6 vs 2.3)
+    if Gem::Version.new(@resource[:version]) > Gem::Version.new('5.4.17')
+      env = " && export PATH=/opt/boxen/homebrew/opt/bisonphp26/bin:$PATH"
+    end
+
+    puts %x( cd #{@resource[:phpenv_root]}/php-src/ #{env} && make 2>&1 )
     raise "Could not compile PHP @resource[:version]" unless $? == 0
   end
 
