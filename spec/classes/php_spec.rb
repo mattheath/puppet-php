@@ -97,7 +97,7 @@ describe "php" do
     })
 
     should contain_package("boxen/brews/bisonphp26").with({
-      :ensure => "2.6.5-boxen1"
+      :ensure => "2.6.4-boxen1"
     })
 
     should contain_exec("phpenv-setup-root-repo").with({
