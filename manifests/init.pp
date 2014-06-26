@@ -94,7 +94,7 @@ class php {
   }
 
   package { 'boxen/brews/bisonphp26':
-    ensure => '2.6.5-boxen1',
+    ensure => '2.6.4-boxen1',
   }
 
   # Install dupe version of zlib as tapping homebrew dupes appears to have
