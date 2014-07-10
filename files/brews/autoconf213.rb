@@ -6,6 +6,8 @@ class Autoconf213 < Formula
   mirror 'http://ftp.gnu.org/gnu/autoconf/autoconf-2.13.tar.gz'
   sha1 'e4826c8bd85325067818f19b2b2ad2b625da66fc'
 
+  keg_only "Sandboxed for PHP installations"
+
   version '2.13-boxen1'
 
   def install
@@ -13,7 +15,7 @@ class Autoconf213 < Formula
                           "--disable-dependency-tracking",
                           "--program-suffix=213",
                           "--prefix=#{prefix}",
-                          "--infodir=#{info}",
+                          "--infodir=#{info}/autoconf213",
                           "--datadir=#{share}/autoconf213"
     system "make install"
   end
