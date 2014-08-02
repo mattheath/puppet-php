@@ -203,9 +203,10 @@ define php::project(
 
     # Spin up a PHP-FPM pool for this project, listening on an Nginx socket
     php::fpm::pool { "${name}-${php}":
-      version     => $php,
-      socket_path => "${boxen::config::socketdir}/${name}",
-      require     => File["${nginx::config::sitesdir}/${name}.conf"],
+      version      => $php,
+      socket_path  => "${boxen::config::socketdir}/${name}",
+      require      => File["${nginx::config::sitesdir}/${name}.conf"],
+      max_children => 10,
     }
 
     if $fpm_pool {
