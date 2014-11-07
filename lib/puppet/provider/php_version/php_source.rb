@@ -269,6 +269,8 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     # PHP-FPM isn't available until 5.3.3
     args << "--enable-fpm" unless @resource[:version].match(/\A5\.3\.[12]\z/)
 
+    args << @resource[:configure_params]
+
     args
   end
 
