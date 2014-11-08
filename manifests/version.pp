@@ -11,13 +11,10 @@
 #     include php::5_3_20
 #
 define php::version(
-  $ensure           = 'installed',
-  $version          = $name,
-  $configure_params = ''
+  $ensure   = 'installed',
+  $version  = $name
 ) {
   require php
-  include boxen::config
-  include mysql::config
 
   # Install location
   $dest = "${php::config::root}/versions/${version}"
@@ -97,6 +94,12 @@ define php::version(
     }
 
     # Install PHP!
+
+    # Get any additional configure params
+    $test_params = $php::config::configure_params
+    if is_hash($test_params) and has_key($test_params, $version) {
+      $configure_params = $test_params[$version]
+    }
 
     php_version { $version:
       user              => $::boxen_user,

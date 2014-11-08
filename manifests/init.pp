@@ -6,8 +6,44 @@
 #
 #     include php
 #
-class php {
-  require php::config
+
+class php(
+  $root               = undef,
+  $logdir             = undef,
+  $configdir          = undef,
+  $datadir            = undef,
+  $pluginsdir         = undef,
+  $cachedir           = undef,
+  $extensioncachedir  = undef,
+  $configure_params   = undef,
+) {
+  include boxen::config
+
+  validate_string(
+    $root,
+    $logdir,
+    $configdir,
+    $datadir,
+    $pluginsdir,
+    $cachedir,
+    $extensioncachedir,
+  )
+
+  validate_hash(
+    $configure_params
+  )
+
+  class { 'php::config':
+    root              => $root,
+    logdir            => $logdir,
+    configdir         => $configdir,
+    datadir           => $datadir,
+    pluginsdir        => $pluginsdir,
+    cachedir          => $cachedir,
+    extensioncachedir => $extensioncachedir,
+    configure_params  => $configure_params,
+  }
+
   require homebrew
   include wget
   include stdlib
@@ -24,12 +60,12 @@ class php {
 
   file {
     [
-      $php::config::root,
-      $php::config::logdir,
-      $php::config::datadir,
-      $php::config::pluginsdir,
-      $php::config::cachedir,
-      $php::config::extensioncachedir,
+      $root,
+      $logdir,
+      $datadir,
+      $pluginsdir,
+      $cachedir,
+      $extensioncachedir,
     ]:
     ensure => directory
   }
@@ -37,7 +73,7 @@ class php {
   # Ensure we only have config files managed by Boxen
   # to prevent any conflicts by shipping a (nearly) empty
   # dir, and recursively purging
-  file { $php::config::configdir:
+  file { $configdir:
     ensure  => directory,
     recurse => true,
     purge   => true,
@@ -47,11 +83,11 @@ class php {
 
   file {
     [
-      "${php::config::root}/phpenv.d",
-      "${php::config::root}/phpenv.d/install",
-      "${php::config::root}/shims",
-      "${php::config::root}/versions",
-      "${php::config::root}/libexec",
+      "${root}/phpenv.d",
+      "${root}/phpenv.d/install",
+      "${root}/shims",
+      "${root}/versions",
+      "${root}/libexec",
     ]:
       ensure  => directory,
       require => Exec['phpenv-setup-root-repo'];
@@ -126,10 +162,10 @@ class php {
 
   exec { 'phpenv-setup-root-repo':
     command => "${git_init} && ${git_remote} && ${git_fetch} && ${git_reset}",
-    cwd     => $php::config::root,
-    creates => "${php::config::root}/bin/phpenv",
+    cwd     => $root,
+    creates => "${root}/bin/phpenv",
     require => [
-      File[$php::config::root],
+      File[$root],
       Class['git'],
     ]
   }
@@ -137,22 +173,22 @@ class php {
   exec { "ensure-phpenv-version-${phpenv_version}":
     command => "${git_fetch} && git reset --hard ${phpenv_version}",
     unless  => "git rev-parse HEAD | grep ${phpenv_version}",
-    cwd     => $php::config::root,
+    cwd     => $root,
     require => Exec['phpenv-setup-root-repo']
   }
 
   # Cache the PHP src repository we'll need this for extensions
   # and at some point building versions #todo
-  repository { "${php::config::root}/php-src":
+  repository { "${root}/php-src":
     source => 'php/php-src',
   }
 
   # Shared PEAR data directory - used for downloads & cache
-  file { "${php::config::datadir}/pear":
+  file { "${datadir}/pear":
     ensure  => directory,
     owner   => $::boxen_user,
     group   => 'staff',
-    require => File[$php::config::datadir],
+    require => File[$datadir],
   }
 
   # Kill off the legacy PHP-FPM daemon as we're moving to per version instances

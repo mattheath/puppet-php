@@ -1,0 +1,9 @@
+---
+php::root:              "%{::boxen::config::home}/phpenv"
+php::logdir:            "%{::boxen::config::logdir}/php"
+php::configdir:         "%{::boxen::config::configdir}/php"
+php::datadir:           "%{::boxen::config::datadir}/php"
+php::pluginsdir:        "%{php::root}/plugins"
+php::cachedir:          "%{php::datadir}/cache"
+php::extensioncachedir: "%{php::datadir}/cache/extensions"
+php::configure_params:  {}
