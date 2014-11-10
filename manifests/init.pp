@@ -7,9 +7,8 @@
 #     include php
 #
 
-class php(
-) {
-  include php::config
+class php {
+  require php::config
 
   require homebrew
   include wget
