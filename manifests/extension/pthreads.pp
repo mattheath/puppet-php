@@ -2,7 +2,7 @@
 #
 # Requires PHP to be built with thread safety, add:
 #
-#     php::configure_params:
+#     php::config::configure_params:
 #       5.5.18: '--enable-maintainer-zts'
 #
 # or similar to Hiera configs in your Boxen repo (adjust for your version).
