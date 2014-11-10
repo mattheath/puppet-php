@@ -26,7 +26,7 @@ class php::config(
     $extensioncachedir,
   )
 
-  # validate_hash(
-  #   $configure_params
-  # )
+  validate_hash(
+    $configure_params
+  )
 }
