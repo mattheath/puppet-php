@@ -4,8 +4,8 @@ describe "php::5_4" do
   let(:facts) { default_test_facts }
 
   it do
-    should include_class("php")
-    should include_class("php::5_4_17")
+    should contain_class("php")
+    should contain_class("php::5_4_17")
 
     should contain_file("/test/boxen/phpenv/versions/5.4").with({
       :ensure => "symlink",

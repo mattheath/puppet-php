@@ -5,8 +5,8 @@ describe "php::version" do
   let(:title) { "5.4.17" }
 
   it do
-    should include_class("php")
-    should include_class("boxen::config")
+    should contain_class("php")
+    should contain_class("boxen::config")
   end
 
   context 'ensure => installed' do
