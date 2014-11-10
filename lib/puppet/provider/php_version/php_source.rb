@@ -1,5 +1,4 @@
 require 'puppet/util/execution'
-require 'lib/util/version'
 
 Puppet::Type.type(:php_version).provide(:php_source) do
   include Puppet::Util::Execution
@@ -267,12 +266,12 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     ]
 
     # PHP-FPM isn't available until 5.3.3
-    if Version.new(@resource[:version]) > Version.new('5.3.2')
+    if Gem::Version.new(@resource[:version]) > Gem::Version.new('5.3.2')
       args << "--enable-fpm"
     end
 
     # libevent was removed in 5.3.8
-    if Version.new(@resource[:version]) < Version.new('5.3.8')
+    if Gem::Version.new(@resource[:version]) < Gem::Version.new('5.3.8')
       args << "--with-libevent-dir=#{@resource[:homebrew_path]}/opt/libevent"
     end
 
