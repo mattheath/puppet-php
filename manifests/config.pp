@@ -15,4 +15,18 @@ class php::config(
   $configure_params   = undef,
 ) {
   include boxen::config
+
+  validate_string(
+    $root,
+    $logdir,
+    $configdir,
+    $datadir,
+    $pluginsdir,
+    $cachedir,
+    $extensioncachedir,
+  )
+
+  # validate_hash(
+  #   $configure_params
+  # )
 }

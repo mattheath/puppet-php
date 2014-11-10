@@ -1,9 +1,9 @@
 ---
-php::root:              "%{::boxen::config::home}/phpenv"
-php::logdir:            "%{::boxen::config::logdir}/php"
-php::configdir:         "%{::boxen::config::configdir}/php"
-php::datadir:           "%{::boxen::config::datadir}/php"
-php::pluginsdir:        "%{php::root}/plugins"
-php::cachedir:          "%{php::datadir}/cache"
-php::extensioncachedir: "%{php::datadir}/cache/extensions"
-php::configure_params:  {}
+php::config::root:              "%{::boxen::config::home}/phpenv"
+php::config::logdir:            "%{::boxen::config::logdir}/php"
+php::config::configdir:         "%{::boxen::config::configdir}/php"
+php::config::datadir:           "%{::boxen::config::datadir}/php"
+php::config::pluginsdir:        "%{php::config::root}/plugins"
+php::config::cachedir:          "%{php::config::datadir}/cache"
+php::config::extensioncachedir: "%{php::config::datadir}/cache/extensions"
+php::config::configure_params:  {}
