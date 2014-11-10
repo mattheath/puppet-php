@@ -15,6 +15,7 @@ define php::version(
   $version  = $name
 ) {
   require php
+  include mysql::config
 
   # Install location
   $dest = "${php::config::root}/versions/${version}"

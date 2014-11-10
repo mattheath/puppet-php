@@ -11,8 +11,8 @@ describe "php::extension::xhprof" do
   end
 
   it do
-    should include_class("php::config")
-    should include_class("php::5_4_17")
+    should contain_class("php::config")
+    should contain_class("php::5_4_17")
 
     should contain_php_extension("xhprof for 5.4.17").with({
       :extension     => "xhprof",

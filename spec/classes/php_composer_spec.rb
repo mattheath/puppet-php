@@ -4,7 +4,7 @@ describe "php::composer" do
   let(:facts) { default_test_facts }
 
   it do
-    should include_class("php")
+    should contain_class("php")
 
     should contain_exec("download-php-composer").with({
       :command => "curl -sS -o /test/boxen/phpenv/bin/composer https://getcomposer.org/download/1.0.0-alpha8/composer.phar",
