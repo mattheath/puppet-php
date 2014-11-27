@@ -17,6 +17,26 @@ define php::version(
   require php
   include mysql::config
 
+  # Current supported and secure versions
+  $secure_5_6 = '5.6.3'
+  $secure_5_5 = '5.5.19'
+  $secure_5_4 = '5.4.35'
+
+  # Version is greater than or equal to 5.6.0 and less than the 5.6 secure version
+  if versioncmp($version, '5.6') >= 0 and versioncmp($version, $secure_5_6) < 0 {
+    notice("You are installing PHP ${version} which is known to be insecure. The current secure 5.6.X version is ${secure_5_6}")
+  }
+
+  # Version is greater than or equal to 5.5.0 and less than the 5.5 secure version
+  if versioncmp($version, '5.5') >= 0 and versioncmp($version, $secure_5_5) < 0 {
+    notice("You are installing PHP ${version} which is known to be insecure. The current secure 5.5.X version is ${secure_5_5}")
+  }
+
+  # Version is less than the minimum secure version
+  if versioncmp($version, $secure_5_4) < 0 {
+    notice("You are installing PHP ${version} which is known to be insecure. The current secure 5.4.X version is ${secure_5_4}")
+  }
+
   # Install location
   $dest = "${php::config::root}/versions/${version}"
 
