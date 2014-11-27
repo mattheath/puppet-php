@@ -13,7 +13,7 @@ class Autoconf213 < Formula
                           "--disable-dependency-tracking",
                           "--program-suffix=213",
                           "--prefix=#{prefix}",
-                          "--infodir=#{info}",
+                          "--infodir=#{info}/autoconf213",
                           "--datadir=#{share}/autoconf213"
     system "make install"
   end
