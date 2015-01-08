@@ -22,8 +22,6 @@ class php {
   # Get rid of any pre-installed packages
   package { ['phpenv', 'php-build']: ensure => absent; }
 
-  $phpenv_version = '6499bb6c7b645af3f4e67f7e17708d5ee208453f' # Pin to latest version of dev branch as of 2013-10-11
-
   file {
     [
       $php::config::root,
@@ -121,10 +119,11 @@ class php {
 
   # Set up phpenv
 
-  $git_init   = 'git init .'
-  $git_remote = 'git remote add origin https://github.com/phpenv/phpenv.git'
-  $git_fetch  = 'git fetch -q origin'
-  $git_reset  = "git reset --hard ${phpenv_version}"
+  $git_init     = 'git init .'
+  $git_remote   = 'git remote add origin https://github.com/phpenv/phpenv.git'
+  $git_fetch    = 'git fetch -q origin'
+  $git_revision = $php::config::phpenv['revision']
+  $git_reset    = "git reset --hard ${git_revision}"
 
   exec { 'phpenv-setup-root-repo':
     command => "${git_init} && ${git_remote} && ${git_fetch} && ${git_reset}",
@@ -136,9 +135,9 @@ class php {
     ]
   }
 
-  exec { "ensure-phpenv-version-${phpenv_version}":
-    command => "${git_fetch} && git reset --hard ${phpenv_version}",
-    unless  => "git rev-parse HEAD | grep ${phpenv_version}",
+  exec { "ensure-phpenv-version-${git_revision}":
+    command => "${git_fetch} && git reset --hard ${git_revision}",
+    unless  => "git rev-parse HEAD | grep ${git_revision}",
     cwd     => $php::config::root,
     require => Exec['phpenv-setup-root-repo']
   }

@@ -14,6 +14,7 @@ class php::config(
   $extensioncachedir  = undef,
   $configure_params   = undef,
   $composer           = undef,
+  $phpenv             = undef,
 ) {
   include boxen::config
 
@@ -30,5 +31,6 @@ class php::config(
   validate_hash(
     $configure_params,
     $composer,
+    $phpenv,
   )
 }
