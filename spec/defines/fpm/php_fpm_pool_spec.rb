@@ -14,8 +14,8 @@ describe "php::fpm::pool" do
     end
 
     it do
-      should include_class("php::config")
-      should include_class("php::fpm::5_4_17")
+      should contain_class("php::config")
+      should contain_class("php::fpm::5_4_17")
 
       should contain_file("/test/boxen/config/php/5.4.17/pool.d/5_4_17_for_test.conf").with({
         :content => File.read("spec/fixtures/php-fpm-pool-custom.conf"),

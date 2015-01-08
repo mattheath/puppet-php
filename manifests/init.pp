@@ -6,8 +6,10 @@
 #
 #     include php
 #
+
 class php {
   require php::config
+
   require homebrew
   include wget
   include stdlib
@@ -78,6 +80,7 @@ class php {
   # Need autoconf version less than 2.59 for php 5.3 (ewwwww)
 
   homebrew::formula { 'autoconf213':
+    source => 'puppet:///modules/php/brews/autoconf213.rb',
     before => Package['boxen/brews/autoconf213'],
   }
 

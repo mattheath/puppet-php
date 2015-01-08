@@ -2,7 +2,8 @@
 #
 # Usage:
 #
-#     include php::5-5
+#     include php::5_5
+#
 class php::5_5 {
   require php
   require php::5_5_0
@@ -10,6 +11,6 @@ class php::5_5 {
   file { "${php::config::root}/versions/5.5":
     ensure  => symlink,
     force   => true,
-    target  => "${php::root}/versions/5.5.0"
+    target  => "${php::config::root}/versions/5.5.0"
   }
 }

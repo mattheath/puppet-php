@@ -4,14 +4,29 @@
 #
 #     include php::config
 #
-class php::config {
-  require boxen::config
+class php::config(
+  $root               = undef,
+  $logdir             = undef,
+  $configdir          = undef,
+  $datadir            = undef,
+  $pluginsdir         = undef,
+  $cachedir           = undef,
+  $extensioncachedir  = undef,
+  $configure_params   = undef,
+) {
+  include boxen::config
 
-  $root              = "${boxen::config::home}/phpenv"
-  $logdir            = "${boxen::config::logdir}/php"
-  $configdir         = "${boxen::config::configdir}/php"
-  $datadir           = "${boxen::config::datadir}/php"
-  $pluginsdir        = "${root}/plugins"
-  $cachedir          = "${php::config::datadir}/cache"
-  $extensioncachedir = "${php::config::datadir}/cache/extensions"
+  validate_string(
+    $root,
+    $logdir,
+    $configdir,
+    $datadir,
+    $pluginsdir,
+    $cachedir,
+    $extensioncachedir,
+  )
+
+  validate_hash(
+    $configure_params
+  )
 }

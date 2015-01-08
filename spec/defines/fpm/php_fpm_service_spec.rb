@@ -11,9 +11,9 @@ describe "php::fpm::service" do
       }
     end
     it do
-      should include_class("php::config")
-      should include_class("nginx::config")
-      should include_class("php::fpm::fastcgi")
+      should contain_class("php::config")
+      should contain_class("nginx::config")
+      should contain_class("php::fpm::fastcgi")
 
       should contain_file("/Library/LaunchDaemons/dev.php-fpm.5.4.17.plist").with({
         :content => File.read("spec/fixtures/dev.php-fpm.plist"),
