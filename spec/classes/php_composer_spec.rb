@@ -7,8 +7,8 @@ describe "php::composer" do
     should contain_class("php")
 
     should contain_exec("download-php-composer").with({
-      :command => "curl -sS -o /test/boxen/phpenv/bin/composer https://getcomposer.org/download/1.0.0-alpha8/composer.phar",
-      :unless  => "[ -f /test/boxen/phpenv/bin/composer ] && [ \"`md5 -q /test/boxen/phpenv/bin/composer`\" = \"df1001975035f07d09307bf1f1e62584\" ]",
+      :command => "curl -sS -o /test/boxen/phpenv/bin/composer https://getcomposer.org/download/1.0.0-alpha9/composer.phar",
+      :unless  => "[ -f /test/boxen/phpenv/bin/composer ] && [ \"`md5 -q /test/boxen/phpenv/bin/composer`\" = \"05df355b5277c8c9012470e699fa5494\" ]",
       :cwd     => "/test/boxen/phpenv",
       :require => "Exec[phpenv-setup-root-repo]"
     })

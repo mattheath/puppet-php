@@ -7,3 +7,6 @@ php::config::pluginsdir:        "%{php::config::root}/plugins"
 php::config::cachedir:          "%{php::config::datadir}/cache"
 php::config::extensioncachedir: "%{php::config::datadir}/cache/extensions"
 php::config::configure_params:  {}
+php::config::composer:
+  version:  '1.0.0-alpha9'
+  checksum: '05df355b5277c8c9012470e699fa5494'

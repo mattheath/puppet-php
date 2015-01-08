@@ -7,3 +7,6 @@ php::config::pluginsdir: "/test/boxen/phpenv/plugins"
 php::config::cachedir: "/test/boxen/data/php/cache"
 php::config::extensioncachedir: "/test/boxen/data/php/cache/extensions"
 php::config::configure_params: {}
+php::config::composer:
+  version:  '1.0.0-alpha9'
+  checksum: '05df355b5277c8c9012470e699fa5494'
