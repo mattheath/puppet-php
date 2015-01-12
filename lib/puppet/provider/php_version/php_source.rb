@@ -253,7 +253,6 @@ Puppet::Type.type(:php_version).provide(:php_source) do
       "--with-zlib=#{@resource[:homebrew_path]}/opt/zlibphp",
       "--with-snmp=/usr",
       "--with-libedit",
-      "--with-libevent-dir=#{@resource[:homebrew_path]}/opt/libevent",
       "--with-mhash",
       "--with-curl",
       "--with-openssl=/usr",
@@ -267,7 +266,17 @@ Puppet::Type.type(:php_version).provide(:php_source) do
     ]
 
     # PHP-FPM isn't available until 5.3.3
-    args << "--enable-fpm" unless @resource[:version].match(/\A5\.3\.[12]\z/)
+    if Gem::Version.new(@resource[:version]) > Gem::Version.new('5.3.2')
+      args << "--enable-fpm"
+    end
+
+    # libevent was removed in 5.3.8
+    if Gem::Version.new(@resource[:version]) < Gem::Version.new('5.3.8')
+      args << "--with-libevent-dir=#{@resource[:homebrew_path]}/opt/libevent"
+    end
+
+    # User specified configure params
+    args << @resource[:configure_params]
 
     args
   end

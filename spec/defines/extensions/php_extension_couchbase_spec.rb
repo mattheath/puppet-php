@@ -12,9 +12,9 @@ describe "php::extension::couchbase" do
   end
 
   it do
-    should include_class("couchbase::lib")
-    should include_class("php::config")
-    should include_class("php::5_4_17")
+    should contain_class("couchbase::lib")
+    should contain_class("php::config")
+    should contain_class("php::5_4_17")
 
     should contain_repository("/test/boxen/data/php/cache/extensions/couchbase").with({
       :source => "couchbase/php-ext-couchbase"

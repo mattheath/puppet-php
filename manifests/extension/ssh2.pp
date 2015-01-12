@@ -11,7 +11,6 @@ define php::extension::ssh2(
   $php,
   $version = '0.12'
 ) {
-  include boxen::config
   require ssh2::lib
 
   require php::config

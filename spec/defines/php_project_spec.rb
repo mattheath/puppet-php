@@ -11,31 +11,31 @@ describe "php::project" do
   let(:params) { default_test_params }
 
   it do
-    should include_class("boxen::config")
+    should contain_class("boxen::config")
     should contain_repository("/Users/testuser/src/testproject").with({
       :source => "testuser/testproject-repo"
     })
 
-    should_not include_class("elasticsearch")
-    should_not include_class("memcached")
-    should_not include_class("mongodb")
-    should_not include_class("cassandra")
-    should_not include_class("beanstalk")
-    should_not include_class("zookeeper")
-    should_not include_class("zeromq")
-    should_not include_class("nsq")
+    should_not contain_class("elasticsearch")
+    should_not contain_class("memcached")
+    should_not contain_class("mongodb")
+    should_not contain_class("cassandra")
+    should_not contain_class("beanstalk")
+    should_not contain_class("zookeeper")
+    should_not contain_class("zeromq")
+    should_not contain_class("nsq")
 
     should_not contain_mysql__db
 
-    should_not include_class("nginx::config")
-    should_not include_class("nginx")
+    should_not contain_class("nginx::config")
+    should_not contain_class("nginx")
     should_not contain_file("/test/boxen/config/nginx/sites/testproject.conf")
 
     should_not contain_nodejs__local("/Users/testuser/src/testproject")
 
     should_not contain_postgresql__db
 
-    should_not include_class("redis")
+    should_not contain_class("redis")
 
     should_not contain_ruby__local("/Users/testuser/src/testproject")
 
@@ -66,7 +66,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("elasticsearch") }
+    it { should contain_class("elasticsearch") }
   end
 
   context "memcached => true" do
@@ -77,7 +77,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("memcached") }
+    it { should contain_class("memcached") }
   end
 
   context "mongodb => true" do
@@ -88,7 +88,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("mongodb") }
+    it { should contain_class("mongodb") }
   end
 
   context "cassandra => true" do
@@ -99,7 +99,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("cassandra") }
+    it { should contain_class("cassandra") }
   end
 
   context "beanstalk => true" do
@@ -110,7 +110,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("beanstalk") }
+    it { should contain_class("beanstalk") }
   end
 
   context "zookeeper => true" do
@@ -121,7 +121,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("zookeeper") }
+    it { should contain_class("zookeeper") }
   end
 
   context "zeromq => true" do
@@ -132,7 +132,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("zeromq") }
+    it { should contain_class("zeromq") }
   end
 
   context "nsq => true" do
@@ -143,7 +143,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("nsq") }
+    it { should contain_class("nsq") }
   end
 
   context "mysql => a_database_name" do
@@ -164,8 +164,8 @@ describe "php::project" do
     end
 
     it do
-      should include_class("nginx::config")
-      should include_class("nginx")
+      should contain_class("nginx::config")
+      should contain_class("nginx")
 
       should contain_file("/test/boxen/config/nginx/sites/testproject.conf").with({
         :content => File.read("spec/fixtures/nginx.conf"),
@@ -215,7 +215,7 @@ describe "php::project" do
       })
     end
 
-    it { should include_class("redis") }
+    it { should contain_class("redis") }
   end
 
   context "ruby => 2.0.0" do
