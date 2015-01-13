@@ -12,3 +12,7 @@ php::config::composer:
   checksum: '05df355b5277c8c9012470e699fa5494'
 php::config::phpenv:
   revision: '6499bb6c7b645af3f4e67f7e17708d5ee208453f'
+php::config::secure_versions:
+  '5.6': '5.6.4'
+  '5.5': '5.5.20'
+  '5.4': '5.4.36'

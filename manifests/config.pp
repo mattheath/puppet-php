@@ -15,6 +15,7 @@ class php::config(
   $configure_params   = undef,
   $composer           = undef,
   $phpenv             = undef,
+  $secure_versions    = undef,
 ) {
   include boxen::config
 
@@ -32,5 +33,6 @@ class php::config(
     $configure_params,
     $composer,
     $phpenv,
+    $secure_versions,
   )
 }

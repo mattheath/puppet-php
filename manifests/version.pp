@@ -4,12 +4,6 @@
 #
 #     php::version { '5.3.20': }
 #
-# There are a number of predefined classes which can be used rather than
-# using this class directly, which allows the class to be defined multiple
-# times - eg. if you define it within multiple projects. For example:
-#
-#     include php::5_3_20
-#
 define php::version(
   $ensure   = 'installed',
   $version  = $name
@@ -18,9 +12,9 @@ define php::version(
   include mysql::config
 
   # Current supported and secure versions
-  $secure_5_6 = '5.6.4'
-  $secure_5_5 = '5.5.20'
-  $secure_5_4 = '5.4.36'
+  $secure_5_6 = $php::config::secure_versions['5.6']
+  $secure_5_5 = $php::config::secure_versions['5.5']
+  $secure_5_4 = $php::config::secure_versions['5.4']
 
   # Specify secure version if no minor point specified
   if $version == '5' {
