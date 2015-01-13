@@ -33,7 +33,7 @@ define php::fpm::pool(
   if $ensure == present {
     # Ensure that the php fpm service for this php version is installed
     # eg. php::fpm::5_4_10
-    include join(['php', 'fpm', join(split($version, '[.]'), '_')], '::')
+    php_fpm_require $version
 
     # Create a pool config file
     file { "${fpm_pool_config_dir}/${pool_name}.conf":

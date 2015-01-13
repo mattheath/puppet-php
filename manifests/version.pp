@@ -22,29 +22,42 @@ define php::version(
   $secure_5_5 = '5.5.20'
   $secure_5_4 = '5.4.36'
 
+  # Specify secure version if no minor point specified
+  if $version == '5' {
+    $minor_version = $secure_5_6
+  } elsif $version == '5.6' {
+    $minor_version = $secure_5_6
+  } elsif $version == '5.5' {
+    $minor_version = $secure_5_5
+  } elsif $version == '5.4' {
+    $minor_version = $secure_5_4
+  } else {
+    $minor_version = $version
+  }
+
   # Version is greater than or equal to 5.6.0 and less than the 5.6 secure version
-  if versioncmp($version, '5.6') >= 0 and versioncmp($version, $secure_5_6) < 0 {
-    warning("You are installing PHP ${version} which is known to be insecure. The current secure 5.6.X version is ${secure_5_6}")
+  if versioncmp($minor_version, '5.6') >= 0 and versioncmp($minor_version, $secure_5_6) < 0 {
+    warning("You are installing PHP ${minor_version} which is known to be insecure. The current secure 5.6.X version is ${secure_5_6}")
   }
 
   # Version is greater than or equal to 5.5.0 and less than the 5.5 secure version
-  if versioncmp($version, '5.5') >= 0 and versioncmp($version, $secure_5_5) < 0 {
-    warning("You are installing PHP ${version} which is known to be insecure. The current secure 5.5.X version is ${secure_5_5}")
+  if versioncmp($minor_version, '5.5') >= 0 and versioncmp($minor_version, $secure_5_5) < 0 {
+    warning("You are installing PHP ${minor_version} which is known to be insecure. The current secure 5.5.X version is ${secure_5_5}")
   }
 
   # Version is less than the minimum secure version
-  if versioncmp($version, $secure_5_4) < 0 {
-    warning("You are installing PHP ${version} which is known to be insecure. The current secure 5.4.X version is ${secure_5_4}")
+  if versioncmp($minor_version, $secure_5_4) < 0 {
+    warning("You are installing PHP ${minor_version} which is known to be insecure. The current secure 5.4.X version is ${secure_5_4}")
   }
 
   # Install location
-  $dest = "${php::config::root}/versions/${version}"
+  $dest = "${php::config::root}/versions/${minor_version}"
 
   # Log locations
-  $error_log = "${php::config::logdir}/${version}.error.log"
+  $error_log = "${php::config::logdir}/${minor_version}.error.log"
 
   # Config locations
-  $version_config_root  = "${php::config::configdir}/${version}"
+  $version_config_root  = "${php::config::configdir}/${minor_version}"
   $php_ini              = "${version_config_root}/php.ini"
   $conf_d               = "${version_config_root}/conf.d"
 
@@ -52,14 +65,14 @@ define php::version(
   $module_dir = "${dest}/modules"
 
   # Data directory for this version
-  $version_data_root = "${php::config::datadir}/${version}"
+  $version_data_root = "${php::config::datadir}/${minor_version}"
 
   if $ensure == 'absent' {
 
     # If we're nuking a version of PHP also ensure we shut down
     # and get rid of the PHP FPM Service & config
 
-    php::fpm { $version:
+    php::fpm { $minor_version:
       ensure => 'absent'
     }
 
@@ -76,13 +89,11 @@ define php::version(
   } else {
 
     # Data directory
-
     file { $version_data_root:
       ensure => directory,
     }
 
     # Set up config directories
-
     file { $version_config_root:
       ensure => directory,
     }
@@ -97,18 +108,16 @@ define php::version(
     # Ensure module dir is created for extensions AFTER php is installed
     file { $module_dir:
       ensure  => directory,
-      require => Php_version[$version],
+      require => Php_version[$minor_version],
     }
 
     # Set up config files
-
     file { $php_ini:
       content => template('php/php.ini.erb'),
       require => File[$version_config_root]
     }
 
     # Log files
-
     file { $error_log:
       owner => $::boxen_user,
       mode  => '0644',
@@ -118,15 +127,15 @@ define php::version(
 
     # Get any additional configure params
     $test_params = $php::config::configure_params
-    if is_hash($test_params) and has_key($test_params, $version) {
-      $configure_params = $test_params[$version]
+    if is_hash($test_params) and has_key($test_params, $minor_version) {
+      $configure_params = $test_params[$minor_version]
     }
 
-    php_version { $version:
+    php_version { $minor_version:
       user              => $::boxen_user,
       user_home         => "/Users/${::boxen_user}",
       phpenv_root       => $php::config::root,
-      version           => $version,
+      version           => $minor_version,
       homebrew_path     => $boxen::config::homebrewdir,
       require           => [
         Repository["${php::config::root}/php-src"],
@@ -141,7 +150,7 @@ define php::version(
         Package['autoconf'],
         Package['boxen/brews/autoconf213'],
       ],
-      notify            => Exec["phpenv-rehash-post-install-${version}"],
+      notify            => Exec["phpenv-rehash-post-install-${minor_version}"],
       configure_params  => $configure_params,
     }
 
@@ -151,13 +160,13 @@ define php::version(
       owner   => $::boxen_user,
       group   => 'staff',
       recurse => true,
-      require => Php_version[$version],
+      require => Php_version[$minor_version],
     }
 
     # Rehash phpenv shims when a new version is installed
-    exec { "phpenv-rehash-post-install-${version}":
+    exec { "phpenv-rehash-post-install-${minor_version}":
       command     => "/bin/rm -rf ${php::config::root}/shims && PHPENV_ROOT=${php::config::root} ${php::config::root}/bin/phpenv rehash",
-      require     => Php_version[$version],
+      require     => Php_version[$minor_version],
       refreshonly => true,
     }
 
@@ -170,31 +179,31 @@ define php::version(
     }
 
     # Set cache_dir for PEAR
-    exec { "pear-${version}-cache_dir":
+    exec { "pear-${minor_version}-cache_dir":
       command => "${dest}/bin/pear config-set cache_dir ${php::config::datadir}/pear",
       unless  => "${dest}/bin/pear config-get cache_dir | grep -i ${php::config::datadir}/pear",
       require => [
-        Php_version[$version],
+        Php_version[$minor_version],
         File["${php::config::datadir}/pear"],
       ],
     }
 
     # Set download_dir for PEAR
-    exec { "pear-${version}-download_dir":
+    exec { "pear-${minor_version}-download_dir":
       command => "${dest}/bin/pear config-set download_dir ${php::config::datadir}/pear",
       unless  => "${dest}/bin/pear config-get download_dir | grep -i ${php::config::datadir}/pear",
       require => [
-        Php_version[$version],
+        Php_version[$minor_version],
         File["${php::config::datadir}/pear"],
       ],
     }
 
     # Set temp_dir for PEAR
-    exec { "pear-${version}-temp_dir":
+    exec { "pear-${minor_version}-temp_dir":
       command => "${dest}/bin/pear config-set temp_dir ${php::config::datadir}/pear",
       unless  => "${dest}/bin/pear config-get temp_dir | grep -i ${php::config::datadir}/pear",
       require => [
-        Php_version[$version],
+        Php_version[$minor_version],
         File["${php::config::datadir}/pear"],
       ],
     }

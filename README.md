@@ -25,11 +25,11 @@ The following boxen modules are required if optional PHP extensions are used:
 
 ```puppet
 # Install php 5.4
-include php::5_4
+php::version { '5.4': }
 
 # Install a couple of specific minor versions
-include php::5_3_17
-include php::5_4_11
+php::version { '5.3.17': }
+php::version { '5.4.11': }
 
 # Install Composer globally on your PATH
 include php::composer
@@ -52,11 +52,11 @@ php::extension::apc { "apc for ${version}":
 }
 
 # Set up PHP-FPM as a service running a specific version of PHP
-include php::fpm::5_3_15
+php::fpm { '5.3.15': }
 
 # Run multiple PHP-FPM services
-include php::fpm::5_4_11
-include php::fpm::5_3_23
+php::fpm { '5.4.11': }
+php::fpm { '5.3.23': }
 
 # Spin up a PHP-FPM pool for a project
 # Ensures:
