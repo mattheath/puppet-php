@@ -12,7 +12,7 @@ describe "php::extension::xhprof" do
 
   it do
     should contain_class("php::config")
-    should contain_class("php::5_4_17")
+    should contain_php__version("5.4.17")
 
     should contain_php_extension("xhprof for 5.4.17").with({
       :extension     => "xhprof",

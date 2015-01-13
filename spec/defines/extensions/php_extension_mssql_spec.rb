@@ -12,7 +12,7 @@ describe "php::extension::mssql" do
   it do
     should contain_class("php::dependencies::freetds")
     should contain_class("php::config")
-    should contain_class("php::5_4_17")
+    should contain_php__version("5.4.17")
 
     should contain_php_extension("mssql for 5.4.17").with({
       :provider         => "php_source",
