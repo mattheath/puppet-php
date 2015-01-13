@@ -14,7 +14,7 @@ class php::global($version = undef) {
   }
 
   if $version != 'system' {
-    require join(['php', join(split($version, '[.]'), '_')], '::')
+    php_require($version)
   }
 
   file { "${php::config::root}/version":

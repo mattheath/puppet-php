@@ -15,7 +15,7 @@ define php::extension::intl(
 
   # Require php version eg. php::5_4_10
   # This will compile, install and set up config dirs if not present
-  require join(['php', join(split($php, '[.]'), '_')], '::')
+  php_require($php)
 
   $extension = 'intl'
   $package_name = "intl-${version}"
