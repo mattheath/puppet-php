@@ -14,7 +14,7 @@ describe "php::extension::zmq" do
   it do
     should contain_class("zeromq")
     should contain_class("php::config")
-    should contain_class("php::5_4_17")
+    should contain_php__version("5.4.17")
 
     should contain_repository("/test/boxen/data/php/cache/extensions/zmq").with({
       :source => "mkoppanen/php-zmq"
