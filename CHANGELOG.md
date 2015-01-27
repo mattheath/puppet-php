@@ -7,7 +7,7 @@
 * Add support for PHP 5.6+
 * Add insecure PHP version warnings
 * Make Composer version configurable
-* Remove version specific PHP classes
+* Remove version specific PHP classes allowing arbitrary PHP versions
 
 ## 1.2.6 ##
 

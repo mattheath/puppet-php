@@ -30,17 +30,17 @@ define php::version(
   }
 
   # Version is greater than or equal to 5.6.0 and less than the 5.6 secure version
-  if versioncmp($patch_version, '5.6') >= 0 and versioncmp($patch_version, $secure_5_6) < 0 {
+  if $php::config::secure_warning and versioncmp($patch_version, '5.6') >= 0 and versioncmp($patch_version, $secure_5_6) < 0 {
     warning("You are installing PHP ${patch_version} which is known to be insecure. The current secure 5.6.X version is ${secure_5_6}")
   }
 
   # Version is greater than or equal to 5.5.0 and less than the 5.5 secure version
-  if versioncmp($patch_version, '5.5') >= 0 and versioncmp($patch_version, $secure_5_5) < 0 {
+  if $php::config::secure_warning and versioncmp($patch_version, '5.5') >= 0 and versioncmp($patch_version, $secure_5_5) < 0 {
     warning("You are installing PHP ${patch_version} which is known to be insecure. The current secure 5.5.X version is ${secure_5_5}")
   }
 
   # Version is less than the minimum secure version
-  if versioncmp($patch_version, $secure_5_4) < 0 {
+  if $php::config::secure_warning and versioncmp($patch_version, $secure_5_4) < 0 {
     warning("You are installing PHP ${patch_version} which is known to be insecure. The current secure 5.4.X version is ${secure_5_4}")
   }
 

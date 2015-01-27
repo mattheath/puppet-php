@@ -79,7 +79,7 @@ A sample PHP project manifest is provided in `manifests/project.pp` which will r
 
 A simple project manifest example:
 
-````puppet
+```puppet
 # your-boxen/modules/projects/manifests/trollin.pp
 
 class projects::trollin {
@@ -93,10 +93,20 @@ class projects::trollin {
     php           => '5.3.23',
   }
 }
-````
+```
 
 With the above, as long as our app is configured to listen to requests at `www/index.php` we can visit [http://trollin.dev/](http://trollin.dev/) to access the app.
 
 In the background this is installing PHP 5.3.23, creating a PHP-FPM service for 5.3.23, and a FPM pool for this project which runs within the FPM service. This then listens on an nginx socket at "#{ENV['BOXEN_SOCKET_DIR']}"/trollin.
 
 The example nginx host template at `templates/nginx/nginx.conf.erb` is also a sample configuration which can be copied to your main boxen module and the nginx template path above altered to match this. This is set up with a basic PHP structure, and Fastcgi params to pass the expected variables from Nginx to PHP-FPM.
+
+## Upgrading to version 2.X.X from version 1.X.X
+
+The old PHP version classes are removed completely in version 2.
+
+You will need to change any code in your manifests like `include PHP::5_X_X` to the version 2 equivalent `php::version { 5.X.X: }`
+
+All other classes remain unchanged in syntax, and should "just work".
+
+This module will now warn you if you are running an insecure version of PHP when you run Boxen.
