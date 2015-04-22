@@ -16,6 +16,7 @@ class php::config(
   $composer           = undef,
   $phpenv             = undef,
   $secure_versions    = undef,
+  $secure_warning     = undef,
 ) {
   include boxen::config
 
@@ -34,5 +35,9 @@ class php::config(
     $composer,
     $phpenv,
     $secure_versions,
+  )
+
+  validate_bool(
+    $secure_warning,
   )
 }
