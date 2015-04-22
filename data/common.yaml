@@ -13,7 +13,7 @@ php::config::composer:
 php::config::phpenv:
   revision: '6499bb6c7b645af3f4e67f7e17708d5ee208453f'
 php::config::secure_versions:
-  '5.6': '5.6.7'
-  '5.5': '5.5.23'
-  '5.4': '5.4.39'
+  '5.6': '5.6.8'
+  '5.5': '5.5.24'
+  '5.4': '5.4.40'
 php::config::secure_warning:    true
