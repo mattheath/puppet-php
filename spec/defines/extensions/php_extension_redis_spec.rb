@@ -12,9 +12,9 @@ describe "php::extension::redis" do
   end
 
   it do
-    should include_class("redis")
-    should include_class("php::config")
-    should include_class("php::5_4_17")
+    should contain_class("redis")
+    should contain_class("php::config")
+    should contain_php__version("5.4.17")
 
     should contain_repository("/test/boxen/data/php/cache/extensions/redis").with({
       :source => "nicolasff/phpredis"

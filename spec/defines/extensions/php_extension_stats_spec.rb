@@ -11,18 +11,18 @@ describe "php::extension::stats" do
   end
 
   it do
-    should include_class("php::config")
-    should include_class("php::5_4_17")
+    should contain_class("php::config")
+    should contain_php__version("5.4.17")
 
     should contain_php_extension("stats for 5.4.17").with({
-      :extension     => "stats",
-      :version       => "1.0.3",
-      :package_name  => "stats-1.0.3",
-      :package_url   => "http://pecl.php.net/get/stats-1.0.3.tgz",
-      :homebrew_path => "/test/boxen/homebrew",
-      :phpenv_root   => "/test/boxen/phpenv",
-      :php_version   => "5.4.17",
-      :cache_dir     => "/test/boxen/data/php/cache/extensions",
+      :extension      => "stats",
+      :version        => "1.0.3",
+      :package_name   => "stats-1.0.3",
+      :package_url    => "http://pecl.php.net/get/stats-1.0.3.tgz",
+      :homebrew_path  => "/test/boxen/homebrew",
+      :phpenv_root    => "/test/boxen/phpenv",
+      :php_version    => "5.4.17",
+      :cache_dir      => "/test/boxen/data/php/cache/extensions",
     })
 
     should contain_file("/test/boxen/config/php/5.4.17/conf.d/stats.ini").with({

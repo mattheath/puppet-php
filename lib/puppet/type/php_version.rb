@@ -34,4 +34,8 @@ Puppet::Type.newtype(:php_version) do
 
   newparam(:user_home) do
   end
+
+  newparam(:configure_params) do
+    defaultto ''
+  end
 end

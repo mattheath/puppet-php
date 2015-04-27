@@ -5,15 +5,15 @@ describe "php" do
   let(:phpenv_version) { "6499bb6c7b645af3f4e67f7e17708d5ee208453f" }
 
   it do
-    should include_class("php::config")
-    should include_class("homebrew")
-    should include_class("stdlib")
-    should include_class("wget")
-    should include_class("autoconf")
-    should include_class("libtool")
-    should include_class("pkgconfig")
-    should include_class("pcre")
-    should include_class("libpng")
+    should contain_class("boxen::config")
+    should contain_class("homebrew")
+    should contain_class("stdlib")
+    should contain_class("wget")
+    should contain_class("autoconf")
+    should contain_class("libtool")
+    should contain_class("pkgconfig")
+    should contain_class("pcre")
+    should contain_class("libpng")
 
     should contain_package("phpenv").with({
       :ensure => "absent"

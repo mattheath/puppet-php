@@ -1,0 +1,19 @@
+---
+php::config::root:              "%{::boxen::config::home}/phpenv"
+php::config::logdir:            "%{::boxen::config::logdir}/php"
+php::config::configdir:         "%{::boxen::config::configdir}/php"
+php::config::datadir:           "%{::boxen::config::datadir}/php"
+php::config::pluginsdir:        "%{php::config::root}/plugins"
+php::config::cachedir:          "%{php::config::datadir}/cache"
+php::config::extensioncachedir: "%{php::config::datadir}/cache/extensions"
+php::config::configure_params:  {}
+php::config::composer:
+  version:  '1.0.0-alpha9'
+  checksum: '05df355b5277c8c9012470e699fa5494'
+php::config::phpenv:
+  revision: '6499bb6c7b645af3f4e67f7e17708d5ee208453f'
+php::config::secure_versions:
+  '5.6': '5.6.8'
+  '5.5': '5.5.24'
+  '5.4': '5.4.40'
+php::config::secure_warning:    true
