@@ -10,6 +10,7 @@ define php::extension::pspell(
   $php,
 ) {
   require php::config
+  require aspell
 
   # Ensure that the specified version of PHP is installed.
   php_require($php)

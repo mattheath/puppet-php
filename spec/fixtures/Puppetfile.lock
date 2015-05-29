@@ -59,6 +59,11 @@ GITHUBTARBALL
     wget (1.0.0)
 
 GITHUBTARBALL
+  remote: namesco/puppet-aspell
+  specs:
+    aspell (0.0.1)
+
+GITHUBTARBALL
   remote: puppetlabs/puppetlabs-stdlib
   specs:
     stdlib (4.1.0)
@@ -69,6 +74,7 @@ GITHUBTARBALL
     module_data (0.0.3)
 
 DEPENDENCIES
+  aspell (= 0.0.1)
   autoconf (= 1.0.0)
   boxen (= 3.0.2)
   homebrew (= 1.4.1)
