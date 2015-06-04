@@ -1,6 +1,8 @@
 ## 2.0.1 ##
 
-* Fix bug in php\_require and php\_fpm\_require functions
+* Composer updated to 1.0.0-alpha10 (@alexmace)
+* Add pspell extension (@alexmace)
+* Fix bug in `php_require` and `php_fpm_require` functions (@sambauers)
 
 ## 2.0.0 ##
 
