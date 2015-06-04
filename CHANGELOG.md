@@ -1,3 +1,7 @@
+## 2.0.1 ##
+
+* Fix bug in php\_require and php\_fpm\_require functions
+
 ## 2.0.0 ##
 
 * Use Hiera for configs
