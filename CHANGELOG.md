@@ -1,3 +1,9 @@
+## 2.0.1 ##
+
+* Composer updated to 1.0.0-alpha10 (@alexmace)
+* Add pspell extension (@alexmace)
+* Fix bug in `php_require` and `php_fpm_require` functions (@sambauers)
+
 ## 2.0.0 ##
 
 * Use Hiera for configs
