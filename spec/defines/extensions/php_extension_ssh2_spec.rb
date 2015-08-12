@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe "php::extension::ssh2" do
-  let(:pre_condition) { "class ssh2::lib {}" }
   let(:facts) { default_test_facts }
   let(:title) { "ssh2 for 5.4.17" }
   let(:params) do
@@ -13,7 +12,6 @@ describe "php::extension::ssh2" do
 
   it do
     should contain_class("boxen::config")
-    should contain_class("ssh2::lib")
     should contain_class("php::config")
     should contain_php__version("5.4.17")
 
@@ -27,6 +25,7 @@ describe "php::extension::ssh2" do
       :php_version      => "5.4.17",
       :cache_dir        => "/test/boxen/data/php/cache/extensions",
       :provider         => "pecl",
+      :require          => "Package[libssh2]"
     })
 
     should contain_file("/test/boxen/config/php/5.4.17/conf.d/ssh2.ini").with({

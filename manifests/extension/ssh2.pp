@@ -11,12 +11,12 @@ define php::extension::ssh2(
   $php,
   $version = '0.12'
 ) {
-  require ssh2::lib
-
   require php::config
   # Require php version eg. php::5_4_10
   # This will compile, install and set up config dirs if not present
   php_require($php)
+
+  package { 'libssh2': }
 
   $extension = 'ssh2'
   $package_name = "ssh2-${version}"
@@ -26,7 +26,7 @@ define php::extension::ssh2(
   $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
 
   # Additional options
-  $configure_params = "--with-libssh2=${boxen::config::homebrewdir}/opt/libssh2"
+  $configure_params = "--with-ssh2=${boxen::config::homebrewdir}/opt/libssh2"
 
   php_extension { $name:
     extension        => $extension,
@@ -39,6 +39,7 @@ define php::extension::ssh2(
     cache_dir        => $php::config::extensioncachedir,
     provider         => pecl,
     configure_params => $configure_params,
+    require          => Package['libssh2'],
   }
 
   # Add config file once extension is installed
