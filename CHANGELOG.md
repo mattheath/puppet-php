@@ -1,3 +1,76 @@
+## 2.0.1 ##
+
+* Composer updated to 1.0.0-alpha10 (@alexmace)
+* Add pspell extension (@alexmace)
+* Fix bug in `php_require` and `php_fpm_require` functions (@sambauers)
+
+## 2.0.0 ##
+
+* Use Hiera for configs
+* Allow configure params on PHP builds
+* Add PThreads extension
+* Update cardboard to 2.1.0 and update tests
+* Add support for PHP 5.6+
+* Add insecure PHP version warnings
+* Make Composer version configurable
+* Remove version specific PHP classes allowing arbitrary PHP versions
+
+## 1.2.6 ##
+
+* Fix autoconf 2.13 sandboxing
+
+## 1.2.5 ##
+
+* Sandbox autoconf213 to fix some installation conflicts
+* Set the PECL provider to default on darwin for PHP extensions (this can be overridden)
+* Increase `pm.max_children` to 10 for PHP-FPM pools (@gblair)
+
+## 1.2.4 ##
+
+* Fixes compilation of PHP versions > 5.4.17 due to a break in Bison compatibility (@webflo!)
+
+## 1.2.3 ##
+
+* Add xhprof extension (@webflo)
+* Add latest versions of PHP 5.4 and 5.5 (@webflo)
+
+## 1.2.2 ##
+
+* Change default .ini settings to increase timeouts, memory limits etc.
+
+## 1.2.1 ##
+
+* Bump Composer to latest 1.0.0-alpha8 (@webbj74)
+
+## 1.2.0 ##
+
+* Adds PHP 5.5 support! This requires a later version of Bison to compile, which is installed as a sandboxed package.
+* Adds additional minor versions of PHP for 5.3 and 5.4
+* Use ensure_packages from the stdlib to improve module compatibility (thanks @jameydeorio)
+* Fixes specs, and added Github API token to travis so builds actually work again
+
+## 1.1.5 ##
+
+* Add OAuth extension (@dbtlr)
+* Fix HTTP extension bug including zookeeper (@dbtlr)
+* Add Mongo extension (@eebs)
+* Fix compilation bug caused by Freetype and GD incompatibilities (@eebs!)
+
+## 1.1.4 ##
+
+* Add memcache PHP extension (@poppen)
+* Add pdo_pgsql PHP extension (@poppen)
+
+## 1.1.3 ##
+
+* Added support for Composer see the readme for usage.
+* Module now has test specs (hooray!), please run script/cibuild before making a pull request.
+* Fixes to bugs the specs caught
+
+## 1.1.2 ##
+
+* Increase xdebug `max_nesting_level`
+
 ## 1.1.1 ##
 
 * Remove `libpng` package, add dependency on `libpng` module

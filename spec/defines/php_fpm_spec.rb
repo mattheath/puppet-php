@@ -13,7 +13,7 @@ describe "php::fpm" do
     end
 
     it do
-      should include_class("php::5_4_17")
+      should contain_php__version("5.4.17")
 
       should contain_file("/test/boxen/config/php/5.4.17/php-fpm.conf").with({
         :content => File.read("spec/fixtures/php-fpm.conf"),

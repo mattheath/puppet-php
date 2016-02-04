@@ -7,14 +7,14 @@
 class php::global($version = undef) {
   include php::config
 
-  # Default to HEAD 5.4 version if not specified
+  # Default to latest version of PHP 5 if not specified
   $php_version = $version ? {
-    undef   => 5.4,
+    undef   => 5,
     default => $version
   }
 
   if $version != 'system' {
-    require join(['php', join(split($version, '[.]'), '_')], '::')
+    php_require($version)
   }
 
   file { "${php::config::root}/version":

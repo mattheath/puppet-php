@@ -9,8 +9,8 @@ describe "php::global" do
   end
 
   it do
-    should include_class("php::config")
-    should include_class("php::5_4_17")
+    should contain_class("php::config")
+    should contain_php__version("5.4.17")
 
     should contain_file("/test/boxen/phpenv/version").with({
       :ensure  => "present",
