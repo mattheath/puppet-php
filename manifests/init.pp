@@ -82,6 +82,7 @@ class php {
   }
 
   package { 'boxen/brews/autoconf213':
+    source => 'puppet:///modules/php/brews/autoconf213.rb',
     ensure => '2.13-boxen1',
   }
 
